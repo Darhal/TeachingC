@@ -19,7 +19,7 @@
 ]{babel}
 
 \title{Language C}
-\subtitle{Télécom Nancy}
+\subtitle{Université de Lorraine - Télécom Nancy}
 \author{Omar CHIDA}
 
 \usepackage{ragged2e}  % `\justifying` text
@@ -50,7 +50,7 @@
 	  			 \begin{itemize}
 	  				\item Premier ligne de code à l'age de 14 ans.
 	  				\item Hardline C++ Fanboy: 6 ans de C/C++.
-	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codés C/C++.
+	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codés en C/C++.
 	  			\end{itemize}
 	  		\end{column}%
 	  		\hfill%
@@ -133,21 +133,168 @@
   	\subsection{À propos de C}
   	\begin{frame}{À propos de C}
   		\framesubtitle{Un peu de connaissances générales}%
-  		
-  		\begin{itemize}
-  		\end{itemize}
+  		% dennis_ritchie
+  		\begin{columns}[T] % align columns
+  			\begin{column}{.76\textwidth}
+  				 \begin{itemize}
+  					\item Langage conçu par Dennis Ritchie et développé par lui et Bell labs.
+  					\item Sortie en 1972 (Il y a 49 ans).
+  					\item Utilisé dans le projet Unix développé par Dennis Ritchie et Ken Thompson entre autres.
+  					\item A vu une évolution relativement petite.
+  					\begin{itemize}
+  						\item K\&R C, ANSI C, C99, C11, C17, C2x.
+  					\end{itemize}
+  					\item Aujourd'hui, C est considéré comme un langage de bas niveau.
+  				\end{itemize}
+  			\end{column}%
+  			\hfill%
+  			\begin{column}{.20\textwidth}
+  				\begin{tikzpicture}[overlay,remember picture]
+  					\node[anchor=south east,xshift=-10pt,yshift=50pt]
+  					at (current page.south east) {
+  						\includegraphics[width=30mm]{resources/dennis_ritchie}
+  					};
+  				\end{tikzpicture}%
+  			\end{column}%
+  		\end{columns}
   	\end{frame}
   
   	\subsection{Motivation: Pouquoi apprendre le C en 2021?}
-  	
+  	\begin{frame}{Motivation: Pouquoi apprendre le C en 2021?}
+  		\framesubtitle{C c'est cool !}%
+  		\begin{itemize}
+  			\item C est toujours pertinent et utile aujourd'hui pour beaucoup de choses.
+  			\item Développement des noyaux (Kernel) et des systèmes d'exploitation
+  			\item Systèmes embarqués (Véhicules, caméras, satellites, IoT, ...)
+  			\item Développement de pilotes de périphériques (Device Drivers)
+  			\item Bibliothèques et frameworks hautes performances (Numpy, ...)
+  			\item Compilateurs et interprètes de nombreuses langues populaires (Java, Python, ...).
+  			\item Moteurs de rendu et jeux vidéo.
+  			\item Bref... partout où la performance est essentielle.
+  		\end{itemize}
+  	\end{frame}
+
+	%%%%%%%%%% TODO %%%%%%%%%%%%%%%
   	\section{Compilation}
+  	\begin{frame}{Compilation}
+  		\framesubtitle{}%
+  		\begin{itemize}
+  			\item TODO !!!
+  		\end{itemize}
+  	\end{frame}
+  
   	\subsection{Phase 1: Preprocessing}
+  	\begin{frame}{Phase 1: Preprocessing}
+  		\begin{block}{Preprocessing}
+  			Le \alert{Preprocessing} (prétraitement) est la \alert{première} étape du pipeline de compilation. Au cours de laquelle:
+  			\begin{itemize}
+  				\item Les commentaires sont supprimés.
+  				\item Les macros sont développées.
+  				\item Les fichiers inclus sont développés.
+  			\end{itemize}
+  		\end{block}
+  	  	\begin{exampleblock}{Exemple:}
+  			Un \texttt{\#include <stdio.h>} sera remplacé à l'execution de la phase du preprocessing par le contenu du fichier \texttt{stdio.h}
+  		\end{exampleblock}
+  	\end{frame}
+  	
   	\subsection{Phase 2: Compiling}
-  	\subsection{Phase 3: Assembly}
+  	\begin{frame}{Phase 2: Compiling}
+	  	\begin{block}{La Compilation}
+	  		La \alert{Compilation} est la deuxième étape. Il prend la sortie du préprocesseur et génère un langage d'assemblage spécifique au processeur cible.
+	  	\end{block}
+		\begin{exampleblock}{Exemple:}
+			- La commande "\texttt{gcc -S main.c}" arrête le pipeline de compilation avant l'étape d'assemblage.\\
+			- Utilisez l'option "\texttt{-masm=intel}" pour obtenir l'assembleur en syntaxe Intel.
+		\end{exampleblock}
+  	\end{frame}
+  
+    \begin{frame}{Phase 2: Compiling}
+  		\begin{columns}[T] % align columns
+	  		\begin{column}{.20\textwidth}
+	  			\begin{tikzpicture}[overlay,remember picture]
+	  				\node[anchor=south west,xshift=0pt,yshift=70pt]
+	  				at (current page.south west) {
+	  					\includegraphics[scale=0.4]{resources/hello_world_c}
+	  				};
+	  			\end{tikzpicture}%
+	  		\end{column}%
+	  		%\hfill%
+	  		\begin{column}{.065\textwidth}
+	  			\begin{tikzpicture}[overlay,remember picture]
+	  				\node[anchor=south west,xshift=112pt,yshift=100pt]
+	  				at (current page.south west) {
+	  					$\implies$
+	  				};
+	  			\end{tikzpicture}%
+	  		\end{column}%
+	  		\begin{column}{.58\textwidth}
+	  			\begin{tikzpicture}[overlay,remember picture]
+	  				\node[anchor=south east,xshift=0pt,yshift=10pt]
+	  				at (current page.south east) {
+	  					\includegraphics[scale=0.3]{resources/hello_world_arm}
+	  				};
+	  			\end{tikzpicture}%
+	  		\end{column}%
+	  	\end{columns}
+  	\end{frame}
+  	
+  	\subsection{Phase 3: Assemblage}
+  	\begin{frame}{Phase 3: Assemblage}
+  		\begin{block}{L'Assemblage}
+  			\alert{L'assemblage } est la troisième étape de la compilation. L'assembleur convertira le code d'assemblage en code binaire (code machine\footnote[frame]{Des zéros et uns}). Ce code est également appelé \alert{code objet}.
+  		\end{block}
+  		\begin{exampleblock}{Exemple:}
+  			- La commande "\texttt{gcc -c main.c}" arrête le pipeline de compilation à l'étape de l'assemblage.\\
+  		\end{exampleblock}
+  	\end{frame}
+	  \begin{frame}{Phase 3: Assemblage}
+	  	\begin{figure}[b]
+	  		\centering
+	  		\includegraphics[scale=0.5]{resources/hello_world_o}
+	  		\caption{Une representation hexadécimale du contenu du fichier binaire "main.o"}
+	  	\end{figure}
+	  \end{frame}
+  	
 	\subsection{Phase 4: Linking}
+	\begin{frame}{Phase 4: Linking}
+		\begin{block}{Édition du lien}
+			\alert{L'édition du lien } est la dernière étape de la compilation. L'éditeur de liens \alert{fusionne } tout le code objet de plusieurs modules en un seul. \alert{Si} une fonction d'une bibliothèque est utilisée, l'éditeur de liens \alert{liera} le code actuel avec le code de la fonction utilisée \alert{fourni} par la bibliothèque.
+		\end{block}
+		\begin{alertblock}{N.B:}
+			Il existe deux types de liaison:
+			\begin{itemize}
+				\item La \alert{liaison statique}.
+				\item La \alert{liaison dynamique}.
+			\end{itemize}
+		\end{alertblock}
+	\end{frame}
+
+	\subsection{Phase 4: Linking}
+	\begin{frame}{Phase 4: Linking}
+		\begin{alertblock}{N.B:}
+			Il existe deux types de liaison:
+			\begin{itemize}
+				\item Dans la \alert{liaison statique}, l'éditeur de liens fait une copie de toutes les fonctions de bibliothèque utilisées dans le fichier exécutable.
+				\begin{itemize}
+					\item Windows: l'extension `\texttt{.lib}'
+					\item Linux \& MacOS: l'extension `\texttt{.a}'
+				\end{itemize}
+				\item En \alert{liaison dynamique}, le code n'est pas copié, il suffit juste d'ajouter la bibliothèque dans le même dossier que l'exécutable pour pouvoir exécuter le programme.
+				\begin{itemize}
+					\item Windows: l'extension `\texttt{.dll}'
+					\item Linux: l'extension `\texttt{.so}'
+					\item MacOS: l'extension `\texttt{.dylib}'
+				\end{itemize}
+			\end{itemize}
+		\end{alertblock}
+	\end{frame}
 	  	
   	\section{La langage C}
   	\subsection{Les bases}
+  	\begin{frame}{In the beginning there was main}
+  	\end{frame}
+  
   	\subsection{Les structs}
   	\subsection{Les enums}
   	\subsection{Les pointeurs}
