@@ -293,10 +293,310 @@
   	\section{La langage C}
   	\subsection{Les bases}
   	\begin{frame}{In the beginning there was main}
+  		\begin{block}{La fonction main}
+  			La fonction \alert{main} est le point d'entrée du programme \footnote[frame]{l'exécutable}.
+  		\end{block}
+  		\begin{exampleblock}{Profiles possibles:}
+  			\begin{itemize}
+  				\item \texttt{int main()}
+  				\item \texttt{int main(int argc, char** argv)}
+  			\end{itemize}
+  		\end{exampleblock}
+  		\begin{alertblock}{Profiles qui compile mais avec un Warning:}
+  			\begin{itemize}
+	  			\item \texttt{void main()}
+	  			\item \texttt{void main(int argc, char** argv)}
+  			\end{itemize}
+  		\end{alertblock}
   	\end{frame}
   
+  	\begin{frame}{In the beginning there was main}
+		\framesubtitle{Les arguments de main}
+		\begin{itemize}
+			\item \alert{argc}: Indique le nombre d'arguments passés au programme. la valeur minimale de \texttt{argc} est 1 car le premier argument est toujours le nom du programme.
+			\item \alert{argv}: Un tableau de chaîne contenant les arguments passés au programme, \texttt{argv[0]} est le nom du programme, \texttt{argv[1]} est le nom du premier argument, et ainsi de suite
+		\end{itemize}
+  	\end{frame}
+  
+  	\begin{frame}{In the beginning there was main}
+	  	\begin{exampleblock}{Exemple:}
+	  		Soit la commande suivante:~~"\texttt{./a.out abc w 23 1}" \\
+	  		- \texttt{argc}: vaut 5 \\
+	  		- \texttt{argv[0]}: est la chaine "./a.out" \\
+	  		- \texttt{argv[1]}: est la chaine "abc" \\
+	  		- \texttt{argv[2]}: est la chaine "w" \\
+	  		- \texttt{argv[3]}: est la chaine "23" \\
+	  		- \texttt{argv[4]}: est la chaine "1" \\
+	  	\end{exampleblock}
+  	\end{frame}
+  
+  
+  	\defverbatim[colored]\ifsignle{
+	\begin{lstlisting}[language=C,tabsize=2]
+if (some_condition)
+	statment; // Une seule instruction, cad un seul point-virgule	
+  	\end{lstlisting}}
+  
+    \defverbatim[colored]\ifmulti{
+   	\begin{lstlisting}[language=C,tabsize=2]
+if (some_condition) {
+	statment_1;
+	statment_2;
+	// ...
+	statment_N;
+}
+    \end{lstlisting}}
+
+\defverbatim[colored]\ifelsesignle{
+\begin{lstlisting}[language=C,tabsize=2]
+if (some_condition)
+	statment; // Une seule instruction, cad un seul point-virgule	
+[[else
+	statment2; // un seul point-virgule	
+]]
+\end{lstlisting}}
+
+\defverbatim[colored]\ifelsemulti{
+\begin{lstlisting}[language=C,tabsize=2]
+if (some_condition1) {
+	statment_1;
+	// ...
+	statment_N;
+} [[ else if (some_condition2) {
+	statment_1;
+	// ...
+	statment_N;
+// Possibilite d'ajouter plusieurs blocs else if 
+} ]] [[ else {
+	statment_1;
+	// ...
+	statment_N;
+} ]]
+\end{lstlisting}}
+  	\begin{frame}{Les conditions}
+  		\begin{block}{Syntax: Première possibilité}
+  			\ifelsesignle
+  		\end{block}
+		\begin{alertblock}{N.B:}
+			Ce qui est entre mis entre $\big[\big[~~...~~\big]\big]$ est facultatif
+		\end{alertblock}
+  	\end{frame}
+  	
+	\begin{frame}{Les conditions}
+		  		\begin{block}{Syntax: Deuxième possibilité}
+			\ifelsemulti
+		\end{block}
+	\end{frame}
+
+\defverbatim[colored]\ifexampleone{
+\begin{lstlisting}[language=C,tabsize=2]
+int i = 0;
+if (i--)
+	puts("Hello World");
+\end{lstlisting}}
+
+\defverbatim[colored]\ifexampletwo{
+\begin{lstlisting}[language=C,tabsize=2]
+int i = -1;
+if (i++)
+	puts("Hello World");
+\end{lstlisting}}
+
+\defverbatim[colored]\ifexamplethree{
+\begin{lstlisting}[language=C,tabsize=2]
+int i = -1;
+if (i++)
+	if (++i)
+		if ('c')
+			puts("Hello World");
+\end{lstlisting}}
+
+	\begin{frame}{Les conditions}
+		\begin{block}{Comment une condition est évaluée?}
+			Le type \alert{booléen } n'existe pas en C. Si une expression est évaluée à 0, elle est considérée comme \alert{False}, sinon elle est considérée comme \alert{True}.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Les conditions: Exemple}	
+		\begin{center}
+			\begin{minipage}[t]{0.48\linewidth}
+				\text{Example 1:}
+				\ifexampleone
+			\end{minipage}
+			\qquad
+			\begin{minipage}[t]{0.48\linewidth}
+				\text{Example 2:}
+				\ifexampletwo
+			\end{minipage}
+			\begin{minipage}[t]{0.48\linewidth}
+				\text{Example 3:}
+				\ifexamplethree
+			\end{minipage}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Les conditions: Exemple}	
+		\text{Example 1: \alert{(N'affiche rien)}}
+		\ifexampleone
+		\text{Example 2: \alert{(Affiche "Hello World")}}
+		\ifexampletwo
+		\text{Example 3: \alert{(Affiche "Hello World")}}
+		\ifexamplethree
+	\end{frame}
+
+\defverbatim[colored]\forsyntax{
+\begin{lstlisting}[language=C,tabsize=2]
+for (initialisation; condition; increment) {
+	// Une seule instruction, cad un seul point-virgule
+}
+
+\end{lstlisting}}
+\defverbatim[colored]\forsyntaxtwo{
+\begin{lstlisting}[language=C,tabsize=2]
+for (initialisation; condition; increment)
+	statment;
+\end{lstlisting}}
+
+\defverbatim[colored]\forWrittenUsingWhile{
+\begin{lstlisting}[language=C,tabsize=2]
+initialisation;
+while (condition) {
+	// ...
+	increment;
+}
+\end{lstlisting}}
+
+
+	\begin{frame}{Les boucles}	
+		\begin{block}{Syntax: boucle pour}
+			\forsyntax
+			L'instruction \alert{d'initialisation } n'est exécutée qu'au début de la boucle. La \alert{condition} est vérifiée à chaque itération, \alert{l'instruction d'incrémentation} est également exécutée à chaque itération
+		\end{block}
+		\begin{alertblock}{Une boucle for peut être écrite comme une boucle while}
+			\forWrittenUsingWhile
+		\end{alertblock}
+	\end{frame}
+
+\defverbatim[colored]\forExmpOne{
+\begin{lstlisting}[language=C,tabsize=2]
+for (int i = 0; i < 10; i++)
+	for (int j = 0; j < 20; j++)
+		puts("Hello World");
+\end{lstlisting}}
+
+\defverbatim[colored]\forExmpTwo{
+\begin{lstlisting}[language=C,tabsize=2]
+for (;;)
+	puts("Hello World");
+\end{lstlisting}}
+
+	\begin{frame}{Les boucles}
+		\begin{block}{Syntax: boucle pour}
+			Comme la syntaxe du \texttt{if}, la boucle pour peut être écrite de cette manière:
+			\forsyntaxtwo
+		\end{block}
+		\begin{center}
+			\begin{minipage}[t]{0.48\linewidth}
+				\text{Example 1:}
+				\forExmpOne
+			\end{minipage}
+			\begin{minipage}[t]{0.48\linewidth}
+				\text{Example 2:}
+				\forExmpTwo
+			\end{minipage}
+		\end{center}
+	\end{frame}
+	
+
+\defverbatim[colored]\forExmpThree{
+\begin{lstlisting}[language=C,tabsize=2]
+for (int i = -1; i < 10; i++) {
+	break;
+	printf("Hello World\n");
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\forExmpFour{
+\begin{lstlisting}[language=C,tabsize=2]
+for (int i = -1; i < 10; i++) {
+	if (i > 3) continue;
+	printf("Hello World\n");
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\forExmpFive{
+\begin{lstlisting}[language=C,tabsize=2]
+for (int i = -1; i < 10; i++) {
+	continue;
+	printf("Hello World\n");
+}
+\end{lstlisting}}
+	
+	\begin{frame}{Les boucles}
+		\begin{center}
+			\begin{minipage}[t]{0.8\linewidth}
+				Example 1: (\alert{Affiche 200 "Hello World"})
+				\forExmpOne
+			\end{minipage}
+			\begin{minipage}[t]{0.8\linewidth}
+				Example 2: (\alert{Affiche une infinité de "Hello World"})
+				\forExmpTwo
+			\end{minipage}
+			\begin{minipage}[t]{0.8\linewidth}
+				Example 3:
+				\forExmpThree
+			\end{minipage}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Les boucles}	
+		\begin{minipage}[t]{0.8\linewidth}
+			Example 3: (\alert{N'affiche rien})
+			\forExmpThree
+		\end{minipage}
+		\begin{minipage}[t]{0.8\linewidth}
+			Example 4:
+			\forExmpFour
+		\end{minipage}
+		\begin{minipage}[t]{0.8\linewidth}
+			Example 5:
+			\forExmpFive
+		\end{minipage}
+	\end{frame}
+
+	\begin{frame}{Les boucles}
+		\begin{minipage}[t]{0.8\linewidth}
+			Example 4:  (\alert{Affiche 5 "Hello World"})
+			\forExmpFour
+		\end{minipage}
+		\begin{minipage}[t]{0.8\linewidth}
+			Example 5: (\alert{N'affiche rien})
+			\forExmpFive
+		\end{minipage}
+	\end{frame}
+
+\defverbatim[colored]\doWhileSyntax{
+\begin{lstlisting}[language=C,tabsize=2]
+do {
+	// ..
+} while(condition);
+\end{lstlisting}}
+	\begin{frame}{Les boucles}
+		\begin{block}{Syntax: boucle faire ... tantque}
+			\doWhileSyntax
+			La boucle continue de s'exécuter jusqu'à ce que la condition soit \alert{fausse}. 
+			Il est similaire à une boucle tantque, sauf le fait qu'elle est garantie de s'exécuter au moins une fois.
+		\end{block}
+	\end{frame}
+	
   	\subsection{Les structs}
+  	\begin{frame}
+  		
+  	\end{frame}
+  	
   	\subsection{Les enums}
+  	\subsection{La mémoire}
+  	\subsection{Les chaînes}
   	\subsection{Les pointeurs}
   	\subsection{Le keyword static}
   	
@@ -306,6 +606,41 @@
   	\subsection{Valgrind}
   	
   	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+ 
     \section{Dark Frames}
     \subsection{Blind Text}
     \begin{frame}{Jabberwocky}
