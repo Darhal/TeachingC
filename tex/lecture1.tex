@@ -48,8 +48,13 @@
 	  	\begin{columns}[T] % align columns
 	  		\begin{column}{.71\textwidth}
 	  			 \begin{itemize}
+	  			 	\item Education:
+	  			 	\begin{itemize}
+	  			 		\item Bac Mathématique
+	  			 		\item Licence Informatique
+	  			 	\end{itemize}
 	  				\item Premier ligne de code à l'age de 14 ans.
-	  				\item Hardline C++ Fanboy: 6 ans de C/C++.
+	  				\item Grand fan de C++: 6 ans de C/C++.
 	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codés en C/C++.
 	  			\end{itemize}
 	  		\end{column}%
@@ -799,13 +804,10 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 		\end{alertblock}
 	\end{frame}
   	
-  	\subsection{Les enums}
-  	\begin{frame}{Les enums}
-  	\end{frame}
-  	
   	%%%%%% LA MEMOIRE %%%%%%
   	\subsection{La mémoire}
-  	\begin{frame}{Mémoire statique vs Mémoire dynamique}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{block}{Mémoire statique}
   			Une mémoire est appelée \alert{statique } lorsque sa taille est déterminée lors de la \alert{compilation}. Ce type de mémoire est généralement alloué sur la \alert{pile} (stack).
   		\end{block}
@@ -814,13 +816,15 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   		\end{block}
   	\end{frame}
   
-  	\begin{frame}{Mémoire statique vs Mémoire dynamique}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{alertblock}{
   			Chaque mémoire allouée à partir du tas doit être libérée à un moment donné pendant l'exécution du programme. Pour chaque appel \texttt{*alloc}\footnote[frame]{malloc et calloc}, il doit nécessairement y avoir un appel correspondant à \texttt{free}.}
   		\end{alertblock}
   	\end{frame}
   
-  	\begin{frame}{Caractéristiques  de la mémoire statique}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Mémoire statique vs Mémoire dynamique}
 		\begin{itemize}
 			\item Il n'y a pas de coût d'allocation.
 			\item Cache local la plupart du temps car il est situé dans la pile.
@@ -830,7 +834,8 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 		\end{itemize}
   	\end{frame}
   
-  	\begin{frame}{Caractéristiques de la mémoire dynamique}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{itemize}
   			\item Flexible, la taille peut être déterminée au moment de l'exécution.
   			\item Globale
@@ -839,9 +844,170 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   			\item Responsabilité de libérer la mémoire à la fin de l'utilisation
   		\end{itemize}
   	\end{frame}
+
+
+\defverbatim[colored]\mallocExample{
+\begin{lstlisting}[language=C,tabsize=2]
+void* p1 = malloc(256); // 256 bytes are allocated
+int* p2 = (int*)malloc(4 * sizeof(int)); // 4 * sizeof(int) bytes are allocated
+struct A* p3 = (struct A*)malloc(2 * sizeof(struct A)); // 2 * sizeof(struct A) bytes are allocated
+p2[0]; // Access to uninitialized memory !
+p3[0].a; // Access to uninitialized memory !
+\end{lstlisting}}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{malloc, calloc et realloc}
+  		\begin{block}{malloc}
+  			Signature: \texttt{void* malloc(size\_t size);} \\
+  			Alloue ce qui lui est passé comme argument en octets mais \alert{n'effectue aucune initialisation}.
+  		\end{block}
+  		\begin{exampleblock}{Exemple:}
+  			\mallocExample
+  		\end{exampleblock}
+    \end{frame}
+
+\defverbatim[colored]\callocExample{
+\begin{lstlisting}[language=C,tabsize=2]
+void* p1 = calloc(1, 256); // 512 bytes are allocated
+int* p2 = (int*)calloc(4, sizeof(int)); // 4 * sizeof(int) bytes are allocated
+struct A* p3 = (struct A*)malloc(2, sizeof(struct A)); // 2 * sizeof(struct A) bytes are allocated
+assert(p2[0] == 0); // true
+assert(p3[0].a == 0); // true
+assert(p3[1].b == 0); // true
+assert(p3[1].str[0] == 0); // true
+\end{lstlisting}}
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{block}{calloc}
+			\alert{Signature}: \texttt{void* calloc(size\_t nmemb, size\_t size);} \\
+			Alloue $nmemb * size$ octets et les initialise à zéro.
+		\end{block}
+		\begin{exampleblock}{Exemple:}
+			\callocExample
+		\end{exampleblock}
+	\end{frame}
+
+\defverbatim[colored]\reallocExampleOne{
+\begin{lstlisting}[language=C,tabsize=2]
+int* p1 = (int*)calloc(4, sizeof(int)); // 4 * sizeof(int) bytes
+p[0] = 1; p[1] = 2; p[2] = 3; p[3] = 4;
+int* p2 = (int*)realloc(p1, 6 * sizeof(int));
+assert(p2[0] == 1); // true
+assert(p2[1] == 2); // true
+assert(p2[5] == 6); // Access to uninitialized memory !
+assert(p1[5] == 6); // U.B !
+\end{lstlisting}}
+
+\defverbatim[colored]\reallocExampleTwo{
+\begin{lstlisting}[language=C,tabsize=2]		
+int* p3 = (int*)realloc(p2, 3 * sizeof(int));
+assert(p3[0] == 1); // true
+assert(p3[1] == 2); // true
+assert(p3[3] == 3); // U.B!
+assert(p2[3] == 3); // U.B!
+
+int* p4 = (int*)realloc(p3, 0); // Equivalent to free(p3)
+void* p5 = realloc(NULL, 8); // Equivalent to malloc(8)
+void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
+\end{lstlisting}}
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{block}{realloc}
+			\alert{Signature}: \texttt{void* realloc(void* ptr, size\_t size);} \\
+			Change la taille du bloc de mémoire pointé par \texttt{ptr} en \texttt{taille} octets. 
+			\begin{itemize}
+				\item Si \texttt{size} > taille de \texttt{ptr}: La mémoire pointée par le pointeur retourné par \texttt{realloc} sera de taille \texttt{size}. Le contenu de \texttt{ptr} est garanti d'être copié mais la mémoire ajoutée ne sera \alert{pas initialisée}
+				\item Si \texttt{size} < taille de \texttt{ptr}: Le contenu de \texttt{ptr} sera copié jusqu'à \texttt{size} octets le reste du contenu de ptr sera ignoré. La taille de la mémoire pointée par la valeur de retour sera donc \texttt{size}.
+				\item Si \texttt{ptr} est \texttt{NULL}: Cela aura le même effet que malloc.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{itemize}
+			\item Si \texttt{size} est $0$ et \texttt{ptr} n'est pas \texttt{NULL}:  Cela aura le même effet que free.
+		\end{itemize}
+		\begin{alertblock}{N.B:}
+			- Sauf si \texttt{ptr} est \texttt{NULL}, il doit avoir été renvoyé par un appel antérieur
+			à \texttt{malloc()}, \texttt{calloc()} ou \texttt{realloc()}. \\
+			- L'accès et/ou l'écriture au pointeur a passé à \texttt{realloc} après l'appel est un \alert{comportement indéfini}\\
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{exampleblock}{Exemple:}
+			\reallocExampleOne
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{exampleblock}{Exemple:}
+			\reallocExampleTwo
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{malloc, calloc et realloc}
+		\begin{alertblock}{N.B:}
+			Le standard C ne dit rien quand 0 est passé à \texttt{malloc} (le comportement est spécifique au système d'exploitation).
+			\begin{itemize}
+				\item Sous Linux: \texttt{malloc(0)} renvoie \texttt{NULL}
+				\item Sous Windows: \texttt{malloc(0)} renvoie un pointeur \alert{valide} sur lequel free pourrait être appelé.
+			\end{itemize}
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{block}{Définition}
+			Un pointeur est une variable qui contient l'adresse d'une région de mémoire. Un pointeur peut contenir une adresse valide ou non (Exemple: le pointeur \texttt{NULL}). \\
+		\end{block}
+		Les pointeurs font généralement 4 ou 8 octets en fonction de l'architecture du processeur (32 ou 64 bits): 
+		\begin{itemize}
+			\item Avec un pointeur 32 bits, nous avons 4 Go de mémoire adressable.
+			\item Avec un pointeur 64 bits, nous avons environ 17 milliards de Go de mémoire.
+		\end{itemize}
+	\end{frame}
+	
+\defverbatim[colored]\ptrArithExmp{
+\begin{lstlisting}[language=C,tabsize=4]		
+int* ptr = ...;
+ptr1 = ptr + 2; // will add '8' bytes to the current address. 
+				// *ptr1 is equivalent to ptr[2]
+ptr1++; // will add '4' bytes to ptr1. 
+		// *ptr1 is equivalent to ptr[3]
+ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1. 
+				 // *ptr2 equivalent to ptr1[-3] or ptr[0]
+\end{lstlisting}}
+	\begin{frame}{La mémoire}
+		\framesubtitle{Arithmétique des pointeurs}
+		\begin{block}{Explication}
+			Un pointeur en c'est une adresse, qui est une valeur numérique. Par conséquent, on peut effectuer des opérations arithmétiques sur un pointeur comme on peut le faire sur des valeurs numériques.\\ 
+			Il existe quatre opérateurs arithmétiques qui peuvent être utilisés sur les pointeurs: \alert{++}, \alert{--}, \alert{+} et \alert{-}.
+		\end{block}
+		\begin{block}{La formule}
+			Pour un pointeur \texttt{ptr} avec le type \texttt{TYPE} l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(TYPE)} octets au pointeur \texttt{ptr}.
+		\end{block}
+	\end{frame}
   	
-  	\subsection{Les chaînes}
-  	\subsection{Pointeur \& Arithmétique du pointeur}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Arithmétique des pointeurs}
+  		\begin{exampleblock}{Example}
+  			\ptrArithExmp
+  		\end{exampleblock}
+  	
+  		\begin{alertblock}{Lorsque vous utilisez l'arithmétique du pointeur, veillez à ne pas dépasser la taille allouée}
+  		\end{alertblock}
+  	\end{frame}
+  	
+  	\subsection{Les tableaux}
+  	
+  	\subsection{Les enums}
+  		\begin{frame}{Les enums}
+  	\end{frame}
+  	
   	\subsection{Le keyword static}
   	
   	\section{Les outils}
