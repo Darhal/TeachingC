@@ -45,6 +45,7 @@
   	\section{Introduction}
   	\subsection{A propos de moi}
   	\begin{frame}{A propos de moi}
+  		\framesubtitle{Savoir plus: \url{omarito.com}}
 	  	\begin{columns}[T] % align columns
 	  		\begin{column}{.71\textwidth}
 	  			 \begin{itemize}
@@ -104,7 +105,12 @@
 			\end{column}%
 			%\hfill%
 			\begin{column}{.065\textwidth}
-			$\implies$
+			\begin{tikzpicture}[overlay,remember picture]
+				\node[anchor=south west,xshift=160pt,yshift=110pt]
+				at (current page.south west) {
+					$\implies$
+				};
+			\end{tikzpicture}%
 			\end{column}%
 			\begin{column}{.48\textwidth}
 				\begin{tikzpicture}[overlay,remember picture]
