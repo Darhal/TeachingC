@@ -427,7 +427,7 @@ main:						# @main
   			\begin{tabularx}{\textwidth}{Xrrr}
   				\textbf{Type} & \textbf{Taille min} & \textbf{Intervalle} & \textbf{Spécificateur de format} \\
   				\toprule
-  				\texttt{char}      & 1o  & -126..127  		   & \texttt{\%c}    				    \\
+  				\texttt{char}      & 1o  & -127..127  		   & \texttt{\%c}    				    \\
   				\texttt{short}     & 2o  & -32767..32767  	   & \texttt{\%c} ou \texttt{\%hhi}     \\
   				\texttt{int}       & 4o  & $-2^{31}$..$2^{31}$ & \texttt{\%d}    				    \\
   				\texttt{long long} & 8o  & $-2^{63}$..$2^{63}$ & \texttt{\%lld}  				    \\
@@ -447,8 +447,8 @@ main:						# @main
   					\toprule
   					\texttt{unsigned char}      & 1o  & 0..255  		    & \texttt{\%c}    				    \\
   					\texttt{unsigned short}     & 2o  & 0..65535  	   		& \texttt{\%c} ou \texttt{\%hhu}    \\
-  					\texttt{unsigned int}       & 4o  & 0..$2^{32}$ 		& \texttt{\%u}    				    \\
-  					\texttt{unsigned long long} & 8o  & 0..$2^{64}$ 		& \texttt{\%llu}  				    \\
+  					\texttt{unsigned int}       & 4o  & 0..$2^{32}-1$ 		& \texttt{\%u}    				    \\
+  					\texttt{unsigned long long} & 8o  & 0..$2^{64}-1$ 		& \texttt{\%llu}  				    \\
   					\bottomrule
   			\end{tabularx}}
   			\caption{Les types de base non-signé en C}
