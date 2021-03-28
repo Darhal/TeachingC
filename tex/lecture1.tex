@@ -54,20 +54,20 @@
   		\end{itemize}
   	\end{frame}
   	
-  	\subsection{A propos de moi}
-  	\begin{frame}{A propos de moi}
+  	\subsection{À propos de moi}
+  	\begin{frame}{À propos de moi}
   		\framesubtitle{Savoir plus: \url{omarito.com}}
 	  	\begin{columns}[T] % align columns
 	  		\begin{column}{.71\textwidth}
 	  			 \begin{itemize}
 	  			 	\item Education:
 	  			 	\begin{itemize}
-	  			 		\item Bac Mathématique
+	  			 		\item Bac Mathématiques
 	  			 		\item Licence Informatique
 	  			 	\end{itemize}
-	  				\item Premier ligne de code à l'age de 14 ans.
+	  				\item Premier ligne de code à l'âge de 14 ans.
 	  				\item Grand fan de C++: 6 ans de C/C++.
-	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codés en C/C++.
+	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codée en C/C++.
 	  			\end{itemize}
 	  		\end{column}%
 	  		\hfill%
@@ -83,9 +83,9 @@
   	\end{frame}
   	\subsection{Organisation}
   	\begin{frame}{Organisation}
-  		\framesubtitle{Comment ca va se passer?}%
+  		\framesubtitle{Comment ça va se passer?}%
   		\begin{itemize}
-  			\item Cours, exercices, solutions et projets sertont sur \href{https://github.com/Darhal/TeachingC}{Github}.
+  			\item Cours, exercices, solutions et projets seront sur \href{https://github.com/Darhal/TeachingC}{Github}.
   			\item Serveur \href{https://discord.gg/y9nYQ5A5Fz}{Discord} dédié pour les questions, aide et autre.
   			\item TD, TP et Projets seront en présentiel.
   			\item N'hésitez pas à m'interrompre à tout moment pour poser des questions.
@@ -160,7 +160,7 @@
   			\begin{column}{.76\textwidth}
   				 \begin{itemize}
   					\item Langage conçu par Dennis Ritchie et développé par lui et Bell labs.
-  					\item Sortie en 1972 (Il y a 49 ans).
+  					\item Sortie en 1972 (il y a 49 ans).
   					\item Utilisé dans le projet Unix développé par Dennis Ritchie et Ken Thompson entre autres.
   					\item A vu une évolution relativement petite.
   					\begin{itemize}
@@ -181,13 +181,13 @@
   		\end{columns}
   	\end{frame}
   
-  	\subsection{Motivation: Pouquoi apprendre le C en 2021?}
-  	\begin{frame}{Motivation: Pouquoi apprendre le C en 2021?}
+  	\subsection{Motivation : Pouquoi apprendre le C en 2021?}
+  	\begin{frame}{Motivation : Pouquoi apprendre le C en 2021?}
   		\framesubtitle{C c'est cool !}%
   		\begin{itemize}
   			\item C est toujours pertinent et utile aujourd'hui pour beaucoup de choses.
   			\item Développement des noyaux (Kernel) et des systèmes d'exploitation
-  			\item Systèmes embarqués (Véhicules, caméras, satellites, IoT, ...)
+  			\item Systèmes embarqués (véhicules, caméras, satellites, IoT, ...)
   			\item Développement de pilotes de périphériques (Device Drivers)
   			\item Bibliothèques et frameworks hautes performances (Numpy, ...)
   			\item Compilateurs et interprètes de nombreuses langues populaires (Java, Python, ...).
@@ -201,7 +201,7 @@
   	\begin{frame}{Compilation}
   		\begin{itemize}
   			\item La compilation est plus qu'un simple grand processus.
-  			\item C'est plutôt un \alert{pipeline } composé de 4 étapes
+  			\item C'est plutôt un \alert{pipeline } composé de 4 étapes.
   		\end{itemize}
   		\vspace{250px}
   		\begin{tikzpicture}[overlay,remember picture]
@@ -212,33 +212,33 @@
   		\end{tikzpicture}%
   	\end{frame}
   
-  	\subsection{Phase 1: Preprocessing}
-  	\begin{frame}{Phase 1: Preprocessing}
+  	\subsection{Phase 1 : Preprocessing}
+  	\begin{frame}{Phase 1 : Preprocessing}
   		\begin{block}{Preprocessing}
-  			Le \alert{Preprocessing} (prétraitement) est la \alert{première} étape du pipeline de compilation. Au cours de laquelle:
+  			Le \alert{Preprocessing} (prétraitement) est la \alert{première} étape du pipeline de compilation, au cours de laquelle:
   			\begin{itemize}
   				\item Les commentaires sont supprimés.
   				\item Les macros sont développées.
   				\item Les fichiers inclus sont développés.
   			\end{itemize}
   		\end{block}
-  	  	\begin{exampleblock}{Exemple:}
-  			Un \texttt{\#include <stdio.h>} sera remplacé à l'execution de la phase du preprocessing par le contenu du fichier \texttt{stdio.h}
+  	  	\begin{exampleblock}{Exemple :}
+  			Un \texttt{\#include <stdio.h>} sera remplacé à l'exécution de la phase du preprocessing par le contenu du fichier \texttt{stdio.h}
   		\end{exampleblock}
   	\end{frame}
   	
-  	\subsection{Phase 2: Compiling}
-  	\begin{frame}{Phase 2: Compiling}
+  	\subsection{Phase 2 : Compiling}
+  	\begin{frame}{Phase 2 : Compiling}
 	  	\begin{block}{La Compilation}
 	  		La \alert{Compilation} est la deuxième étape. Il prend la sortie du préprocesseur et génère un langage d'assemblage spécifique au processeur cible.
 	  	\end{block}
-		\begin{exampleblock}{Exemple:}
+		\begin{exampleblock}{Exemples :}
 			- La commande "\texttt{gcc -S main.c}" arrête le pipeline de compilation avant l'étape d'assemblage.\\
-			- Utilisez l'option "\texttt{-masm=intel}" pour obtenir l'assembleur en syntaxe Intel.
+			- Utiliser l'option "\texttt{-masm=intel}" pour obtenir l'assembleur en syntaxe Intel.
 		\end{exampleblock}
   	\end{frame}
   
-    \begin{frame}{Phase 2: Compiling}
+    \begin{frame}{Phase 2 : Compiling}
   		\begin{columns}[T] % align columns
 	  		\begin{column}{.20\textwidth}
 	  			\begin{tikzpicture}[overlay,remember picture]
@@ -268,16 +268,16 @@
 	  	\end{columns}
   	\end{frame}
   	
-  	\subsection{Phase 3: Assemblage}
-  	\begin{frame}{Phase 3: Assemblage}
+  	\subsection{Phase 3 : Assemblage}
+  	\begin{frame}{Phase 3 : Assemblage}
   		\begin{block}{L'Assemblage}
-  			\alert{L'assemblage } est la troisième étape de la compilation. L'assembleur convertira le code d'assemblage en code binaire (code machine\footnote[frame]{Des zéros et uns}). Ce code est également appelé \alert{code objet}.
+  			\alert{L'assemblage } est la troisième étape de la compilation. L'assembleur convertira le code d'assemblage en code binaire (code machine\footnote[frame]{des zéros et uns}). Ce code est également appelé \alert{code objet}.
   		\end{block}
-  		\begin{exampleblock}{Exemple:}
+  		\begin{exampleblock}{Exemple :}
   			- La commande "\texttt{gcc -c main.c}" arrête le pipeline de compilation à l'étape de l'assemblage.\\
   		\end{exampleblock}
   	\end{frame}
-	  \begin{frame}{Phase 3: Assemblage}
+	  \begin{frame}{Phase 3 : Assemblage}
 	  	\begin{figure}[b]
 	  		\centering
 	  		\includegraphics[scale=0.5]{resources/hello_world_o}
@@ -285,13 +285,13 @@
 	  	\end{figure}
 	  \end{frame}
   	
-	\subsection{Phase 4: Linking}
-	\begin{frame}{Phase 4: Linking}
+	\subsection{Phase 4 : Linking}
+	\begin{frame}{Phase 4 : Linking}
 		\begin{block}{Édition du lien}
 			\alert{L'édition du lien } est la dernière étape de la compilation. L'éditeur de liens \alert{fusionne } tout le code objet de plusieurs modules en un seul. \alert{Si} une fonction d'une bibliothèque est utilisée, l'éditeur de liens \alert{liera} le code actuel avec le code de la fonction utilisée \alert{fourni} par la bibliothèque.
 		\end{block}
-		\begin{alertblock}{N.B:}
-			Il existe deux types de liaison:
+		\begin{alertblock}{N.B. :}
+			Il existe deux types de liaisons :
 			\begin{itemize}
 				\item La \alert{liaison statique}.
 				\item La \alert{liaison dynamique}.
@@ -300,19 +300,19 @@
 	\end{frame}
 
 	\begin{frame}{Phase 4: Linking}
-		\begin{alertblock}{N.B:}
-			Il existe deux types de liaison:
+		\begin{alertblock}{N.B. :}
+			Il existe deux types de liaisons :
 			\begin{itemize}
 				\item Dans la \alert{liaison statique}, l'éditeur de liens fait une copie de toutes les fonctions de bibliothèque utilisées dans le fichier exécutable.
 				\begin{itemize}
-					\item Windows: l'extension `\texttt{.lib}'
-					\item Linux \& MacOS: l'extension `\texttt{.a}'
+					\item Windows : l'extension `\texttt{.lib}'
+					\item Linux \& MacOS : l'extension `\texttt{.a}'
 				\end{itemize}
 				\item En \alert{liaison dynamique}, le code n'est pas copié, il suffit juste d'ajouter la bibliothèque dans le même dossier que l'exécutable pour pouvoir exécuter le programme.
 				\begin{itemize}
-					\item Windows: l'extension `\texttt{.dll}'
-					\item Linux: l'extension `\texttt{.so}'
-					\item MacOS: l'extension `\texttt{.dylib}'
+					\item Windows : l'extension `\texttt{.dll}'
+					\item Linux : l'extension `\texttt{.so}'
+					\item MacOS : l'extension `\texttt{.dylib}'
 				\end{itemize}
 			\end{itemize}
 		\end{alertblock}
@@ -321,9 +321,9 @@
 	\subsection{Comportement indéfini - Undefined behaviour}
 	\begin{frame}{Comportement indéfini - Undefined behaviour}
 		\begin{block}{Définition}
-			Un Comportement Indéfini (U.B.) peut être définis de manière vague comme les cas que les normes C ne couvraient pas. Et par conséquent, le compilateur n'est pas obligé de les diagnostiquer ou de faire quoi que ce soit de significatif
+			Un Comportement Indéfini (U.B.) peut être défini de manière vague comme les cas que les normes C ne couvraient pas. Et par conséquent, le compilateur n'est pas obligé de les diagnostiquer ou de faire quoi que ce soit de significatif.
 		\end{block}
-		\begin{block}{Déscription par le standard C++}
+		\begin{block}{Description par le standard C++}
 			Behavior for which this International Standard imposes no requirements. \\
 			Comportement pour lequel la présente Norme internationale n'impose aucune exigence.
 		\end{block}
@@ -360,24 +360,24 @@ main:						# @main
 
 	\begin{frame}{Le danger de l'U.B.}
 		\framesubtitle{Un comportement indéfini peut effacer votre disque dur !}
-		Considérons le code suivant:
+		Considérons le code suivant :
 		\ubdisk
 	\end{frame}
 
 	\begin{frame}{Le danger de l'U.B.}
 		\framesubtitle{Un comportement indéfini peut effacer votre disque dur !}
-		Clang 3.4.1 produit le code assembleur suivant:\footnote[frame]{L'article suivant explique en détail pourquoi cela se produit: \url{https://blog.tchatzigiannakis.com/undefined-behavior-can-literally-erase-your-hard-disk/}}
+		Clang 3.4.1 produit le code assembleur suivant :\footnote[frame]{L'article suivant explique en détail pourquoi cela se produit : \url{https://blog.tchatzigiannakis.com/undefined-behavior-can-literally-erase-your-hard-disk/}}
 		\ubdiskasm
 	\end{frame}
 
-	\begin{frame}{Liste d'U.B}
-		Voici une liste des U.B les plus courants:\footnote[frame]{Pour une liste exhaustive: \url{https://en.cppreference.com/w/c/language/behavior}}
+	\begin{frame}{Liste d'U.B.}
+		Voici une liste des U.B. les plus courants :\footnote[frame]{Pour une liste exhaustive: \url{https://en.cppreference.com/w/c/language/behavior}}
 		\begin{itemize}
 			\item Les accès à une case mémoire en dehors des limites du tableau.
 			\item Le déréférencement d'un pointeur nul.
 			\item L'overflow d'un entier signé.
-			\item Accès à une variable non initialisée
-			\item Accès au pointeur passé à realloc
+			\item Accès à une variable non initialisée.
+			\item Accès au pointeur passé à realloc.
 		\end{itemize}
 	\end{frame}
 	  	
@@ -387,13 +387,13 @@ main:						# @main
   		\begin{block}{La fonction main}
   			La fonction \alert{main} est le point d'entrée du programme \footnote[frame]{l'exécutable}.
   		\end{block}
-  		\begin{exampleblock}{Profiles possibles:}
+  		\begin{exampleblock}{Profils possibles :}
   			\begin{itemize}
   				\item \texttt{int main()}
   				\item \texttt{int main(int argc, char** argv)}
   			\end{itemize}
   		\end{exampleblock}
-  		\begin{alertblock}{Profiles qui compile mais avec un Warning:}
+  		\begin{alertblock}{Profils qui compilent mais avec un Warning:}
   			\begin{itemize}
 	  			\item \texttt{void main()}
 	  			\item \texttt{void main(int argc, char** argv)}
@@ -404,20 +404,20 @@ main:						# @main
   	\begin{frame}{In the beginning there was main}
 		\framesubtitle{Les arguments de main}
 		\begin{itemize}
-			\item \alert{argc}: Indique le nombre d'arguments passés au programme. la valeur minimale de \texttt{argc} est 1 car le premier argument est toujours le nom du programme.
-			\item \alert{argv}: Un tableau de chaîne contenant les arguments passés au programme, \texttt{argv[0]} est le nom du programme, \texttt{argv[1]} est le nom du premier argument, et ainsi de suite
+			\item \alert{argc} : Indique le nombre d'arguments passés au programme. La valeur minimale de \texttt{argc} est 1 car le premier argument est toujours le nom du programme.
+			\item \alert{argv} : Un tableau de chaîne contenant les arguments passés au programme, \texttt{argv[0]} est le nom du programme, \texttt{argv[1]} est le nom du premier argument, et ainsi de suite.
 		\end{itemize}
   	\end{frame}
   
   	\begin{frame}{In the beginning there was main}
-	  	\begin{exampleblock}{Exemple:}
-	  		Soit la commande suivante:~~"\texttt{./a.out abc w 23 1}" \\
-	  		- \texttt{argc}: vaut 5 \\
-	  		- \texttt{argv[0]}: est la chaine "./a.out" \\
-	  		- \texttt{argv[1]}: est la chaine "abc" \\
-	  		- \texttt{argv[2]}: est la chaine "w" \\
-	  		- \texttt{argv[3]}: est la chaine "23" \\
-	  		- \texttt{argv[4]}: est la chaine "1" \\
+	  	\begin{exampleblock}{Exemple :}
+	  		Soit la commande suivante :~~"\texttt{./a.out abc w 23 1}" \\
+	  		- \texttt{argc} : vaut 5 \\
+	  		- \texttt{argv[0]} : est la chaine "./a.out" \\
+	  		- \texttt{argv[1]} : est la chaine "abc" \\
+	  		- \texttt{argv[2]} : est la chaine "w" \\
+	  		- \texttt{argv[3]} : est la chaine "23" \\
+	  		- \texttt{argv[4]} : est la chaine "1" \\
 	  	\end{exampleblock}
   	\end{frame}
   
@@ -435,7 +435,7 @@ main:						# @main
   				\texttt{double}    & 8o  &    ..   			   & \texttt{\%lf}   					\\
   				\bottomrule
   			\end{tabularx}}
-  			\caption{Les types de base signé en C}
+  			\caption{Les types de base signés en C}
   		\end{table}
   	\end{frame}
   
@@ -451,7 +451,7 @@ main:						# @main
   					\texttt{unsigned long long} & 8o  & 0..$2^{64}-1$ 		& \texttt{\%llu}  				    \\
   					\bottomrule
   			\end{tabularx}}
-  			\caption{Les types de base non-signé en C}
+  			\caption{Les types de base non-signés en C}
   		\end{table}
   	\end{frame}
  	%% TODO: Add fundamental types, their sizes how to print them, etcc
@@ -476,9 +476,9 @@ if (some_condition) {
 \defverbatim[colored]\ifelsesignle{
 \begin{lstlisting}[language=C,tabsize=2]
 if (some_condition)
-	statment; // Une seule instruction, cad un seul point-virgule	
+	statment; // Une seule instruction, càd un seul point-virgule	
 [[else
-	statment2; // un seul point-virgule	
+	statment2; // Un seul point-virgule	
 ]]
 \end{lstlisting}}
 
@@ -500,16 +500,16 @@ if (some_condition1) {
 } ]]
 \end{lstlisting}}
   	\begin{frame}{Les conditions}
-  		\begin{block}{Syntax: Première possibilité}
+  		\begin{block}{Syntaxe : Première possibilité}
   			\ifelsesignle
   		\end{block}
-		\begin{alertblock}{N.B:}
-			Ce qui est entre mis entre $\big[\big[~~...~~\big]\big]$ est facultatif
+		\begin{alertblock}{N.B. :}
+			Ce qui est mis entre $\big[\big[~~...~~\big]\big]$ est facultatif.
 		\end{alertblock}
   	\end{frame}
   	
 	\begin{frame}{Les conditions}
-		  		\begin{block}{Syntax: Deuxième possibilité}
+		  		\begin{block}{Syntaxe : Deuxième possibilité}
 			\ifelsemulti
 		\end{block}
 	\end{frame}
@@ -538,43 +538,43 @@ if (i++)
 \end{lstlisting}}
 
 	\begin{frame}{Les conditions}
-		\begin{block}{Comment une condition est évaluée?}
+		\begin{block}{Comment une condition est évaluée  ?}
 			Le type \alert{booléen } n'existe pas en C. Si une expression est évaluée à 0, elle est considérée comme \alert{False}, sinon elle est considérée comme \alert{True}.
 		\end{block}
 		%% TODO: Do switch statments here!!! 
 	\end{frame}
 
-	\begin{frame}{Les conditions: Exemple}	
+	\begin{frame}{Les conditions : Exemples}	
 		\begin{center}
 			\begin{minipage}[t]{0.48\linewidth}
-				\text{Example 1:}
+				\text{Exemple 1 :}
 				\ifexampleone
 			\end{minipage}
 			\qquad
 			\begin{minipage}[t]{0.48\linewidth}
-				\text{Example 2:}
+				\text{Exemple 2 :}
 				\ifexampletwo
 			\end{minipage}
 			\begin{minipage}[t]{0.48\linewidth}
-				\text{Example 3:}
+				\text{Exemple 3 :}
 				\ifexamplethree
 			\end{minipage}
 		\end{center}
 	\end{frame}
 
-	\begin{frame}{Les conditions: Exemple}	
-		\text{Example 1: \alert{(N'affiche rien)}}
+	\begin{frame}{Les conditions : Exemples}	
+		\text{Exemple 1 : \alert{(N'affiche rien)}}
 		\ifexampleone
-		\text{Example 2: \alert{(Affiche "Hello World")}}
+		\text{Exemple 2 : \alert{(Affiche "Hello World")}}
 		\ifexampletwo
-		\text{Example 3: \alert{(Affiche "Hello World")}}
+		\text{Exemple 3 : \alert{(Affiche "Hello World")}}
 		\ifexamplethree
 	\end{frame}
 
 \defverbatim[colored]\forsyntax{
 \begin{lstlisting}[language=C,tabsize=2]
 for (initialisation; condition; increment) {
-	// Une seule instruction, cad un seul point-virgule
+	// Une seule instruction, càd un seul point-virgule
 }
 
 \end{lstlisting}}
@@ -595,11 +595,11 @@ while (condition) {
 
 
 	\begin{frame}{Les boucles}	
-		\begin{block}{Syntax: boucle pour}
+		\begin{block}{Syntaxe : boucle pour}
 			\forsyntax
-			L'instruction \alert{d'initialisation } n'est exécutée qu'au début de la boucle. La \alert{condition} est vérifiée à chaque itération, \alert{l'instruction d'incrémentation} est également exécutée à chaque itération
+			L'instruction \alert{d'initialisation } n'est exécutée qu'au début de la boucle. La \alert{condition} est vérifiée à chaque itération, \alert{l'instruction d'incrémentation} est également exécutée à chaque itération.
 		\end{block}
-		\begin{alertblock}{Une boucle for peut être écrite comme une boucle while}
+		\begin{alertblock}{Une boucle for peut être écrite comme une boucle while.e}
 			\forWrittenUsingWhile
 		\end{alertblock}
 	\end{frame}
@@ -618,7 +618,7 @@ for (;;)
 \end{lstlisting}}
 
 	\begin{frame}{Les boucles}
-		\begin{block}{Syntax: boucle pour}
+		\begin{block}{Syntaxe : boucle pour}
 			Comme la syntaxe du \texttt{if}, la boucle pour peut être écrite de cette manière:
 			\forsyntaxtwo
 		\end{block}
@@ -662,15 +662,15 @@ for (int i = -1; i < 10; i++) {
 	\begin{frame}{Les boucles}
 		\begin{center}
 			\begin{minipage}[t]{0.8\linewidth}
-				Example 1: (\alert{Affiche 200 "Hello World"})
+				Exemple 1: (\alert{Affiche 200 "Hello World"})
 				\forExmpOne
 			\end{minipage}
 			\begin{minipage}[t]{0.8\linewidth}
-				Example 2: (\alert{Affiche une infinité de "Hello World"})
+				Exemple 2: (\alert{Affiche une infinité de "Hello World"})
 				\forExmpTwo
 			\end{minipage}
 			\begin{minipage}[t]{0.8\linewidth}
-				Example 3:
+				Exemple 3:
 				\forExmpThree
 			\end{minipage}
 		\end{center}
@@ -678,26 +678,26 @@ for (int i = -1; i < 10; i++) {
 	
 	\begin{frame}{Les boucles}	
 		\begin{minipage}[t]{0.8\linewidth}
-			Example 3: (\alert{N'affiche rien})
+			Exemple 3: (\alert{N'affiche rien})
 			\forExmpThree
 		\end{minipage}
 		\begin{minipage}[t]{0.8\linewidth}
-			Example 4:
+			Exemple 4:
 			\forExmpFour
 		\end{minipage}
 		\begin{minipage}[t]{0.8\linewidth}
-			Example 5:
+			Exemple 5:
 			\forExmpFive
 		\end{minipage}
 	\end{frame}
 
 	\begin{frame}{Les boucles}
 		\begin{minipage}[t]{0.8\linewidth}
-			Example 4:  (\alert{Affiche 5 "Hello World"})
+			Exemple 4 :  (\alert{Affiche 5 "Hello World"})
 			\forExmpFour
 		\end{minipage}
 		\begin{minipage}[t]{0.8\linewidth}
-			Example 5: (\alert{N'affiche rien})
+			Exemple 5: (\alert{N'affiche rien})
 			\forExmpFive
 		\end{minipage}
 	\end{frame}
@@ -709,10 +709,10 @@ do {
 } while(condition);
 \end{lstlisting}}
 	\begin{frame}{Les boucles}
-		\begin{block}{Syntax: boucle faire ... tantque}
+		\begin{block}{Syntaxe : boucle faire ... tantque}
 			\doWhileSyntax
 			La boucle continue de s'exécuter jusqu'à ce que la condition soit \alert{fausse}. 
-			Il est similaire à une boucle tantque, sauf le fait qu'elle est garantie de s'exécuter au moins une fois.
+			Cette condition est similaire à une boucle tantque, malgrée le fait qu'elle est garantie de s'exécuter au moins une fois.
 		\end{block}
 	\end{frame}
 	
@@ -740,18 +740,18 @@ struct A
 
   	\subsection{Les structs}
   	\begin{frame}{Les structs}
-  		\begin{block}{Définition et Syntax:}
+  		\begin{block}{Définition et Syntaxe :}
   			Struct, une abréviation de structure, est un type défini par l'utilisateur qui est composé d'autres types qui peuvent ou non être fondamentaux.
   			\structSyntax
   		\end{block}
   	\end{frame}
   
   	\begin{frame}{Les structs}
-  		\begin{alertblock}{Quelques remarques:}
+  		\begin{alertblock}{Quelques remarques :}
   			- La taille d'une structure est la somme de la taille de ses champs. \\
   			- La taille est accessible en utilisant \alert{\texttt{sizeof(struct\_name)}}.
   		\end{alertblock}
-  		\begin{exampleblock}{Example:}
+  		\begin{exampleblock}{Exeemple:}
   			\structExmp
   			La taille est: \texttt{sizeof(struct A)} = $4 + 2 + 8 + 256 = 270$ octets.
   		\end{exampleblock}
@@ -797,7 +797,7 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
  
   	\subsection{Les unions}
   	\begin{frame}{Les unions}
-  		\begin{block}{Définition et Syntax:}
+  		\begin{block}{Définition et Syntaxe :}
   			L'union est un type défini par l'utilisateur qui est composé d'autres types qui peuvent ou non être fondamentaux. La mémoire réelle allouée à une union est égale au maximum de ses champs. Tous les champs d'un union partagent donc la même mémoire sous-jacente.
   			\unionSyntax
   		\end{block}
@@ -809,14 +809,14 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   			- La taille d'une union est le maximum des tailles de ses champs. \\
   			- La taille est accessible en utilisant \alert{\texttt{sizeof(union\_name)}}. \\
   		\end{alertblock}
-  		\begin{exampleblock}{Example:}
+  		\begin{exampleblock}{Exemple:}
   			\unionExmp
   			La taille est: \texttt{sizeof(union A)} = $max(4, 2, 8, 256) = 256$ octets.
   		\end{exampleblock}
   	\end{frame}
 
 	\begin{frame}{Les unions}
-		\begin{alertblock}{ATTENTION: Soyez prudent lorsque vous accédez aux champs d'union. Écrit dans n'importe quel champ d'union peut écraser la mémoire déjà écrite par un autre champ.}
+		\begin{alertblock}{ATTENTION : Soyez prudent lorsque vous accédez aux champs d'union. Écrire dans n'importe quel champ d'union peut écraser la mémoire déjà écrite par un autre champ.}
 		\unionExmpDanger
 		\end{alertblock}
 	\end{frame}
@@ -855,10 +855,10 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{itemize}
   			\item Flexible, la taille peut être déterminée au moment de l'exécution.
-  			\item Globale
-  			\item Peut gérer des tailles que la pile ne peut pas gérer
+  			\item Globale.
+  			\item Peut gérer des tailles que la pile ne peut pas gérer.
   			\item L'allocation peut être très coûteuse car elle nécessite un passage du mode utilisateur au mode noyau.
-  			\item Responsabilité de libérer la mémoire à la fin de l'utilisation
+  			\item Responsabilité de libérer la mémoire à la fin de l'utilisation.
   		\end{itemize}
   	\end{frame}
 
@@ -874,10 +874,10 @@ p3[0].a; // Access to uninitialized memory !
   	\begin{frame}{La mémoire}
   		\framesubtitle{malloc, calloc et realloc}
   		\begin{block}{malloc}
-  			Signature: \texttt{void* malloc(size\_t size);} \\
+  			Signature  : \texttt{void* malloc(size\_t size);} \\
   			Alloue ce qui lui est passé comme argument en octets mais \alert{n'effectue aucune initialisation}.
   		\end{block}
-  		\begin{exampleblock}{Exemple:}
+  		\begin{exampleblock}{Exemple :}
   			\mallocExample
   		\end{exampleblock}
     \end{frame}
@@ -895,10 +895,10 @@ assert(p3[1].str[0] == 0); // true
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
 		\begin{block}{calloc}
-			\alert{Signature}: \texttt{void* calloc(size\_t nmemb, size\_t size);} \\
+			\alert{Signature} : \texttt{void* calloc(size\_t nmemb, size\_t size);} \\
 			Alloue $nmemb * size$ octets et les initialise à zéro.
 		\end{block}
-		\begin{exampleblock}{Exemple:}
+		\begin{exampleblock}{Exemple :}
 			\callocExample
 		\end{exampleblock}
 	\end{frame}
@@ -929,12 +929,12 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
 		\begin{block}{realloc}
-			\alert{Signature}: \texttt{void* realloc(void* ptr, size\_t size);} \\
+			\alert{Signature} : \texttt{void* realloc(void* ptr, size\_t size);} \\
 			Change la taille du bloc de mémoire pointé par \texttt{ptr} en \texttt{taille} octets. 
 			\begin{itemize}
-				\item Si \texttt{size} > taille de \texttt{ptr}: La mémoire pointée par le pointeur retourné par \texttt{realloc} sera de taille \texttt{size}. Le contenu de \texttt{ptr} est garanti d'être copié mais la mémoire ajoutée ne sera \alert{pas initialisée}
-				\item Si \texttt{size} < taille de \texttt{ptr}: Le contenu de \texttt{ptr} sera copié jusqu'à \texttt{size} octets le reste du contenu de ptr sera ignoré. La taille de la mémoire pointée par la valeur de retour sera donc \texttt{size}.
-				\item Si \texttt{ptr} est \texttt{NULL}: Cela aura le même effet que malloc.
+				\item Si \texttt{size} > taille de \texttt{ptr} : La mémoire pointée par le pointeur retourné par \texttt{realloc} sera de taille \texttt{size}. Le contenu de \texttt{ptr} est garanti d'être copié mais la mémoire ajoutée ne sera \alert{pas initialisée}
+				\item Si \texttt{size} < taille de \texttt{ptr} : Le contenu de \texttt{ptr} sera copié jusqu'à \texttt{size} octets, le reste du contenu de ptr sera ignoré. La taille de la mémoire pointée par la valeur de retour sera donc \texttt{size}.
+				\item Si \texttt{ptr} est \texttt{NULL} : Cela aura le même effet que malloc.
 			\end{itemize}
 		\end{block}
 	\end{frame}
@@ -942,9 +942,9 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
 		\begin{itemize}
-			\item Si \texttt{size} est $0$ et \texttt{ptr} n'est pas \texttt{NULL}:  Cela aura le même effet que free.
+			\item Si \texttt{size} est $0$ et \texttt{ptr} n'est pas \texttt{NULL} :  Cela aura le même effet que free.
 		\end{itemize}
-		\begin{alertblock}{N.B:}
+		\begin{alertblock}{N.B. :}
 			- Sauf si \texttt{ptr} est \texttt{NULL}, il doit avoir été renvoyé par un appel antérieur
 			à \texttt{malloc()}, \texttt{calloc()} ou \texttt{realloc()}. \\
 			- L'accès et/ou l'écriture au pointeur a passé à \texttt{realloc} après l'appel est un \alert{comportement indéfini}\\
@@ -953,25 +953,25 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
-		\begin{exampleblock}{Exemple:}
+		\begin{exampleblock}{Exemple :}
 			\reallocExampleOne
 		\end{exampleblock}
 	\end{frame}
 
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
-		\begin{exampleblock}{Exemple:}
+		\begin{exampleblock}{Exemple :}
 			\reallocExampleTwo
 		\end{exampleblock}
 	\end{frame}
 
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
-		\begin{alertblock}{N.B:}
+		\begin{alertblock}{N.B. :}
 			Le standard C ne dit rien quand 0 est passé à \texttt{malloc} (le comportement est spécifique au système d'exploitation).
 			\begin{itemize}
-				\item Sous Linux: \texttt{malloc(0)} renvoie \texttt{NULL}
-				\item Sous Windows: \texttt{malloc(0)} renvoie un pointeur \alert{valide} sur lequel free pourrait être appelé.
+				\item Sous Linux : \texttt{malloc(0)} renvoie \texttt{NULL}
+				\item Sous Windows : \texttt{malloc(0)} renvoie un pointeur \alert{valide} sur lequel free pourrait être appelé.
 			\end{itemize}
 		\end{alertblock}
 	\end{frame}
@@ -979,7 +979,7 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 	\begin{frame}{La mémoire}
 		\framesubtitle{Les pointeurs}
 		\begin{block}{Définition}
-			Un pointeur est une variable qui contient l'adresse d'une région de mémoire. Un pointeur peut contenir une adresse valide ou non (Exemple: le pointeur \texttt{NULL}). \\
+			Un pointeur est une variable qui contient l'adresse d'une région de mémoire. Un pointeur peut contenir une adresse valide ou non (Exemple : le pointeur \texttt{NULL}). \\
 		\end{block}
 		Les pointeurs font généralement 4 ou 8 octets en fonction de l'architecture du processeur (32 ou 64 bits): 
 		\begin{itemize}
@@ -1001,21 +1001,21 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
 	\begin{frame}{La mémoire}
 		\framesubtitle{Arithmétique des pointeurs}
 		\begin{block}{Explication}
-			Un pointeur en c'est une adresse, qui est une valeur numérique. Par conséquent, on peut effectuer des opérations arithmétiques sur un pointeur comme on peut le faire sur des valeurs numériques.\\ 
+			Un pointeur n'est qu'une adresse mémoire. Cette adresse est une valeur numérique. Par conséquent, on peut effectuer des opérations arithmétiques sur un pointeur comme on peut le faire sur des valeurs numériques.\\ 
 			Il existe quatre opérateurs arithmétiques qui peuvent être utilisés sur les pointeurs: \alert{++}, \alert{--}, \alert{+} et \alert{-}.
 		\end{block}
 		\begin{block}{La formule}
-			Pour un pointeur \texttt{ptr} avec le type \texttt{TYPE} l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(TYPE)} octets au pointeur \texttt{ptr}.
+			Pour un pointeur \texttt{ptr} avec le type \texttt{TYPE}, l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(TYPE)} octets au pointeur \texttt{ptr}.
 		\end{block}
 	\end{frame}
   	
   	\begin{frame}{La mémoire}
   		\framesubtitle{Arithmétique des pointeurs}
-  		\begin{exampleblock}{Example}
+  		\begin{exampleblock}{Exemple}
   			\ptrArithExmp
   		\end{exampleblock}
   	
-  		\begin{alertblock}{Lorsque vous utilisez l'arithmétique du pointeur, veillez à ne pas dépasser la taille allouée}
+  		\begin{alertblock}{Lorsque vous utilisez l'arithmétique du pointeur, veillez à ne pas dépasser la taille allouée.}
   		\end{alertblock}
   	\end{frame}
   	
