@@ -509,6 +509,15 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 		\unionExmpDanger
 		\end{alertblock}
 	\end{frame}
+  	%%%%%% Les Tableaux %%%%%%
+  	\subsection{Les tableaux}
+  	\begin{frame}{Les tableaux}
+  		
+  	\end{frame}
+  	
+  	\begin{frame}{Les chaines}
+  		
+  	\end{frame}
   	
   	%%%%%% LA MEMOIRE %%%%%%
   	\begin{frame}{La mémoire}
@@ -910,18 +919,22 @@ TypeName* ptr = &var;
 			\centering
 			\begin{tikzpicture}[scale=0.8]
 				\stacktop{}
-				\separator
-				\cell{\texttt{ptr=0xABCDEF00}}  \cellcomL{0xFFFFEFBA} \coordinate (p1) at (currentcell.east);
-				\separator
+				\cell{\texttt{...}} \cellcomL{0xABCDEF00}
+				\cell{\texttt{ptr=0xFFFFEF08}} \cellcomL{0xABCDEF04} \coordinate (p1) at (currentcell.east);
+				\cell{\texttt{...}} \cellcomL{0xABCDEF08}
 				\stackbottom{}
 				\cell[draw=none]{La Pile}
-				
+
 				\drawstruct{(5,1)})
+				\structcell{...}
+				\structcell{...}
 				\structcell{...}
 				\structcell{var=42} \coordinate (p2) at (currentcell.west);
 				\structcell{...}
-				\draw (5,-3) node{Tas};
-				\draw (8,-1) node{0xFFFFEF08};
+				\structcell{...}
+				\structcell{...}
+				\draw (5,-7) node{Tas};
+				\draw (8,-3) node{0xFFFFEF08};
 				
 				\draw[-{Latex[length=3.3mm]}, thick] (p1) -- (p2);
 			\end{tikzpicture}
@@ -1013,6 +1026,10 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
   	
   		\begin{alertblock}{Lorsque vous utilisez l'arithmétique du pointeur, veillez à ne pas dépasser la taille allouée.}
   		\end{alertblock}
+  	\end{frame}
+  	
+  	\begin{frame}{Pointer casting}
+  		content...
   	\end{frame}
   	
   	
