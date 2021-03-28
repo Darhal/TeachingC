@@ -22,13 +22,16 @@
 
 \RequirePackage{tikz}
 \RequirePackage{ifthen}
+\usepackage{xcolor}
+
+\newcommand{\stacktext}[1]{\textcolor{fibeamer@white}{\texttt{#1}}}
 
 % Default styles definition.
-\tikzstyle{freecell}=[fill=green!10,draw=green!30!black]
-\tikzstyle{freestruct}=[fill=blue!10,draw=blue!30!black]
+\tikzstyle{freecell}=[fill=fibeamer@primary!100,draw=fibeamer@black,text=fibeamer@black]
+\tikzstyle{freestruct}=[fill=fibeamer@darkGray!100,draw=fibeamer@primary,text=fibeamer@white]
 \tikzstyle{occupiedcell}=[fill=green!10!red!10,draw=green!30!black]
-\tikzstyle{padding}=[fill=green!10!black!10,draw=green!30!black]
-\tikzstyle{highlight}=[draw=red!50!black,text=red!50!black]
+\tikzstyle{padding}=[fill=fibeamer@primary!100,draw=fibeamer@black,text=fibeamer@black]
+\tikzstyle{highlight}=[draw=fibeamer@lightRed,text=fibeamer@white]
 
 \DeclareOption{nocolor}{
   \tikzstyle{freecell}=[fill=white!95!black,draw=black]

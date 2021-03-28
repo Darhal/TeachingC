@@ -6,10 +6,6 @@
 %% conditions are required by law.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This theme was based on fibeamer theme 
-% If you found any bugs please contact @karlosos
-% This repository is hosted on github https://github.com/karlosos/zut-fibeamer/
-
 \documentclass{beamer}
 \usetheme[faculty=wi]{fibeamer}
 \usepackage[utf8]{inputenc}
@@ -30,6 +26,11 @@
 \usepackage{amsmath, amssymb}
 \usepackage{url}       % `\url`s
 \usepackage{listings}  % Code listings
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows}
+\usepackage{drawstack}
+
 \frenchspacing
 \begin{document}
   \frame[c]{\maketitle}
@@ -42,345 +43,9 @@
     \end{frame}}
 
   \begin{darkframes}
-  	\section{Introduction}
-  	
-  	\subsection{Remerciement}
-  	\begin{frame}{Remerciement}
-  		\framesubtitle{Sans eux, ce ne sera pas possible}
-  		\begin{itemize}
-  			\item Un grand merci à M.Bouthier et M.Oster de m'avoir fait confiance et de m'avoir permis de préparer ces conférences.
-  			\item Un grand merci à Mme.Collin pour m'aider avec les problèmes administratifs et pour avoir accéléré la mise en place de cette leçon
-  			\item Merci à l'Université de Lorraine et à Télécom Nancy de m'avoir permis de préparer ces tutorats.
-  		\end{itemize}
-  	\end{frame}
-  	
-  	\subsection{À propos de moi}
-  	\begin{frame}{À propos de moi}
-  		\framesubtitle{Savoir plus: \url{omarito.com}}
-	  	\begin{columns}[T] % align columns
-	  		\begin{column}{.71\textwidth}
-	  			 \begin{itemize}
-	  			 	\item Education:
-	  			 	\begin{itemize}
-	  			 		\item Bac Mathématiques
-	  			 		\item Licence Informatique
-	  			 	\end{itemize}
-	  				\item Premier ligne de code à l'âge de 14 ans.
-	  				\item Grand fan de C++: 6 ans de C/C++.
-	  				\item De nombreux projets dont un moteur de rendu, une application mobile entre autres codée en C/C++.
-	  			\end{itemize}
-	  		\end{column}%
-	  		\hfill%
-	  		\begin{column}{.25\textwidth}
-	  			\begin{tikzpicture}[overlay,remember picture]
-	  				\node[anchor=south east,xshift=-20pt,yshift=70pt]
-	  				at (current page.south east) {
-	  					\includegraphics[width=35mm]{resources/omarito}
-	  				};
-	  			\end{tikzpicture}%
-	  		\end{column}%
-	  	\end{columns}
-  	\end{frame}
-  	\subsection{Organisation}
-  	\begin{frame}{Organisation}
-  		\framesubtitle{Comment ça va se passer?}%
-  		\begin{itemize}
-  			\item Cours, exercices, solutions et projets seront sur \href{https://github.com/Darhal/TeachingC}{Github}.
-  			\item Serveur \href{https://discord.gg/y9nYQ5A5Fz}{Discord} dédié pour les questions, aide et autre.
-  			\item TD, TP et Projets seront en présentiel.
-  			\item N'hésitez pas à m'interrompre à tout moment pour poser des questions.
-  		\end{itemize}
-  	\end{frame}
-  	\subsection{L'objectif du Tutorat}
-  	
-  	\begin{frame}{L'objectif du Tutorat}
-  		\begin{itemize}
-	  		\item Vous familiariser avec la Langage C.
-	  		\item Connaître les bonnes pratiques de programmation en C.
-	  		\item Réussir les examens mais ça va aussi plus loin que ça.
-	  		\item Compréhension approfondie des pointeurs et de la gestion de la mémoire en C.
-	  		\item Bien comprendre l'outillage (Compilateur, Débogueur, autre).
-  		\end{itemize}
-    \end{frame}
-
-	\begin{frame}{L'objectif du Tutorat}
-		\framesubtitle{Ce que vous pourrez faire à la fin}%
-		\begin{columns}[T] % align columns
-			\begin{column}{.48\textwidth}
-				\begin{tikzpicture}[overlay,remember picture]
-					\node[anchor=south west,xshift=10pt,yshift=70pt]
-					at (current page.south west) {
-						\includegraphics[scale=0.5]{resources/begin}
-					};
-				\end{tikzpicture}%
-			\end{column}%
-			%\hfill%
-			\begin{column}{.065\textwidth}
-			\begin{tikzpicture}[overlay,remember picture]
-				\node[anchor=south west,xshift=160pt,yshift=110pt]
-				at (current page.south west) {
-					$\implies$
-				};
-			\end{tikzpicture}%
-			\end{column}%
-			\begin{column}{.48\textwidth}
-				\begin{tikzpicture}[overlay,remember picture]
-					\node[anchor=south east,xshift=-10pt,yshift=55pt]
-					at (current page.south east) {
-						\includegraphics[scale=0.32]{resources/end}
-					};
-				\end{tikzpicture}%
-			\end{column}%
-		\end{columns}
-	\end{frame}
-
-  	\begin{frame}{L'objectif du Tutorat}
-		\framesubtitle{Ce que nous allons faire ensemble}%
-		\begin{itemize}
-			\item Plein d'exercices (même style que les TD).
-				\begin{itemize}
-					\item Exercices liés aux structures de données.
-					\item Savoir des techniques intelligentes pour avoir un code C plus rapide (de l'optimisation)
-				\end{itemize}
-			\item Il y aura un gros projet à la fin.
-				\begin{itemize}
-					\item Un jeu vidéo du style (Puzzle Bobble ou Mario).
-					\item Jeu sur le terminal (style Snake).
-					\item Émulateur de processeur ARM.
-					\item Quelque chose de plus simple que ça? (n'hésitez pas à déposer vos idées).
-				\end{itemize}
-		\end{itemize}
-	\end{frame}
+  	\include{intro}
+	\include{compilation}
 	
-  	\subsection{À propos de C}
-  	\begin{frame}{À propos de C}
-  		\framesubtitle{Un peu de connaissances générales}%
-  		% dennis_ritchie
-  		\begin{columns}[T] % align columns
-  			\begin{column}{.76\textwidth}
-  				 \begin{itemize}
-  					\item Langage conçu par Dennis Ritchie et développé par lui et Bell labs.
-  					\item Sortie en 1972 (il y a 49 ans).
-  					\item Utilisé dans le projet Unix développé par Dennis Ritchie et Ken Thompson entre autres.
-  					\item A vu une évolution relativement petite.
-  					\begin{itemize}
-  						\item K\&R C, ANSI C, C99, C11, C17, C2x.
-  					\end{itemize}
-  					\item Aujourd'hui, C est considéré comme un langage de bas niveau.
-  				\end{itemize}
-  			\end{column}%
-  			\hfill%
-  			\begin{column}{.20\textwidth}
-  				\begin{tikzpicture}[overlay,remember picture]
-  					\node[anchor=south east,xshift=-10pt,yshift=50pt]
-  					at (current page.south east) {
-  						\includegraphics[width=30mm]{resources/dennis_ritchie}
-  					};
-  				\end{tikzpicture}%
-  			\end{column}%
-  		\end{columns}
-  	\end{frame}
-  
-  	\subsection{Motivation : Pouquoi apprendre le C en 2021?}
-  	\begin{frame}{Motivation : Pouquoi apprendre le C en 2021?}
-  		\framesubtitle{C c'est cool !}%
-  		\begin{itemize}
-  			\item C est toujours pertinent et utile aujourd'hui pour beaucoup de choses.
-  			\item Développement des noyaux (Kernel) et des systèmes d'exploitation
-  			\item Systèmes embarqués (véhicules, caméras, satellites, IoT, ...)
-  			\item Développement de pilotes de périphériques (Device Drivers)
-  			\item Bibliothèques et frameworks hautes performances (Numpy, ...)
-  			\item Compilateurs et interprètes de nombreuses langues populaires (Java, Python, ...).
-  			\item Moteurs de rendu et jeux vidéo.
-  			\item Bref... partout où la performance est essentielle.
-  		\end{itemize}
-  	\end{frame}
-
-	%%%%%%%%%% TODO %%%%%%%%%%%%%%%
-  	\section{Compilation}
-  	\begin{frame}{Compilation}
-  		\begin{itemize}
-  			\item La compilation est plus qu'un simple grand processus.
-  			\item C'est plutôt un \alert{pipeline } composé de 4 étapes.
-  		\end{itemize}
-  		\vspace{250px}
-  		\begin{tikzpicture}[overlay,remember picture]
-  			\node[anchor=south west,xshift=35pt,yshift=50pt]
-  			at (current page.south west) {
-  				\includegraphics[width=105mm]{resources/compilation_pipeline}
-  			};
-  		\end{tikzpicture}%
-  	\end{frame}
-  
-  	\subsection{Phase 1 : Preprocessing}
-  	\begin{frame}{Phase 1 : Preprocessing}
-  		\begin{block}{Preprocessing}
-  			Le \alert{Preprocessing} (prétraitement) est la \alert{première} étape du pipeline de compilation, au cours de laquelle:
-  			\begin{itemize}
-  				\item Les commentaires sont supprimés.
-  				\item Les macros sont développées.
-  				\item Les fichiers inclus sont développés.
-  			\end{itemize}
-  		\end{block}
-  	  	\begin{exampleblock}{Exemple :}
-  			Un \texttt{\#include <stdio.h>} sera remplacé à l'exécution de la phase du preprocessing par le contenu du fichier \texttt{stdio.h}
-  		\end{exampleblock}
-  	\end{frame}
-  	
-  	\subsection{Phase 2 : Compiling}
-  	\begin{frame}{Phase 2 : Compiling}
-	  	\begin{block}{La Compilation}
-	  		La \alert{Compilation} est la deuxième étape. Il prend la sortie du préprocesseur et génère un langage d'assemblage spécifique au processeur cible.
-	  	\end{block}
-		\begin{exampleblock}{Exemples :}
-			- La commande "\texttt{gcc -S main.c}" arrête le pipeline de compilation avant l'étape d'assemblage.\\
-			- Utiliser l'option "\texttt{-masm=intel}" pour obtenir l'assembleur en syntaxe Intel.
-		\end{exampleblock}
-  	\end{frame}
-  
-    \begin{frame}{Phase 2 : Compiling}
-  		\begin{columns}[T] % align columns
-	  		\begin{column}{.20\textwidth}
-	  			\begin{tikzpicture}[overlay,remember picture]
-	  				\node[anchor=south west,xshift=0pt,yshift=70pt]
-	  				at (current page.south west) {
-	  					\includegraphics[scale=0.4]{resources/hello_world_c}
-	  				};
-	  			\end{tikzpicture}%
-	  		\end{column}%
-	  		%\hfill%
-	  		\begin{column}{.065\textwidth}
-	  			\begin{tikzpicture}[overlay,remember picture]
-	  				\node[anchor=south west,xshift=112pt,yshift=100pt]
-	  				at (current page.south west) {
-	  					$\implies$
-	  				};
-	  			\end{tikzpicture}%
-	  		\end{column}%
-	  		\begin{column}{.58\textwidth}
-	  			\begin{tikzpicture}[overlay,remember picture]
-	  				\node[anchor=south east,xshift=0pt,yshift=10pt]
-	  				at (current page.south east) {
-	  					\includegraphics[scale=0.3]{resources/hello_world_arm}
-	  				};
-	  			\end{tikzpicture}%
-	  		\end{column}%
-	  	\end{columns}
-  	\end{frame}
-  	
-  	\subsection{Phase 3 : Assemblage}
-  	\begin{frame}{Phase 3 : Assemblage}
-  		\begin{block}{L'Assemblage}
-  			\alert{L'assemblage } est la troisième étape de la compilation. L'assembleur convertira le code d'assemblage en code binaire (code machine\footnote[frame]{des zéros et uns}). Ce code est également appelé \alert{code objet}.
-  		\end{block}
-  		\begin{exampleblock}{Exemple :}
-  			- La commande "\texttt{gcc -c main.c}" arrête le pipeline de compilation à l'étape de l'assemblage.\\
-  		\end{exampleblock}
-  	\end{frame}
-	  \begin{frame}{Phase 3 : Assemblage}
-	  	\begin{figure}[b]
-	  		\centering
-	  		\includegraphics[scale=0.5]{resources/hello_world_o}
-	  		\caption{Une representation hexadécimale du contenu du fichier binaire "main.o"}
-	  	\end{figure}
-	  \end{frame}
-  	
-	\subsection{Phase 4 : Linking}
-	\begin{frame}{Phase 4 : Linking}
-		\begin{block}{Édition du lien}
-			\alert{L'édition du lien } est la dernière étape de la compilation. L'éditeur de liens \alert{fusionne } tout le code objet de plusieurs modules en un seul. \alert{Si} une fonction d'une bibliothèque est utilisée, l'éditeur de liens \alert{liera} le code actuel avec le code de la fonction utilisée \alert{fourni} par la bibliothèque.
-		\end{block}
-		\begin{alertblock}{N.B. :}
-			Il existe deux types de liaisons :
-			\begin{itemize}
-				\item La \alert{liaison statique}.
-				\item La \alert{liaison dynamique}.
-			\end{itemize}
-		\end{alertblock}
-	\end{frame}
-
-	\begin{frame}{Phase 4: Linking}
-		\begin{alertblock}{N.B. :}
-			Il existe deux types de liaisons :
-			\begin{itemize}
-				\item Dans la \alert{liaison statique}, l'éditeur de liens fait une copie de toutes les fonctions de bibliothèque utilisées dans le fichier exécutable.
-				\begin{itemize}
-					\item Windows : l'extension `\texttt{.lib}'
-					\item Linux \& MacOS : l'extension `\texttt{.a}'
-				\end{itemize}
-				\item En \alert{liaison dynamique}, le code n'est pas copié, il suffit juste d'ajouter la bibliothèque dans le même dossier que l'exécutable pour pouvoir exécuter le programme.
-				\begin{itemize}
-					\item Windows : l'extension `\texttt{.dll}'
-					\item Linux : l'extension `\texttt{.so}'
-					\item MacOS : l'extension `\texttt{.dylib}'
-				\end{itemize}
-			\end{itemize}
-		\end{alertblock}
-	\end{frame}
-
-	\subsection{Comportement indéfini - Undefined behaviour}
-	\begin{frame}{Comportement indéfini - Undefined behaviour}
-		\begin{block}{Définition}
-			Un Comportement Indéfini (U.B.) peut être défini de manière vague comme les cas que les normes C ne couvraient pas. Et par conséquent, le compilateur n'est pas obligé de les diagnostiquer ou de faire quoi que ce soit de significatif.
-		\end{block}
-		\begin{block}{Description par le standard C++}
-			Behavior for which this International Standard imposes no requirements. \\
-			Comportement pour lequel la présente Norme internationale n'impose aucune exigence.
-		\end{block}
-	\end{frame}
-	
-\defverbatim[colored]\ubdisk{
-\begin{lstlisting}[language=C,tabsize=2]
-#include <stdlib.h>
-
-typedef int (*Function)();
-static Function Do;
-
-static int EraseAll() { return system("rm -rf /"); }
-
-void NeverCalled() { Do = EraseAll;  }
-
-int main() {
-	return Do();
-}
-
-\end{lstlisting}}
-\defverbatim[colored]\ubdiskasm{
-\begin{lstlisting}[language=c,tabsize=4]
-NeverCalled():   			# @NeverCalled()
-	ret
-
-main:						# @main
-	movl    $.L.str, %edi
-	jmp     system  		# TAILCALL
-
-.L.str:
-	.asciz  "rm -rf /"
-\end{lstlisting}}
-
-	\begin{frame}{Le danger de l'U.B.}
-		\framesubtitle{Un comportement indéfini peut effacer votre disque dur !}
-		Considérons le code suivant :
-		\ubdisk
-	\end{frame}
-
-	\begin{frame}{Le danger de l'U.B.}
-		\framesubtitle{Un comportement indéfini peut effacer votre disque dur !}
-		Clang 3.4.1 produit le code assembleur suivant :\footnote[frame]{L'article suivant explique en détail pourquoi cela se produit : \url{https://blog.tchatzigiannakis.com/undefined-behavior-can-literally-erase-your-hard-disk/}}
-		\ubdiskasm
-	\end{frame}
-
-	\begin{frame}{Liste d'U.B.}
-		Voici une liste des U.B. les plus courants :\footnote[frame]{Pour une liste exhaustive: \url{https://en.cppreference.com/w/c/language/behavior}}
-		\begin{itemize}
-			\item Les accès à une case mémoire en dehors des limites du tableau.
-			\item Le déréférencement d'un pointeur nul.
-			\item L'overflow d'un entier signé.
-			\item Accès à une variable non initialisée.
-			\item Accès au pointeur passé à realloc.
-		\end{itemize}
-	\end{frame}
-	  	
   	\section{La langage C}
   	\subsection{Les bases}
   	\begin{frame}{In the beginning there was main}
@@ -476,7 +141,7 @@ if (some_condition) {
 \defverbatim[colored]\ifelsesignle{
 \begin{lstlisting}[language=C,tabsize=2]
 if (some_condition)
-	statment; // Une seule instruction, càd un seul point-virgule	
+	statment; // Une seule instruction, cad un seul point-virgule	
 [[else
 	statment2; // Un seul point-virgule	
 ]]
@@ -574,7 +239,7 @@ if (i++)
 \defverbatim[colored]\forsyntax{
 \begin{lstlisting}[language=C,tabsize=2]
 for (initialisation; condition; increment) {
-	// Une seule instruction, càd un seul point-virgule
+	// ...
 }
 
 \end{lstlisting}}
@@ -593,13 +258,12 @@ while (condition) {
 }
 \end{lstlisting}}
 
-
 	\begin{frame}{Les boucles}	
 		\begin{block}{Syntaxe : boucle pour}
 			\forsyntax
 			L'instruction \alert{d'initialisation } n'est exécutée qu'au début de la boucle. La \alert{condition} est vérifiée à chaque itération, \alert{l'instruction d'incrémentation} est également exécutée à chaque itération.
 		\end{block}
-		\begin{alertblock}{Une boucle for peut être écrite comme une boucle while.e}
+		\begin{alertblock}{Une boucle for peut être écrite comme une boucle while}
 			\forWrittenUsingWhile
 		\end{alertblock}
 	\end{frame}
@@ -702,6 +366,30 @@ for (int i = -1; i < 10; i++) {
 		\end{minipage}
 	\end{frame}
 
+\defverbatim[colored]\WhileSyntax{
+\begin{lstlisting}[language=C,tabsize=2]
+while (condition) {
+	// ..
+};
+\end{lstlisting}}
+
+\defverbatim[colored]\WhileInfinite{
+\begin{lstlisting}[language=C,tabsize=2]
+while (1) {
+	// ..
+};
+\end{lstlisting}}
+
+	\begin{frame}{Les boucles}
+		\begin{block}{Syntaxe : boucle tantque}
+			\WhileSyntax
+			La boucle continue de s'exécuter jusqu'à ce que la condition soit \alert{fausse}.
+		\end{block}
+		\begin{exampleblock}{Example d'une boucle infinie :}
+			\WhileInfinite
+		\end{exampleblock}
+	\end{frame}
+
 \defverbatim[colored]\doWhileSyntax{
 \begin{lstlisting}[language=C,tabsize=2]
 do {
@@ -718,7 +406,7 @@ do {
 	
 \defverbatim[colored]\structSyntax{
 \begin{lstlisting}[language=C,tabsize=2]
-struct struct_name
+struct StructName 
 {
 	TypeA field1_name;
 	TypeB field2_name;
@@ -729,12 +417,12 @@ struct struct_name
 
 \defverbatim[colored]\structExmp{
 \begin{lstlisting}[language=C,tabsize=2]
-struct A
+struct A 
 {
 	int a; // sizeof(int) = 4
 	short b; // sizeof(short) = 2
 	double b; // sizeof(double) = 8
-	char str[256]; // sizeof(char) = 1 * 256 elements
+	char str[256]; // sizeof(char) * 256 = 1 * 256 elements
 };	
 \end{lstlisting}}
 
@@ -749,7 +437,7 @@ struct A
   	\begin{frame}{Les structs}
   		\begin{alertblock}{Quelques remarques :}
   			- La taille d'une structure est la somme de la taille de ses champs. \\
-  			- La taille est accessible en utilisant \alert{\texttt{sizeof(struct\_name)}}.
+  			- La taille est accessible en utilisant \alert{\texttt{sizeof(struct StructName)}}.
   		\end{alertblock}
   		\begin{exampleblock}{Exeemple:}
   			\structExmp
@@ -759,7 +447,7 @@ struct A
   
 \defverbatim[colored]\unionSyntax{
 \begin{lstlisting}[language=C,tabsize=2]
-union union_name
+union UnionName 
 {
 	TypeA field1_name;
 	TypeB field2_name;
@@ -770,18 +458,19 @@ union union_name
 
 \defverbatim[colored]\unionExmp{
 \begin{lstlisting}[language=C,tabsize=2]
-union A
+union A 
 {
 	int a; // sizeof(int) = 4
 	short b; // sizeof(short) = 2
 	double b; // sizeof(double) = 8
-	char str[256]; // sizeof(char) = 1 * 256 elements
+	char str[256]; // sizeof(char) * 256 = 1 * 256 elements
 };	
 \end{lstlisting}}
 
 \defverbatim[colored]\unionExmpDanger{
 \begin{lstlisting}[language=C,tabsize=2]
-union B {
+union B 
+{
 	int a;
 	short b;
 	char str[4];
@@ -807,7 +496,7 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   	\begin{frame}{Les unions}
   		\begin{alertblock}{Quelques remarques:}
   			- La taille d'une union est le maximum des tailles de ses champs. \\
-  			- La taille est accessible en utilisant \alert{\texttt{sizeof(union\_name)}}. \\
+  			- La taille est accessible en utilisant \alert{\texttt{sizeof(union UnionName)}}. \\
   		\end{alertblock}
   		\begin{exampleblock}{Exemple:}
   			\unionExmp
@@ -822,6 +511,172 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 	\end{frame}
   	
   	%%%%%% LA MEMOIRE %%%%%%
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Disposition de la mémoire d'un programme}
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture}[scale=0.8]
+  				\cell{\texttt{OS / Kernel}}  \cellcom{Haute adresse}
+  				\separator
+  				\cell{\texttt{Pile}} \coordinate (O1) at (currentcell.center);
+  				\padding{2}{} \coordinate (O2) at (currentcell.center);
+  				\cell{\texttt{Tas}}  \coordinate (O3) at (currentcell.center);
+  				\separator
+  				\cell{\texttt{BSS}}  
+  				\separator\separator
+  				\cell{\texttt{Data}} 
+  				\separator
+  				\cell{\texttt{Text}} \cellcom{Adresses basses}
+  				\cell[draw=none]{L'image mémoire d'un processus (Adresse Virtuel)}
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(1.2,-0.2)}]O1) -- ([shift={(1.2,0.3)}]O2);
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(1.2,0.2)}]O3) -- ([shift={(1.2,-0.3)}]O2);
+  				
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(-1.2,-0.2)}]O1) -- ([shift={(-1.2,0.3)}]O2);
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(-1.2,0.2)}]O3) -- ([shift={(-1.2,-0.3)}]O2);
+  				
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(0,-0.2)}]O1) -- ([shift={(0,0.3)}]O2);
+  				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(0,0.2)}]O3) -- ([shift={(0,-0.3)}]O2);
+  			\end{tikzpicture}
+  		\end{figure}
+  	\end{frame}
+  	
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Les différents segments mémoire}
+  		\begin{itemize}
+  			\item \alert{Pile} : La pile est une région de mémoire (structure LIFO) réservée aux variables locales, à l'environnement de fonctions..
+  			\item \alert{Tas} : Le tas est le segment réservé à l'allocation mémoire demandée par le programmeur pour des variables dont la taille ne peut être connue qu'au moment de l'exécution.
+  			\item \alert{BSS}\footnote[frame]{Block Started by Symbol} : Les données de ce segment sont initialisées par le kernel à 0 avant que le programme commence à s'exécuter. En générale, ce segment contient toutes les variables \alert{globales} et \alert{statiques} qui sont initialisées à zéro ou qui n'ont pas d'initialisation explicite dans le code source. le segment BSS est \alert{Read-Write}. Le segment BSS est également appelé "\alert{segment de données non initialisé}".
+  		\end{itemize}
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Les différents segments}
+  		\begin{itemize}
+  			\item \alert{Data} : Le segment de données ou le segment de données initialisé. Cette partie de l'espace d'adressage virtuel d'un programme contient les variables globales et statiques qui sont initialisées par le programmeur. Ce segment peut être encore classé en deux zones :
+  			\begin{itemize}
+  				\item Zone contenant des données initialisées en lecture seule (RoData).
+  				\item Zone contenant des données initialisées en lecture-écriture.
+  			\end{itemize}
+  			\item \alert{Text} : Le segment de texte, également appelé segment de code, est la section de la mémoire qui contient les instructions exécutables d'un programme.
+  		\end{itemize}
+  	\end{frame}
+
+\defverbatim[colored]\dataDemoOne{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+char str1[] = "Hello";
+const char* str2 = "World";
+
+int main() {
+	str1[0] = 'A';
+	str2[0] = 'B';
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+\defverbatim[colored]\dataDemoOneSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+char str1[] = "Hello";
+const char* str2 = "World";
+
+int main() {
+	str1[0] = 'A';
+	str2[0] = 'B'; // Compilation erreur: str2 is declared const
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\dataDemoTwo{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+char str1[] = "Hello";
+char* str2 = "World";
+
+int main() {
+	str1[0] = 'A';
+	str2[0] = 'B';
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+\defverbatim[colored]\dataDemoTwoSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+char str1[] = "Hello";
+char* str2 = "World";
+		
+int main() {
+	str1[0] = 'A';
+	str2[0] = 'B'; // Segfault here
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\dataDemoThree{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+
+int main() {
+	char str1[] = "Hello";
+	char* str2 = "World";
+	str1[0] = 'A';
+	str2[0] = 'B';
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+\defverbatim[colored]\dataDemoThreeSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+// includes ..
+		
+int main() {
+	char str1[] = "Hello";
+	char* str2 = "World";
+	str1[0] = 'A';
+	str2[0] = 'B'; // Segfault here
+	puts(str1);
+	puts(str2);
+}
+\end{lstlisting}}
+
+
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Pouvez-vous prédire la sortie de ce programme?}
+  		Example 1:
+  		\dataDemoOne
+  	\end{frame}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Ca ne compile même pas}
+  		Solution 1:
+  		\dataDemoOneSolution
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Pouvez-vous prédire la sortie de ce programme?}
+  		Example 2:
+  		\dataDemoTwo
+  	\end{frame}
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Vos prédiction était probablement fausse}
+  		Solution 2:
+  		\dataDemoTwoSolution
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Cela devrait fonctionner}
+  		Example 3:
+  		\dataDemoThree
+  	\end{frame}
+  	
+  	\begin{frame}{La mémoire}
+  		\framesubtitle{Nope, raté}
+  		Solution 3:
+  		\dataDemoThreeSolution
+  	\end{frame}
+   	
   	\subsection{La mémoire}
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
@@ -831,7 +686,7 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   		\begin{block}{Mémoire dynamique}
   			Une mémoire est dite \alert{dynamique} lorsque sa taille est déterminée pendant le temps \alert{d'exécution}. Ce type de mémoire est généralement alloué à partir du \alert{tas} (heap) via un appel système (syscall).
   		\end{block}
-  	\end{frame}
+  	\end{frame} 	
   
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
@@ -842,24 +697,32 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
+  		Avantages:
 		\begin{itemize}
 			\item Il n'y a pas de coût d'allocation.
 			\item Cache local la plupart du temps car il est situé dans la pile.
-			\item Taille limitée.
+		\end{itemize}
+		Inconvénients:
+		\begin{itemize}
 			\item Très local, en raison de la nature de la pile.
+			\item Taille limitée.
 			\item La taille doit être fixée pendant la compilation\footnote[frame]{C autorise l'allocation de mémoire sur la pile dont la taille est déterminée lors de l'exécution, ceci est interdit en C++.}.
 		\end{itemize}
   	\end{frame}
   
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
+  		Avantages:
   		\begin{itemize}
   			\item Flexible, la taille peut être déterminée au moment de l'exécution.
   			\item Globale.
   			\item Peut gérer des tailles que la pile ne peut pas gérer.
-  			\item L'allocation peut être très coûteuse car elle nécessite un passage du mode utilisateur au mode noyau.
-  			\item Responsabilité de libérer la mémoire à la fin de l'utilisation.
   		\end{itemize}
+  		Inconvénients:
+	  	\begin{itemize}
+  			\item L'allocation peut être très coûteuse car elle nécessite un passage du mode utilisateur au mode noyau.
+			\item Responsabilité de libérer la mémoire à la fin de l'utilisation.
+	  	\end{itemize}
   	\end{frame}
 
 
@@ -874,7 +737,7 @@ p3[0].a; // Access to uninitialized memory !
   	\begin{frame}{La mémoire}
   		\framesubtitle{malloc, calloc et realloc}
   		\begin{block}{malloc}
-  			Signature  : \texttt{void* malloc(size\_t size);} \\
+  			\alert{Profile} : \texttt{void* malloc(size\_t size);} \\
   			Alloue ce qui lui est passé comme argument en octets mais \alert{n'effectue aucune initialisation}.
   		\end{block}
   		\begin{exampleblock}{Exemple :}
@@ -886,7 +749,7 @@ p3[0].a; // Access to uninitialized memory !
 \begin{lstlisting}[language=C,tabsize=2]
 void* p1 = calloc(1, 256); // 512 bytes are allocated
 int* p2 = (int*)calloc(4, sizeof(int)); // 4 * sizeof(int) bytes are allocated
-struct A* p3 = (struct A*)malloc(2, sizeof(struct A)); // 2 * sizeof(struct A) bytes are allocated
+struct A* p3 = (struct A*)calloc(2, sizeof(struct A)); // 2 * sizeof(struct A) bytes are allocated
 assert(p2[0] == 0); // true
 assert(p3[0].a == 0); // true
 assert(p3[1].b == 0); // true
@@ -929,8 +792,8 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
 		\begin{block}{realloc}
-			\alert{Signature} : \texttt{void* realloc(void* ptr, size\_t size);} \\
-			Change la taille du bloc de mémoire pointé par \texttt{ptr} en \texttt{taille} octets. 
+			\alert{Profile} : \texttt{void* realloc(void* ptr, size\_t size);} \\
+			Change la taille du bloc de mémoire pointé par \texttt{ptr} en \texttt{size} octets. 
 			\begin{itemize}
 				\item Si \texttt{size} > taille de \texttt{ptr} : La mémoire pointée par le pointeur retourné par \texttt{realloc} sera de taille \texttt{size}. Le contenu de \texttt{ptr} est garanti d'être copié mais la mémoire ajoutée ne sera \alert{pas initialisée}
 				\item Si \texttt{size} < taille de \texttt{ptr} : Le contenu de \texttt{ptr} sera copié jusqu'à \texttt{size} octets, le reste du contenu de ptr sera ignoré. La taille de la mémoire pointée par la valeur de retour sera donc \texttt{size}.
@@ -941,9 +804,11 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
-		\begin{itemize}
-			\item Si \texttt{size} est $0$ et \texttt{ptr} n'est pas \texttt{NULL} :  Cela aura le même effet que free.
-		\end{itemize}
+		\begin{block}{realloc}
+			\begin{itemize}
+				\item Si \texttt{size} est $0$ et \texttt{ptr} n'est pas \texttt{NULL} :  Cela aura le même effet que free.
+			\end{itemize}
+		\end{block}
 		\begin{alertblock}{N.B. :}
 			- Sauf si \texttt{ptr} est \texttt{NULL}, il doit avoir été renvoyé par un appel antérieur
 			à \texttt{malloc()}, \texttt{calloc()} ou \texttt{realloc()}. \\
@@ -987,6 +852,137 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 			\item Avec un pointeur 64 bits, nous avons environ 17 milliards de Go de mémoire.
 		\end{itemize}
 	\end{frame}
+
+\defverbatim[colored]\ptrSyntax{
+\begin{lstlisting}[language=C,tabsize=4]	
+TypeName* ptr_name; // Recommended
+TypeName *ptr_name; // Recommended
+TypeName*ptr_name;
+TypeName * ptr_name;
+\end{lstlisting}}
+
+\defverbatim[colored]\ptrAdrSyntax{
+\begin{lstlisting}[language=C,tabsize=4]	
+TypeName var = ...;
+TypeName* ptr = &var;
+\end{lstlisting}}
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{block}{Syntaxes possibles}
+			Toutes les syntaxes suivantes sont valides. Cependant, les deux premiers sont les plus courants :
+			\ptrSyntax
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{block}{Comment obtenir l'adresse d'une variable}
+			Pour obtenir l'adresse d'une variable, l'opérateur \alert{\&} doit être utilisé. \\
+			Exemple :
+			\ptrAdrSyntax
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Pointeur et variable sur la pile}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.9]
+				\stacktop{}
+				\separator
+				\cell{\texttt{var=42}}  \cellcomL{0xABCDEF00} \coordinate (p1) at (currentcell.east);
+				\separator
+				\padding{2}{...}
+				\separator
+				\cell{\texttt{ptr=0xABCDEF00}}  \cellcomL{0xABCDEFBA} \coordinate (p2) at (currentcell.east);
+				\separator
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p2) .. controls (4,-4) and (4,0) .. (p1);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Pointeur sur la pile et variable sur le tas}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.8]
+				\stacktop{}
+				\separator
+				\cell{\texttt{ptr=0xABCDEF00}}  \cellcomL{0xFFFFEFBA} \coordinate (p1) at (currentcell.east);
+				\separator
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\drawstruct{(5,1)})
+				\structcell{...}
+				\structcell{var=42} \coordinate (p2) at (currentcell.west);
+				\structcell{...}
+				\draw (5,-3) node{Tas};
+				\draw (8,-1) node{0xFFFFEF08};
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p1) -- (p2);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	
+\defverbatim[colored]\ptrDerefSyntax{
+\begin{lstlisting}[language=C,tabsize=4]	
+TypeName var = ...;
+TypeName* ptr = &var;
+assert(*ptr == var); // true
+*ptr = ...; // changed the value of var
+\end{lstlisting}}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{block}{Comment déréférencer un pointeur}
+			Déréférencer un pointeur permet d'accéder à la valeur pointée par le pointeur. Pour cela, l'opérateur \texttt{*} doit être utilisé. \\
+			Example:
+			\ptrDerefSyntax
+		\end{block}
+	\end{frame}
+
+\defverbatim[colored]\ptrStructSyntaxOne{
+\begin{lstlisting}[language=C,tabsize=4]	
+struct StructName* ptr = &var;
+ptr->field1_name = ...;
+ptr->field2_name[0] = ...; // supposing that field2_name is an array this will change the first element of field2_name
+ptr->field1_name; // accessing field1_name in the struct var
+ptr->field2_name[0]; // acessing the first element in field2_name in the struct var
+\end{lstlisting}}
+\defverbatim[colored]\ptrStructSyntaxTwo{
+\begin{lstlisting}[language=C,tabsize=4]	
+struct StructName* ptr = &var;
+(*ptr).field1_name = ...; // *ptr is between parentheses because "*" have a lower percedance level than "."
+(*ptr).field2_name[0] = ...; // supposing that field2_name is an array this will change the first element of field2_name
+(*ptr).field1_name; // accessing field1_name in the struct var
+(*ptr).field2_name[0]; // acessing the first element in field2_name in the struct var
+\end{lstlisting}}
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{alertblock}{ATTENTION :}
+			- Déréférencer un pointeur NULL est un comportement indéfini. \\
+			- Déréférencer un pointeur sur lequel \texttt{free()} a été appelé est un comportement indéfini.
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{block}{Accès aux membres d'un struct/union}
+			Il existe deux façons d'accéder à un champ struct via un pointeur :\\ 
+			\ptrStructSyntaxOne
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\begin{block}{Accès aux membres d'un struct/union}
+			La deuxième façon est verbeuse et donc déconseillée :\\
+			\ptrStructSyntaxTwo
+		\end{block}
+	\end{frame}
 	
 \defverbatim[colored]\ptrArithExmp{
 \begin{lstlisting}[language=C,tabsize=4]		
@@ -1019,18 +1015,10 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
   		\end{alertblock}
   	\end{frame}
   	
-  	\subsection{Les tableaux}
   	
   	\subsection{Les enums}
-  		\begin{frame}{Les enums}
-  	\end{frame}
-  	
   	\subsection{Le keyword static}
   	
-  	\section{Les outils}
-  	\subsection{Compilateur: GCC/Clang}
-  	\subsection{Débogueur: GDB}
-  	\subsection{Valgrind}
-  	
+  	\include{outils}
   \end{darkframes}
 \end{document}
