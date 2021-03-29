@@ -27,8 +27,7 @@
 \usepackage{url}       % `\url`s
 \usepackage{listings}  % Code listings
 \usepackage{xcolor}
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds,positioning,matrix,arrows,arrows.meta}
 \usepackage{drawstack}
 
 \frenchspacing
@@ -38,8 +37,7 @@
   \AtBeginSection[]{% Print an outline at the beginning of sections
     \begin{frame}<beamer>
       \frametitle{Chapitre \thesection}
-      \tableofcontents[currentsection,currentsubsection,subsectionstyle=show/shaded/hide]
-      \addtocounter{framenumber}{-1}
+      \tableofcontents[currentsection,currentsubsection,subsectionstyle=show/show/hide]
     \end{frame}}
 
   \begin{darkframes}
@@ -408,9 +406,9 @@ do {
 \begin{lstlisting}[language=C,tabsize=2]
 struct StructName 
 {
-	TypeA field1_name;
-	TypeB field2_name;
-	TypeC field3_name;
+	TypenameA field1_name;
+	TypenameB field2_name;
+	TypenameC field3_name;
 	// ...
 };
 \end{lstlisting}}
@@ -449,9 +447,9 @@ struct A
 \begin{lstlisting}[language=C,tabsize=2]
 union UnionName 
 {
-	TypeA field1_name;
-	TypeB field2_name;
-	TypeC field3_name;
+	TypenameA field1_name;
+	TypenameB field2_name;
+	TypenameC field3_name;
 	// ...
 };
 \end{lstlisting}}
@@ -509,14 +507,449 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 		\unionExmpDanger
 		\end{alertblock}
 	\end{frame}
+
+
   	%%%%%% Les Tableaux %%%%%%
+\defverbatim[colored]\arrayDecl{
+\begin{lstlisting}[language=C,tabsize=2]
+Typename ArrayName[Capacity]; // Where capacity is a positive 
+                              // integer
+\end{lstlisting}}
+
+\defverbatim[colored]\arrayDeclExmpl{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[8];	// tab contains 8 elments of type int
+\end{lstlisting}}
+
   	\subsection{Les tableaux}
   	\begin{frame}{Les tableaux}
-  		
+  		\begin{block}{Définition et Syntaxe}
+  			Un tableau est une collection d'éléments du même type qui sont stockés en mémoire de manière contegieuse. Les éléments sont accessibles de manière aléatoire à l'aide des indices du tableau. \\
+  			Un tableau peut être \alert{déclaré} de cette manière en C:
+  			\arrayDecl
+  		\end{block}
+  		\begin{block}{Exemple :}
+  			\texttt{tab} contient 8 éléments de type \texttt{int} indexables de $0$ à $7$ : 
+  			\arrayDeclExmpl
+  		\end{block}
   	\end{frame}
-  	
+  
+  	\begin{frame}{Les tableaux}
+  		\framesubtitle{Représentation mémoire des tableaux en mémoire}
+  		\begin{figure}[!h]
+  			\centering
+	    	\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=1cm, minimum height=1cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \& {...} \& {N}\\
+					$e_{0}$ \& $e_{1}$ \& $e_{2}$ \& $e_{3}$ \& $...$ \& $e_{N}$\\
+				};
+				
+				\draw (-3,-2.3) node{Début du tableau};
+				\draw[-{Latex[length=2.5mm]}] (-3,-2) -- (-3,-1);
+				
+				\draw (2.5,-2.3) node{Dernier élément};
+				\draw[-{Latex[length=2.5mm]}] (2.5,-2) -- (2.5,-1);
+				
+				\draw (0,-3.8) node{Figure - Représentation mémoire de tab};
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Les tableaux}
+		\framesubtitle{Exemple: Représentation mémoire des tableaux en mémoire}
+		\begin{block}{Exemple :}
+			\texttt{tab} contient 8 éléments de type \texttt{int} indexables de $0$ à $7$ : 
+			\arrayDeclExmpl
+		\end{block}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=1cm, minimum height=1cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7}\\
+					$2$ \& $-52$ \& $256$ \& $42$ \& $87$ \& $356$ \& $80$ \& $-356$\\
+				};
+				
+				\draw (-4.06,-2.3) node{tab};
+				\draw[-{Latex[length=3mm]}] (-4.05,-2) -- (-4.06,-1);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+
+\defverbatim[colored]\arrayInitExmplOnePrime{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[8] = { 0 };
+\end{lstlisting}}
+
+\defverbatim[colored]\arrayInitExmplOne{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[8] = {};
+\end{lstlisting}}
+
+	\begin{frame}{Les tableaux}
+		\framesubtitle{Initialisation des tableaux}
+		\begin{block}{Exemple :}
+			Le code suivant initialisera à zéro tous les éléments du tableau\footnote[frame]{Ce type d'initialisation s'appelle \alert{Zero-Initialization} et peut également être utilisé avec les structures et les unions} :
+			\arrayInitExmplOne
+		\end{block}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=0.7cm, minimum height=0.7cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=0.7cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7}\\
+					$0$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$\\
+				};
+				
+				\draw (-2.8,-1.7) node{tab};
+				\draw[-{Latex[length=2.25mm]}] (-2.8,-1.5) -- (-2.8,-0.7);
+				
+				\draw (-0,-2.75) node{Figure - Représentation mémoire de tab};
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+\defverbatim[colored]\arrayInitExmplTwo{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[8] = { 1 };
+\end{lstlisting}}
+
+	\begin{frame}{Les tableaux}
+		\framesubtitle{Initialisation des tableaux}
+		\begin{block}{Exemple :}
+			Le ci-dessous intilise le premier élément à 1 et le reste à 0 :
+			\arrayInitExmplTwo
+		\end{block}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=0.7cm, minimum height=0.7cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=0.7cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7}\\
+					$1$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$\\
+				};
+				
+				\draw (-2.8,-1.7) node{tab};
+				\draw[-{Latex[length=2.25mm]}] (-2.8,-1.5) -- (-2.8,-0.7);
+				
+				\draw (-0,-2.75) node{Figure - Représentation mémoire de tab};
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+\defverbatim[colored]\arrayInitExmplThree{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[8] = { 1, 2, 3 };
+\end{lstlisting}}
+
+	\begin{frame}{Les tableaux}
+		\framesubtitle{Initialisation des tableaux}
+		\begin{block}{Exemple :}
+			Le code ci-dessous initialise les 3 premiers éléments à 1, 2 et 3 respectivement et le reste à 0 :
+			\arrayInitExmplThree
+		\end{block}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=0.7cm, minimum height=0.7cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=0.7cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7}\\
+					$1$ \& $2$ \& $3$ \& $0$ \& $0$ \& $0$ \& $0$ \& $0$\\
+				};
+				
+				\draw (-2.8,-1.7) node{tab};
+				\draw[-{Latex[length=2.25mm]}] (-2.8,-1.5) -- (-2.8,-0.7);
+				
+				\draw (-0,-2.75) node{Figure - Représentation mémoire de tab};
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	
+\defverbatim[colored]\arrayInitExmplFour{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[] = { 1, 2, 3, 4 }; // The size is 4, implicitly 
+                            // calculated during compilation
+\end{lstlisting}}
+
+	\begin{frame}{Les tableaux}
+		\begin{block}{Déduction de la taille du tableau}
+			Une autre façon de déclarer et d'initialiser les tableaux en même temps :
+			\arrayInitExmplFour
+			Le compilateur calculera implicitement la taille du tableau lors de la compilation.
+		\end{block}
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture} [nodes in empty cells,
+				nodes={minimum width=0.7cm, minimum height=0.7cm},
+				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+				% border/.style={draw}
+				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+				row 1/.style={nodes={draw=none, minimum width=0.7cm, fill=fibeamer@black}},
+				nodes={freestruct, anchor=center}]
+				{ % use \& instead of & as column separator
+					{0} \& {1} \& {2} \& {3} \\
+					$1$ \& $2$ \& $3$ \& $4$ \\
+				};
+				
+				\draw (-3,-0.35) node{tab};
+				\draw[-{Latex[length=2.4mm]}, thick] (-3,-0.55) .. controls (-3,-1.35) and (-2,-1.35) .. (-1.4,-0.7);
+				
+				\draw (-0,-2.2) node{Figure - Représentation mémoire de tab};
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+\defverbatim[colored]\arraySizeOf{
+\begin{lstlisting}[language=C,tabsize=2]
+int tab[] = { 1, 2, 3, 4 };  
+assert(sizeof(tab) == 16); // true
+assert(sizeof(tab) == 4 * sizeof(int)); // true
+assert(sizeof(tab)/sizeof(tab[0]) == 4); // true
+\end{lstlisting}}
+	\begin{frame}{Les tableaux}
+		\begin{block}{Utilisation de l'opérateur \texttt{sizeof}}
+			L'opérateur \alert{sizeof} peut être utilisé sur les tables déclarées \alert{statiquement} pour déterminer leur taille totale en \alert{octets}.
+		\end{block}
+		\begin{exampleblock}{Example :}
+			\arraySizeOf
+		\end{exampleblock}
+	\end{frame}
+
+\defverbatim[colored]\arraySizeOfExmplOne{
+\begin{lstlisting}[language=C,tabsize=2]
+struct Point
+{
+	int x, y;
+};
+
+struct Point triangle[] = { {0, 0}, {3, -4}, {5, -6} };  
+// sizeof(struct Point) = ??
+// sizeof(triangle) = ??
+// sizeof(triangle) / sizeof(struct Point) = ??
+\end{lstlisting}}
+\defverbatim[colored]\arraySizeOfExmplOneSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+struct Point
+{
+	int x, y;
+};
+		
+struct Point triangle[] = { {0, 0}, {3, -4}, {5, -6} };  
+// sizeof(struct Point) = 2 * sizeof(int) = 8
+// sizeof(triangle) = 3 * sizeof(struct Point) = 24
+// sizeof(triangle) / sizeof(struct Point) = 24 / 8 = 3
+\end{lstlisting}}
+
+  	\begin{frame}{Les tableaux}
+  		Example 1 :
+  		\arraySizeOfExmplOne
+  	\end{frame}
+  
+  	\begin{frame}{Les tableaux}
+  		Solution 1 :
+  		\arraySizeOfExmplOneSolution
+  	\end{frame}
+  
+\defverbatim[colored]\arraySizeOfExmplTwo{
+\begin{lstlisting}[language=C,tabsize=2]
+union ieee754 
+{
+	double unused;
+	float f;
+	unsigned int d;
+};
+
+union ieee754 integer_rep[] = { {1}, {.f=3.14}, {.d=42} };
+// sizeof(union ieee754) = ??
+// sizeof(triangle) = ??
+// sizeof(triangle) / sizeof(union ieee754) = ??
+\end{lstlisting}}
+
+\defverbatim[colored]\arraySizeOfExmplTwoSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+union ieee754 
+{
+	double unused;
+	float f;
+	unsigned int d;
+};
+		
+union ieee754 integer_rep[] = { { 1 }, { .f=3.14 }, { .d=42 } };  
+// sizeof(union ieee754) = max(8, 4, 4) = 8
+// sizeof(integer_rep) = 8 * 3 = 24
+// sizeof(integer_rep) / sizeof(union ieee754) = 24 / 8 = 3
+\end{lstlisting}}
+  	\begin{frame}{Les tableaux}
+  		Example 2 :
+  		\arraySizeOfExmplTwo
+  	\end{frame}
+    \begin{frame}{Les tableaux}
+	  	Solution 2 :
+	  	\arraySizeOfExmplTwoSolution
+  	\end{frame}
+
+\defverbatim[colored]\arraySizeOfExmplThree{
+\begin{lstlisting}[language=C,tabsize=2]
+void foo(int tab[]) {
+	// sizeof(tab) = ??
+}
+void bar(int* tab) {
+	// sizeof(tab) = ??
+}
+int main() {
+	int tab[] = {1, 4, 8};
+	int tab2[32];
+	// sizeof(tab) = ?? 
+	// sizeof(tab2) = ??
+	int* tabcopy = tab;
+	// sizeof(tabcopy) = ??
+	foo(tab);
+	bar(tab2);
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\arraySizeOfExmplThreeSolution{
+\begin{lstlisting}[language=C,tabsize=2]
+void foo(int tab[]) {
+	// sizeof(tab) = 4 or 8 depending on the architecture
+}
+void bar(int* tab) {
+	// sizeof(tab) = 4 or 8 depending on the architecture
+}
+int main() {
+	int tab[] = {1, 4, 8};
+	int tab2[32];
+	// sizeof(tab) = 3 * 4 = 12
+	// sizeof(tab2) = 32 * 4 = 128
+	int* tabcopy = tab;
+	// sizeof(tabcopy) = 4 or 8 depending on the architecture
+	foo(tab);
+	bar(tab2);
+}
+\end{lstlisting}}
+  	\begin{frame}{Les tableaux}
+  		\framesubtitle{Example 3 : }
+  		\arraySizeOfExmplThree
+  	\end{frame}
+  	\begin{frame}{Les tableaux}
+  		\framesubtitle{Solution 3 : }
+  		\arraySizeOfExmplThreeSolution
+  	\end{frame}
+  
+  	\begin{frame}{Les tableaux}
+  		\begin{alertblock}{Attention au désintégration (decay) !}
+  			Une variable de type tableau se \alert{désintègre}\footnote[frame]{Ce problème s'appelle "Array To Pointer Decay"} en pointeur lorsqu'elle est passée à une fonction en tant qu'argument ou copiée dans une autre variable. \\ Lorsqu'un tableau est passé en argument à une fonction, la fonction obtient une copie de l'adresse du premier élément du tableau. \\ 
+  			$\implies$ Il y a une perte d'informations sur la taille du tableau d'ou le terme \alert{decay}.
+  		\end{alertblock}
+  	\end{frame}
+  
+\defverbatim[colored]\arrayIndexAccess{
+\begin{lstlisting}[language=C,tabsize=2]
+tab[i];       // reading from the ith element
+tab[i] = ...; // writting to the ith element
+\end{lstlisting}}
+\defverbatim[colored]\arrayIndexAccessTwo{
+\begin{lstlisting}[language=C,tabsize=2]
+i[tab];       // reading from the ith element
+i[tab] = ...; // writting to the ith element
+\end{lstlisting}}
+\defverbatim[colored]\arrayIndexAccessThree{
+\begin{lstlisting}[language=C,tabsize=2]
+*(tab + i);       // equivalent to *(i + tab) 
+*(tab + i) = ...; // writting to the ith element, equivalent to *(i + tab) 
+\end{lstlisting}}
+  	\begin{frame}{Accès aux éléments du tableau}
+  		\begin{block}{Syntaxe}
+  			Pour accéder au ième élément du tableau :
+  			\arrayIndexAccess
+  			Une autre syntaxe possible est :
+  			\arrayIndexAccessTwo
+  			En utilisant l'arithmétique des pointeurs, les expressions ci-dessus sont équivalentes à :
+  			\arrayIndexAccessThree
+  		\end{block}
+  	\end{frame}
+	
   	\begin{frame}{Les chaines}
-  		
+  		\begin{block}{Explication :}
+  			Les chaînes sont représentées comme un tableau de caractères en C. Chaque chaîne doit se terminer par le caractère spécial \alert{`\textbackslash0'} également appelé le caractère nul. Pour les chaînes déclarées statiquement\footnote[frame]{Au moment de la compilation}, le compilateur les ajoute implicitement.
+  		\end{block}
+  		\begin{alertblock}{ATTENTION :}
+  			Le type \texttt{String} \alert{n'existe pas} en C !
+  		\end{alertblock}
+  	\end{frame}
+  
+\defverbatim[colored]\Strings{
+\begin{lstlisting}[language=C,tabsize=2]
+char str[] = "Hello";
+\end{lstlisting}}
+\defverbatim[colored]\StringsArr{
+\begin{lstlisting}[language=C,tabsize=2]
+char str[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+\end{lstlisting}}
+
+  	\begin{frame}{Les chaines}
+  		\framesubtitle{Example :}
+  		Soit le code suivant :
+  		\Strings
+  		Equivalent à :
+  		\StringsArr
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}]
+  				{ % use \& instead of & as column separator
+  					{0} \& {1} \& {2} \& {3} \& {4} \& {5}\\
+  					H \& e \& l \& l \& o \& \textbackslash0\\
+  				};
+  				
+  				\draw (-3,-2.2) node{str};
+  				\draw[-{Latex[length=2.25mm]}] (-3,-2) -- (-3,-1);
+  				
+  				\draw (0,-3) node{Figure - Représentation mémoire du chaine str};
+  			\end{tikzpicture}
+  		\end{figure}
+  	\end{frame}
+  
+  	\begin{frame}{Les chaines}
+  		\begin{alertblock}{Quelques remarques :}
+  			\begin{itemize}
+  				\item Etant donné que les chaînes sont intrinsèquement des tableaux, le problème de «désintégration du pointeur» est toujours présent.
+  				\item Le caractère nul à la fin est utilisé pour indiquer la fin de la chaîne, par conséquent, lorsqu'elle n'est pas présente, les fonctions standard appelées sur la chaîne accéderont aux éléments au-delà de la limite du tableau jusqu'à ce qu'ils rencontrent 0 quelque part en mémoire.
+  				\item Pour obtenir la longueur d'une chaîne \alert{terminée par le caractère nul}, la fonction \texttt{strlen} définie dans l'en-tête \texttt{string.h} peut être utilisée.
+  			\end{itemize}
+  		\end{alertblock}
   	\end{frame}
   	
   	%%%%%% LA MEMOIRE %%%%%%
@@ -525,7 +958,7 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   		\begin{figure}[!h]
   			\centering
   			\begin{tikzpicture}[scale=0.8]
-  				\cell{\texttt{OS / Kernel}}  \cellcom{Haute adresse}
+  				\cell{\texttt{OS / Kernel}}  \cellcom{Adresses hautes}
   				\separator
   				\cell{\texttt{Pile}} \coordinate (O1) at (currentcell.center);
   				\padding{2}{} \coordinate (O2) at (currentcell.center);
@@ -536,7 +969,7 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
   				\cell{\texttt{Data}} 
   				\separator
   				\cell{\texttt{Text}} \cellcom{Adresses basses}
-  				\cell[draw=none]{L'image mémoire d'un processus (Adresse Virtuel)}
+  				\cell[draw=none]{L'image mémoire d'un processus (Adresse virtuelle)}
   				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(1.2,-0.2)}]O1) -- ([shift={(1.2,0.3)}]O2);
   				\draw[-{Latex[length=4mm]}, ultra thick] ([shift={(1.2,0.2)}]O3) -- ([shift={(1.2,-0.3)}]O2);
   				
@@ -591,7 +1024,7 @@ const char* str2 = "World";
 
 int main() {
 	str1[0] = 'A';
-	str2[0] = 'B'; // Compilation erreur: str2 is declared const
+	str2[0] = 'B'; // Compilation error: str2 is declared const
 	puts(str1);
 	puts(str2);
 }
@@ -613,8 +1046,9 @@ int main() {
 \defverbatim[colored]\dataDemoTwoSolution{
 \begin{lstlisting}[language=C,tabsize=2]
 // includes ..
-char str1[] = "Hello";
-char* str2 = "World";
+char str1[] = "Hello"; // Lives in the RW Data segment
+char* str2 = "World";  // "World" Lives in the Ro Data segment
+                       // str2 lives in the RW Data segment
 		
 int main() {
 	str1[0] = 'A';
@@ -642,8 +1076,9 @@ int main() {
 // includes ..
 		
 int main() {
-	char str1[] = "Hello";
-	char* str2 = "World";
+	char str1[] = "Hello"; // Lives on the stack no problem
+	char* str2 = "World";  // "World" Lives in the Ro Data segment
+	                       // str2 lives on the stack
 	str1[0] = 'A';
 	str2[0] = 'B'; // Segfault here
 	puts(str1);
@@ -952,7 +1387,7 @@ assert(*ptr == var); // true
 	\begin{frame}{La mémoire}
 		\framesubtitle{Les pointeurs}
 		\begin{block}{Comment déréférencer un pointeur}
-			Déréférencer un pointeur permet d'accéder à la valeur pointée par le pointeur. Pour cela, l'opérateur \texttt{*} doit être utilisé. \\
+			Déréférencer un pointeur permet d'accéder à la valeur pointée par le pointeur. Pour cela, l'opérateur \alert{\texttt{*}} doit être utilisé. \\
 			Example:
 			\ptrDerefSyntax
 		\end{block}
@@ -1014,7 +1449,7 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
 			Il existe quatre opérateurs arithmétiques qui peuvent être utilisés sur les pointeurs: \alert{++}, \alert{--}, \alert{+} et \alert{-}.
 		\end{block}
 		\begin{block}{La formule}
-			Pour un pointeur \texttt{ptr} avec le type \texttt{TYPE}, l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(TYPE)} octets au pointeur \texttt{ptr}.
+			Pour un pointeur \texttt{ptr} avec le type \texttt{Typename}, l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(Typename)} octets au pointeur \texttt{ptr}.
 		\end{block}
 	\end{frame}
   	
@@ -1032,9 +1467,8 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
   		content...
   	\end{frame}
   	
-  	
-  	\subsection{Les enums}
-  	\subsection{Le keyword static}
+  	%\subsection{Les enums}
+  	%\subsection{Le keyword static}
   	
   	\include{outils}
   \end{darkframes}
