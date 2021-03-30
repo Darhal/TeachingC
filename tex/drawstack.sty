@@ -23,13 +23,14 @@
 \RequirePackage{tikz}
 \RequirePackage{ifthen}
 \usepackage{xcolor}
+\usepackage{pgf}
 
 \newcommand{\stacktext}[1]{\textcolor{fibeamer@white}{\texttt{#1}}}
 
 % Default styles definition.
 \tikzstyle{freecell}=[fill=fibeamer@primary!100,draw=fibeamer@black,text=fibeamer@black]
 \tikzstyle{freestruct}=[fill=fibeamer@darkGray!100,draw=fibeamer@primary,text=fibeamer@white]
-\tikzstyle{occupiedcell}=[fill=green!10!red!10,draw=green!30!black]
+\tikzstyle{occupiedcell}=[fill=fibeamer@lightRed,draw=fibeamer@black]
 \tikzstyle{padding}=[fill=fibeamer@primary!100,draw=fibeamer@black,text=fibeamer@black]
 \tikzstyle{highlight}=[draw=fibeamer@lightRed,text=fibeamer@white]
 
@@ -51,6 +52,8 @@
 \newcounter{cellnb}
 \newcounter{structnb}
 \setcounter{cellnb}{0}
+\pgfmathsetmacro{\structdimx}{1.6}
+\pgfmathsetmacro{\structdimy}{0.5}
 
 \newcommand{\llcell}[3]{
     \addtocounter{cellnb}{-#1}
@@ -155,18 +158,18 @@
 }
 
 \newcommand{\drawstruct}[1]{
-  \setcounter{structnb}{0}
+  \setcounter{structnb}{0}  
   \path #1 coordinate (structpos);
-  \path (structpos) ++ (0,\value{structnb}) +(-1.6,-.5) coordinate (structtopleft);
+  \path (structpos) ++ (0,\value{structnb}) +(-\structdimx,-\structdimy) coordinate (structtopleft);
 }
 
 \newcommand{\llstructcell}[3]{
     \addtocounter{structnb}{-#1}
-    \path (structpos) ++ (0,\value{structnb}) +(-1.6,-.5) coordinate (topleft);
-    \path (structpos) ++ (0,\value{structnb}) +(-1.6,-.5+#1) coordinate (bottomleft);
-    \path (structpos) ++ (0,\value{structnb}) +( 1.6,-.5+#1) coordinate (bottomright);
+    \path (structpos) ++ (0,\value{structnb}) +(-\structdimx,-\structdimy) coordinate (topleft);
+    \path (structpos) ++ (0,\value{structnb}) +(-\structdimx,-\structdimy+#1) coordinate (bottomleft);
+    \path (structpos) ++ (0,\value{structnb}) +( \structdimx,-\structdimy+#1) coordinate (bottomright);
     \draw[#2] (topleft) rectangle (bottomright);
-    \draw (structpos) ++ (0,\value{structnb}+#1/2-0.5) node (currentcell){#3};
+    \draw (structpos) ++ (0,\value{structnb}+#1/2-\structdimy) node (currentcell){#3};
 }
 
 \newcommand{\structcell}[2][freestruct]{%
@@ -174,8 +177,8 @@
 }
 
 \newcommand{\structname}[1]{
-  \path (structpos) ++ (0,\value{structnb}) +(-1.6,-.5) coordinate (structbottomleft);
-  \draw (barycentric cs:structtopleft=.5,structbottomleft=.5)
+  \path (structpos) ++ (0,\value{structnb}) +(-\structdimx,-\structdimy) coordinate (structbottomleft);
+  \draw (barycentric cs:structtopleft=\structdimy,structbottomleft=\structdimy)
   node[rotate=90,anchor=south] {#1};
 }
 

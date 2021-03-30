@@ -233,6 +233,10 @@ if (i++)
 		\text{Exemple 3 : \alert{(Affiche "Hello World")}}
 		\ifexamplethree
 	\end{frame}
+	
+	\begin{frame}{Les conditions : switch}
+		// TODO:
+	\end{frame}
 
 \defverbatim[colored]\forsyntax{
 \begin{lstlisting}[language=C,tabsize=2]
@@ -424,7 +428,7 @@ struct A
 };	
 \end{lstlisting}}
 
-  	\subsection{Les structs}
+  	\subsection{Types définis par l'utilisateur: struct, union, enum}
   	\begin{frame}{Les structs}
   		\begin{block}{Définition et Syntaxe :}
   			Struct, une abréviation de structure, est un type défini par l'utilisateur qui est composé d'autres types qui peuvent ou non être fondamentaux.
@@ -481,8 +485,6 @@ var.str[3] = 'Y';
 var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 \end{lstlisting}}
  
- 
-  	\subsection{Les unions}
   	\begin{frame}{Les unions}
   		\begin{block}{Définition et Syntaxe :}
   			L'union est un type défini par l'utilisateur qui est composé d'autres types qui peuvent ou non être fondamentaux. La mémoire réelle allouée à une union est égale au maximum de ses champs. Tous les champs d'un union partagent donc la même mémoire sous-jacente.
@@ -506,6 +508,139 @@ var.b = 256; // ATTENTION: var.str ne vaut plus TNCY !!!
 		\begin{alertblock}{ATTENTION : Soyez prudent lorsque vous accédez aux champs d'union. Écrire dans n'importe quel champ d'union peut écraser la mémoire déjà écrite par un autre champ.}
 		\unionExmpDanger
 		\end{alertblock}
+	\end{frame}
+	
+	    
+	\defverbatim[colored]\enumSyntax{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum EnumName {
+	OptionName1,
+	OptionName2,
+	OptionName3,
+	...
+};
+	\end{lstlisting}}
+
+	\begin{frame}{Les enums}  	
+		\begin{block}{Définition :}
+			L'énumération (ou enum) est un type de données défini par l'utilisateur. Il est principalement utilisé pour attribuer des noms à des \alert{constantes intégrales}\footnote[frame]{Des constantes de type intégrale (fondamental)}. Ceci est destiné à augmenter la lisibilité et la maintenabilité du programme
+		\end{block}
+		\begin{block}{Syntaxe :}
+			\enumSyntax
+		\end{block}
+	\end{frame}
+	
+	\defverbatim[colored]\enumOne{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum MyEnum { A, B, C };
+	\end{lstlisting}}  
+
+	\begin{frame}{Les enums}
+		\begin{alertblock}{Quelques remarques :}
+			\begin{itemize}
+				\item Pour avoir  un bon style de programmation, les constantes d'énumération doivent être écrites en majuscules comme toutes les autres constantes de programme.
+				\item Puisque les énumerations sont des types défini par l'utilisateur, des variables peuvent être déclarées en utilisant ce type.
+			\end{itemize}
+			Si une énumération est définie comme suit: \enumOne alors \texttt{A} sera 0, \texttt{B} sera 1 et ainsi de suite.
+		\end{alertblock}
+	\end{frame}
+	
+	\defverbatim[colored]\enumTwo{	
+		\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED = 0, // = 0
+	ORANGE,  // = ??
+	GREEN    // = ??
+};
+	\end{lstlisting}}
+	\defverbatim[colored]\enumThree{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED , 		// = ??
+	ORANGE = 1, // = 1
+	GREEN    	// = ??
+};
+	\end{lstlisting}}
+	\defverbatim[colored]\enumFour{	
+		\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED, 		// = ??
+	ORANGE, 	// = ??
+	GREEN = 5,  // = 5
+	BLUE,		// = ??
+};
+	\end{lstlisting}}
+	\begin{frame}{Les enums}
+		Example 1 : 
+		\enumTwo
+		Example 2 : 
+		\enumThree
+		
+	\end{frame}
+	
+	\defverbatim[colored]\enumTwoSolution{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED = 0, // = 0
+	ORANGE,  // = 1
+	GREEN    // = 2
+};
+	\end{lstlisting}}
+	\defverbatim[colored]\enumThreeSolution{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED, 		// = 0
+	ORANGE = 1, // = 1
+	GREEN    	// = 2
+};
+	\end{lstlisting}}
+	\defverbatim[colored]\enumFourSolution{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight { 
+	RED, 		// = 0
+	ORANGE, 	// = 0
+	GREEN = 5,  // = 5
+	BLUE     	// = 6
+};
+	\end{lstlisting}}
+	
+	\defverbatim[colored]\enumFive{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight myVar = BLUE; // = ??
+myVar = ORANGE; // = ??
+myVar = GREEN + 1; // = ??
+myVar = GREEN + BLUE + ORANGE; // = ??
+printf("%d\n", myVar);
+printf("%d\n", RED);
+	\end{lstlisting}}
+	\defverbatim[colored]\enumFiveSolution{	
+	\begin{lstlisting}[language=C,tabsize=4]
+enum TrafficLight myVar = BLUE; // = 6
+myVar = ORANGE; // = 0
+myVar = GREEN + 1; // = 6
+myVar = GREEN + BLUE + ORANGE; // = 11
+printf("%d\n", myVar); // prints 11
+printf("%d\n", RED); // prints 0
+	\end{lstlisting}}
+	\begin{frame}{Les enums}
+		Solution 1 : 
+		\enumTwoSolution
+		Solution 2 : 
+		\enumThreeSolution
+	\end{frame}
+	
+	\begin{frame}{Les enums}
+		Example 3 : 
+		\enumFour
+		Example 4 : 
+		\enumFive
+	\end{frame}
+	
+	\begin{frame}{Les enums}
+		Solution 3 : 
+		\enumFourSolution
+		Solution 4 : 
+		\enumFiveSolution
 	\end{frame}
 
 
@@ -535,7 +670,7 @@ int tab[8];	// tab contains 8 elments of type int
   	\end{frame}
   
   	\begin{frame}{Les tableaux}
-  		\framesubtitle{Représentation mémoire des tableaux en mémoire}
+  		\framesubtitle{Représentation des tableaux en mémoire}
   		\begin{figure}[!h]
   			\centering
 	    	\begin{tikzpicture} [nodes in empty cells,
@@ -562,7 +697,7 @@ int tab[8];	// tab contains 8 elments of type int
 	\end{frame}
 
 	\begin{frame}{Les tableaux}
-		\framesubtitle{Exemple: Représentation mémoire des tableaux en mémoire}
+		\framesubtitle{Exemple: Représentation des tableaux en mémoire}
 		\begin{block}{Exemple :}
 			\texttt{tab} contient 8 éléments de type \texttt{int} indexables de $0$ à $7$ : 
 			\arrayDeclExmpl
@@ -1110,7 +1245,7 @@ int main() {
   	\end{frame}
   
   	\begin{frame}{La mémoire}
-  		\framesubtitle{Cela devrait fonctionner}
+  		\framesubtitle{Cela devrait fonctionner, non?}
   		Example 3:
   		\dataDemoThree
   	\end{frame}
@@ -1131,12 +1266,185 @@ int main() {
   			Une mémoire est dite \alert{dynamique} lorsque sa taille est déterminée pendant le temps \alert{d'exécution}. Ce type de mémoire est généralement alloué à partir du \alert{tas} (heap) via un appel système (syscall).
   		\end{block}
   	\end{frame} 	
-  
+
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{alertblock}{
-  			Chaque mémoire allouée à partir du tas doit être libérée à un moment donné pendant l'exécution du programme. Pour chaque appel \texttt{*alloc}\footnote[frame]{malloc et calloc}, il doit nécessairement y avoir un appel correspondant à \texttt{free}.}
+  			Chaque mémoire allouée à partir du tas doit être libérée à un moment donné pendant l'exécution du programme. Pour chaque appel à \texttt{malloc} ou \texttt{calloc}, il doit nécessairement y avoir un appel correspondant à \texttt{free}.}
   		\end{alertblock}
+  		\begin{block}{La fonction \texttt{free}}
+  			Pour libérer de la mémoire, la fonction \texttt{free} doit être utilisée :
+  			\alert{Profile} : \texttt{void free(void* ptr);} \\
+  			Exemple : \texttt{free(tab);}
+  		\end{block}
+  		\begin{alertblock}{Faites attention de ne pas libérer de mémoire qui n'est pas sur le tas.}
+  		\end{alertblock}
+  	\end{frame}
+  
+\defverbatim[colored]\leakExmplOne{
+\begin{lstlisting}[language=C,tabsize=2]
+struct Point 
+{
+	float x, y;
+};	
+
+int main() 
+{
+	struct Point** hexagone = malloc(6 * sizeof(struct Point*));
+	
+	for (int i = 0; i < 6; i++) {
+		hexagone[i] = malloc(sizeof(struct Point));
+		// Init of hexagone[i]  ...
+	}
+
+	free(hexagone);
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\leakExmplTwo{
+\begin{lstlisting}[language=C,tabsize=2]	
+free(hexagone); // memory leak here !
+\end{lstlisting}}
+
+\defverbatim[colored]\leakExmplSolution{
+\begin{lstlisting}[language=C,tabsize=2]	
+for (int i = 0; i < 6; i++) {
+	free(hexagone[i]); // freach each point 
+}
+
+free(hexagone); // free the array of pointers
+\end{lstlisting}}
+
+  	\begin{frame}{La mémoire}
+  		\leakExmplOne
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire : Fuitre mémoire}
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				\matrix(vector)[matrix anchor=center, xshift=0.5cm, matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}]
+  				{ % use \& instead of & as column separator
+  					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \\
+  					$.$ \& $.$ \& $.$ \& $.$ \& $.$ \& $.$ \\
+  				};
+  				\draw (-3.5,-0.5) node{hexagone :};
+				\pgfmathsetmacro{\structdimx}{0.5}
+				\pgfmathsetmacro{\structdimy}{0.4}
+				
+	  			\drawstruct{(-3,-2)}
+	  			\structcell{.} \coordinate (p1) at (currentcell.center);
+	  			\structcell{x=4} 
+	  			\structcell{y=0}
+	  			\structname{struct Point}
+	  			
+	  			\drawstruct{(-1.5,-2)}
+	  			\structcell{.} \coordinate (p2) at (currentcell.center);
+	  			\structcell{x=2} 
+	  			\structcell{y=3.5}
+	  			
+	  			\drawstruct{(0,-2)}
+	  			\structcell{.} \coordinate (p3) at (currentcell.center);
+	  			\structcell{x=-2} 
+	  			\structcell{y=3.5}
+	  			
+	  			\drawstruct{(1.5,-2)}
+	  			\structcell{.} \coordinate (p4) at (currentcell.center);
+	  			\structcell{x=-2} 
+	  			\structcell{y=0}
+	  			
+	  			\drawstruct{(3,-2)}
+	  			\structcell{.} \coordinate (p5) at (currentcell.center);
+	  			\structcell{x=-2} 
+	  			\structcell{y=-3.5}
+	  			
+	  			\drawstruct{(4.5,-2)}
+	  			\structcell{.} \coordinate (p6) at (currentcell.center);
+	  			\structcell{x=4} 
+	  			\structcell{y=0}
+	  			
+	  			\pgfmathsetmacro{\structdimx}{1.6}
+	  			\pgfmathsetmacro{\structdimy}{0.5}
+  				\draw[-{Latex[length=2.4mm]}, thick] (-2,-0.5) -- (p1);
+  				\draw[-{Latex[length=2.4mm]}, thick] (-1,-0.5) -- (p2);
+  				\draw[-{Latex[length=2.4mm]}, thick] (0,-0.5) -- (p3);
+  				\draw[-{Latex[length=2.4mm]}, thick] (1,-0.5) -- (p4);
+  				\draw[-{Latex[length=2.4mm]}, thick] (2,-0.5) -- (p5);
+  				\draw[-{Latex[length=2.4mm]}, thick] (3,-0.5) -- (p6);
+  			\end{tikzpicture}
+  		\end{figure}
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire : Fuitre mémoire}
+  		\leakExmplTwo
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				\matrix(vector)[matrix anchor=center, xshift=0.75cm, matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}]
+  				{ % use \& instead of & as column separator
+  					{0} \& {1} \& {2} \& {3} \& {4} \& {5} \\
+  					$.$ \& $.$ \& $.$ \& $.$ \& $.$ \& $.$ \\
+  				};
+  				\draw (-3.25,-0.5) node{hexagone :};
+  				\pgfmathsetmacro{\structdimx}{0.5}
+  				\pgfmathsetmacro{\structdimy}{0.4}
+  				
+  				\drawstruct{(-3,-1.5)}
+  				\structcell{.} \coordinate (p1) at (currentcell.center);
+  				\structcell{x=4} 
+  				\structcell{y=0}
+  				\structname{struct Point}
+  				
+  				\drawstruct{(-1.5,-1.5)}
+  				\structcell{.} \coordinate (p2) at (currentcell.center);
+  				\structcell{x=2} 
+  				\structcell{y=3.5}
+  				
+  				\drawstruct{(0,-1.5)}
+  				\structcell{.} \coordinate (p3) at (currentcell.center);
+  				\structcell{x=-2} 
+  				\structcell{y=3.5}
+  				
+  				\drawstruct{(1.5,-1.5)}
+  				\structcell{.} \coordinate (p4) at (currentcell.center);
+  				\structcell{x=-2} 
+  				\structcell{y=0}
+  				
+  				\drawstruct{(3,-1.5)}
+  				\structcell{.} \coordinate (p5) at (currentcell.center);
+  				\structcell{x=-2} 
+  				\structcell{y=-3.5}
+  				
+  				\drawstruct{(4.5,-1.5)}
+  				\structcell{.} \coordinate (p6) at (currentcell.center);
+  				\structcell{x=4} 
+  				\structcell{y=0}
+  				
+  				\pgfmathsetmacro{\structdimx}{1.6}
+  				\pgfmathsetmacro{\structdimy}{0.5}
+  				\draw[fibeamer@lightRed, ultra thick] (-2.75,-1.5) to (4.25,0.5);
+  				\draw[fibeamer@lightRed, ultra thick] (-2.75,0.5) to (4.25,-1.5);
+  			\end{tikzpicture}
+  		\end{figure}
+  	\end{frame}
+  
+  	\begin{frame}{La mémoire : Fuite mémoire}
+  		\begin{block}{Explication}
+  			Ce que nous venons de voir est un exemple de \alert{fuite de mémoire}. \\
+  			Une fuite de mémoire se produit lorsqu'une mémoire allouée dynamiquement n'est jamais libérée.
+  		\end{block}
+  		Pour résoudre le problème, nous devons procéder comme suit :
+  		\leakExmplSolution
   	\end{frame}
   
   	\begin{frame}{La mémoire}
@@ -1299,16 +1607,32 @@ void* p6 = realloc(NULL, 0); // Equivalent to malloc(0)
 
 \defverbatim[colored]\ptrSyntax{
 \begin{lstlisting}[language=C,tabsize=4]	
-TypeName* ptr_name; // Recommended
-TypeName *ptr_name; // Recommended
-TypeName*ptr_name;
-TypeName * ptr_name;
+Typename* ptr_name; // Recommended
+Typename *ptr_name; // Recommended
+Typename*ptr_name;
+Typename * ptr_name;
 \end{lstlisting}}
 
 \defverbatim[colored]\ptrAdrSyntax{
 \begin{lstlisting}[language=C,tabsize=4]	
-TypeName var = ...;
-TypeName* ptr = &var;
+Typename var = ...;
+Typename* ptr = &var;
+\end{lstlisting}}
+\defverbatim[colored]\ptrAdrExmpl{
+\begin{lstlisting}[language=C,tabsize=4]	
+int var = 42;
+int* ptr = &var;
+\end{lstlisting}}
+\defverbatim[colored]\ptrAdrArr{
+\begin{lstlisting}[language=C,tabsize=4]	
+int arr[] = {1, 2, 3};
+int* ptrCpy = arr;
+int* ptrArr = &arr;
+assert(arr == &arr); // true
+assert(ptrCpy == arr); // true
+assert(ptrCpy == ptrArr); // true
+assert(&ptrCpy == arr); // false
+assert(&ptrCpy == &ptrArr); // false
 \end{lstlisting}}
 	\begin{frame}{La mémoire}
 		\framesubtitle{Les pointeurs}
@@ -1325,6 +1649,9 @@ TypeName* ptr = &var;
 			Exemple :
 			\ptrAdrSyntax
 		\end{block}
+		\begin{exampleblock}{Example : }
+			\ptrAdrExmpl
+		\end{exampleblock}
 	\end{frame}
 
 	\begin{frame}{La mémoire}
@@ -1375,13 +1702,23 @@ TypeName* ptr = &var;
 			\end{tikzpicture}
 		\end{figure}
 	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		\begin{alertblock}{Attention : }
+			Lorsque l'opérateur \alert{\&} est utilisé sur un tableau, il renvoie une adresse vers le premier élément de ce tableau et non un pointeur vers la première adresse du tableau. \\
+		\end{alertblock}
+		\begin{exampleblock}{Example :}
+			\ptrAdrArr
+		\end{exampleblock}
+	\end{frame}
 	
 \defverbatim[colored]\ptrDerefSyntax{
 \begin{lstlisting}[language=C,tabsize=4]	
 TypeName var = ...;
 TypeName* ptr = &var;
 assert(*ptr == var); // true
-*ptr = ...; // changed the value of var
+*ptr = ...;          // changes the content of var
 \end{lstlisting}}
 
 	\begin{frame}{La mémoire}
@@ -1413,10 +1750,268 @@ struct StructName* ptr = &var;
 		\framesubtitle{Les pointeurs}
 		\begin{alertblock}{ATTENTION :}
 			- Déréférencer un pointeur NULL est un comportement indéfini. \\
-			- Déréférencer un pointeur sur lequel \texttt{free()} a été appelé est un comportement indéfini.
+			- Déréférencer un pointeur sur lequel \texttt{free()} a été appelé est un comportement indéfini.\\
+			- En général, le déréférencement d'un \alert{dangling pointer} entraînera une corruption de pile ou un plantage du programme.
+		\end{alertblock}
+		\begin{block}{Définition}
+			Un \alert{dangling pointer}\footnote[frame]{traduction littérale : « pointeur pendouillant » ou « pointeur sautillant »} est un pointeur pointant vers une adresse mémoire valide qui a été libérée ou détruite.
+		\end{block}
+	\end{frame}
+\defverbatim[colored]\danglinPtrOne{
+\begin{lstlisting}[language=C,tabsize=4]	
+int main() {
+	int* ptr = NULL;
+	{
+		int x = 42;
+		ptr = &x;
+	}
+	printf("content of ptr : %d\n", *ptr);
+	*ptr = 3;
+}
+\end{lstlisting}}
+\defverbatim[colored]\danglinPtrOneSolution{
+\begin{lstlisting}[language=C,tabsize=4]	
+int main() {
+	int* ptr = NULL;
+	{
+		int x = 42;
+		ptr = &x;
+	}
+	// x is out of scope (it's popped out of the stack)
+	printf("content of ptr : %d\n", *ptr); // ptr is now a 
+	                                       // dangling pointer
+	*ptr = 3; // this will either corrupt the stack or
+	          // segfault
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrPartOne{
+\begin{lstlisting}[language=C,tabsize=4]	
+int* ptr = NULL;
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrPartTwo{
+\begin{lstlisting}[language=C,tabsize=4]	
+int x = 42;
+ptr = &x;
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrPartThree{
+\begin{lstlisting}[language=C,tabsize=4]
+{	
+	int x = 42;
+	ptr = &x;
+} // x is out of scope (it's popped out of the stack)
+\end{lstlisting}}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		Exemple 1 :
+		\danglinPtrOne
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Dangling pointers}
+		Solution 1 :
+		\danglinPtrOneSolution
+	\end{frame}
+
+	\begin{frame}{La mémoire : Dangling pointers}
+		\danglingPtrPartOne
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.9]
+				\stacktop{}
+				\separator
+				\startframe
+				\cell{\texttt{args...}}
+				\cell{\texttt{@r}} \cellcom{0x12345600}
+				\cell{\texttt{ancien @fp}} \cellcom{0x12345604}
+				\cell{\texttt{ptr=0}}  \cellcom{0x12345608}
+				\finishframe{stack frame\\de main}
+				\separator
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{La mémoire : Dangling pointers}
+		\danglingPtrPartTwo
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.9]
+				\stacktop{}
+				\separator
+				\cell{\texttt{@r}} \cellcomL{0x12345600}
+				\cell{\texttt{@fp}} \cellcomL{0x12345604}
+				\cell{\texttt{ptr=0x1234560C}}  \cellcomL{0x12345608} \coordinate (p1) at (currentcell.east);
+				\cell{\texttt{x=42}}  \cellcomL{0x1234560C} \coordinate (p2) at (currentcell.east);
+				\separator
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p1) .. controls (3,-3) and (3,-4) .. (p2);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{La mémoire : Dangling pointers}
+		\danglingPtrPartThree
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.85]
+				\stacktop{}
+				\separator
+				\cell{\texttt{@r}} \cellcomL{0x12345600}
+				\cell{\texttt{@fp}} \cellcomL{0x12345604}
+				\cell{\texttt{ptr=0x1234560C}}  \cellcomL{0x12345608} \coordinate (p1) at (currentcell.east);
+				\bcell{\texttt{???}}  \cellcomL{0x1234560C} \coordinate (p2) at (currentcell.east);
+				\separator
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p1) .. controls (3,-3) and (3,-4) .. (p2);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+\defverbatim[colored]\danglingPtrTwo{
+\begin{lstlisting}[language=C,tabsize=4]	
+int main()
+{
+	int* tab = malloc(4 * sizeof(int));
+	// Init tab to 1, 2, 3, 4
+	free(tab);
+	tab[0] = 3;
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrTwoSolution{
+\begin{lstlisting}[language=C,tabsize=4]
+int main()
+{
+	int* tab = malloc(4 * sizeof(int));
+	// Init tab to 1, 2, 3, 4
+	free(tab);
+	// tab is now dangling
+	tab[0] = 3; // will crash
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrTwoSolutionPartOne{
+\begin{lstlisting}[language=C,tabsize=4]
+int* tab = malloc(4 * sizeof(int));
+// Init tab to 1, 2, 3, 4
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrTwoSolutionPartTwo{
+\begin{lstlisting}[language=C,tabsize=4]
+free(tab);
+// tab is now dangling
+\end{lstlisting}}
+
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
+		Exemple 2 :
+		\danglingPtrTwo
+	\end{frame}
+	
+	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs : Dangling pointers}
+		Solution 2 :
+		\danglingPtrTwoSolution
+	\end{frame}
+
+	\begin{frame}{La mémoire}
+		\danglingPtrTwoSolutionPartOne
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.8]
+				\stacktop{}
+				\cell{\texttt{tab=0xFFFFEF08}} \cellcomL{0xABCDEF04} \coordinate (p1) at (currentcell.east);
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\drawstruct{(5,1)})
+				\structcell{...}
+				\structcell{1} \coordinate (p2) at (currentcell.west);
+				\structcell{2} 
+				\structcell{3}
+				\structcell{4}
+				\structcell{...}
+				\draw (5,-6) node{Tas};
+				\draw (8,-1) node{0xFFFFEF08};
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p1) -- (p2);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{La mémoire}
+		\danglingPtrTwoSolutionPartTwo
+		\begin{figure}[!h]
+			\centering
+			\begin{tikzpicture}[scale=0.8]
+				\stacktop{}
+				\cell{\texttt{tab=0xFFFFEF08}} \cellcomL{0xABCDEF04} \coordinate (p1) at (currentcell.east);
+				\stackbottom{}
+				\cell[draw=none]{La Pile}
+				
+				\drawstruct{(5,1)})
+				\structcell{...}
+				\structcell{??} \coordinate (p2) at (currentcell.west);
+				\structcell{??} 
+				\structcell{??}
+				\structcell{??}
+				\structcell{...}
+				\draw (5,-6) node{Tas};
+				\draw (8,-1) node{0xFFFFEF08};
+				
+				\draw[-{Latex[length=3.3mm]}, thick] (p1) -- (p2);
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+\defverbatim[colored]\danglingPtrTwoSolutionTemp{
+\begin{lstlisting}[language=C,tabsize=4]
+free(tab);
+tab = NULL; // check if tab is NULL before we access it later
+\end{lstlisting}}
+
+\defverbatim[colored]\danglingPtrTwoSolution{
+\begin{lstlisting}[language=C,tabsize=4]
+void myfree(void** pptr)
+{
+	if (pptr && *pptr) {
+		free(*pptr);
+		*pptr = NULL;
+	}
+}
+\end{lstlisting}}
+
+	\begin{frame}{La mémoire}
+		\framesubtitle{Dangling pointers : Solution Possibles}
+		\begin{block}{Solution 1 :}
+			Une façon de résoudre ce problème consiste à affecter le pointeur à NULL après l'avoir libéré.
+			\danglingPtrTwoSolutionTemp
+		\end{block}
+		\begin{alertblock}{Problème avec la solution ci-dessus}
+			Cette solution n'est pas parfaite si on libére \texttt{tab} dans une autre fonction et on l'affecte à \texttt{NULL}, seule la copie locale du pointeur sera \texttt{NULL}.
 		\end{alertblock}
 	\end{frame}
 
+	\begin{frame}{La mémoire}
+		\framesubtitle{Dangling pointers : Solution Possibles}
+		\begin{block}{Solution 2 :}
+			Une meilleure façon de résoudre ce problème est de passer un pointeur vers le pointeur qui doit être libéré.
+			\danglingPtrTwoSolution
+		\end{block}
+		\begin{alertblock}{Cette solution n'est pas parfaite non plus}
+		\end{alertblock}
+	\end{frame}
+	
 	\begin{frame}{La mémoire}
 		\framesubtitle{Les pointeurs}
 		\begin{block}{Accès aux membres d'un struct/union}
@@ -1426,6 +2021,7 @@ struct StructName* ptr = &var;
 	\end{frame}
 
 	\begin{frame}{La mémoire}
+		\framesubtitle{Les pointeurs}
 		\begin{block}{Accès aux membres d'un struct/union}
 			La deuxième façon est verbeuse et donc déconseillée :\\
 			\ptrStructSyntaxTwo
@@ -1462,14 +2058,157 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
   		\begin{alertblock}{Lorsque vous utilisez l'arithmétique du pointeur, veillez à ne pas dépasser la taille allouée.}
   		\end{alertblock}
   	\end{frame}
-  	
-  	\begin{frame}{Pointer casting}
-  		content...
+
+\defverbatim[colored]\funcPtrSyntax{	
+\begin{lstlisting}[language=C,tabsize=4]
+ReturnType (*funcPtrName)(ArgType1, ArgType2, ..., ArgTypeN);		
+\end{lstlisting}}
+
+  	\begin{frame}{Pointeurs de fonction}
+  		\begin{block}{Explication :}
+  			Comme les variables, les fonctions existent également en mémoire, nous pouvons donc avoir des pointeurs vers elles. \\
+  			Cela peut être utile pour déterminer la fonction à exécuter au moment de l'exécution. On peut imiter le comportement des fonctions virtuelles fournies dans des langages tels que Java ou C++ en utilisant cette fonctionnalité.\\
+  			\alert{Syntaxe :}
+  			\funcPtrSyntax
+  		\end{block}
   	\end{frame}
   	
-  	%\subsection{Les enums}
-  	%\subsection{Le keyword static}
   	
+\defverbatim[colored]\funcPtrExmpl{	
+\begin{lstlisting}[language=C,tabsize=4]
+// includes ...	
+int max(int a, int b) { return a > b ? a : b; }
+int min(int a, int b) { return a < b ? a : b; }
+typedef int (*MyFuncType)(int, int); // MyFunc is a function
+									 // pointer type
+int main() {
+  	int a = 5, b = 6;
+  	srand(time(NULL));
+  	int (*func)(int, int) = max; // Equivalent to 
+  								 // MyFuncType func = max;
+  	if (rand()%2) {
+  		func = &min; // same as func = main
+  	}
+  	return func(a, b);
+}
+\end{lstlisting}}
+
+  	\begin{frame}{Pointeurs de fonction}  	
+  		\begin{exampleblock}{Exemple :}
+  			\funcPtrExmpl
+  		\end{exampleblock}
+  	\end{frame}
+  	
+  	\begin{frame}{Pointer casting}
+  		// Pas trés important
+  	\end{frame}
+
+    \subsection{Le keyword static et extern}
+    %%%%%%%%%% TODO %%%%%%%%%%
+    
+    \subsection{Les Opérateurs et ordre d'évaluation}
+    \begin{frame}{Priorité des opérateurs}
+    	Table des opérateurs : \footnote[frame]{pour plus de détails: \url{https://en.cppreference.com/w/c/language/operator_precedence}}
+  		\begin{table}[!b]
+	  		{\carlitoTLF % Use monospaced lining figures
+	  		\begin{tabularx}{\textwidth}{Xrrr}
+	  			\textbf{Priorité} & \textbf{Les opérateurs} \\
+	  			\toprule
+	  			\texttt{1} & ++ -{}- () [] . ->    			\\
+	  			\texttt{2} & ++ -{}- + - ! ~ * \& sizeof    \\
+	  			\texttt{3} & * / \%  						\\
+	  			\texttt{4} & + -							\\
+	  			\texttt{5} & <{}< >{}>						\\
+	  			\texttt{6} & <{}<= >{}>=					\\
+	  			\texttt{7} & == !=							\\
+	  			\texttt{8} & \&								\\
+	  			\bottomrule
+	  		\end{tabularx}}
+	  		\caption{Priorité des opérateurs en C}
+	  	\end{table}  	
+  	\end{frame}
+  
+  	\begin{frame}{Priorité des opérateurs}
+  		Table des opérateurs : \footnote[frame]{pour plus de détails: \url{https://en.cppreference.com/w/c/language/operator_precedence}}
+  		\begin{table}[!b]
+  			{\carlitoTLF % Use monospaced lining figures
+  				\begin{tabularx}{\textwidth}{Xrrr}
+  					\textbf{Priorité} & \textbf{Les opérateurs} \\
+  					\toprule
+  					\texttt{9} & \textasciicircum		\\
+  					\texttt{10} & |						\\
+  					\texttt{11} & \&\&					\\
+  					\texttt{12} & ||					\\
+  					\texttt{13} & ?:					\\
+  					\texttt{14} & = += -= *= /= \%=	<{}<= >{}>= \&= \textasciicircum= |= \\
+  					\texttt{15} & , \\
+  					\bottomrule
+  			\end{tabularx}}
+  			\caption{Priorité des opérateurs en C}
+  		\end{table}  	
+  	\end{frame}
+  
+\defverbatim[colored]\opOrderUB{	
+\begin{lstlisting}[language=C,tabsize=4]
+i = (i++); 		// i = 0 intially
+i = ++i + i++; 	// i = 0 intially
+i = i++ + 1; 	// i = 0 intially
+f(++i, ++i); 	// i = 0 intially
+\end{lstlisting}}
+
+\defverbatim[colored]\opOrderUBSolution{	
+\begin{lstlisting}[language=C,tabsize=4]
+i = ++i + i++; 		// undefined behavior
+i = i++ + 1; 		// undefined behavior
+f(++i, ++i); 		// undefined behavior
+f(i = -1, i = -1); 	// undefined behavior
+
+f(i, i++); 			// undefined behavior
+a[i] = i++; 		// undefined bevahior
+\end{lstlisting}}
+  	\begin{frame}{Les Opérateurs et ordre d'évaluation}
+  		Pouvez-vous prédire la valeur de \texttt{i} sur chaque instruction sachant que \texttt{i} est initialement $0$ :
+  		\opOrderUB
+  	\end{frame}
+  	
+  	\begin{frame}{Les Opérateurs et ordre d'évaluation}
+  		\opOrderUBSolution
+  		\begin{alertblock}{Explication :}
+  			Pour une expression de type \texttt{ExpA \alert{op} ExpB} ou \alert{op} n'est pas \texttt{\alert{\&\&}} ou \texttt{\alert{||}} ou \texttt{\alert{,}} l'ordre d'evaluation de \texttt{ExpA} et \texttt{ExpB} est indéfini (c'est-à-dire que \texttt{ExpA} peut être évalué avant \texttt{ExpB} ou vice versa)
+  		\end{alertblock}
+  		\begin{exampleblock}{Example :}
+  			\texttt{res = foo() + bar()} foo peut être appelé avant bar ou vice versa
+  		\end{exampleblock}
+  	\end{frame}
+  	
+\defverbatim[colored]\opNoUB{	
+\begin{lstlisting}[language=C,tabsize=4]
+int res = f1() && f2(); // f1() is called before f2()
+int res = f1() || f2;   // f1() is called before f2()
+int res = f1(), f2();   // f1() is called before f2()
+int res = cond() ? f1() : f2() // cond() is called then f1() 
+							   // is called if the result of 
+							   // cond() is true otherwise f2() 
+							   // is called
+\end{lstlisting}}
+
+    \begin{frame}{Les Opérateurs et ordre d'évaluation}
+	  	\begin{alertblock}{Opérateurs qui garantissent l'ordre}
+	  		Les opérateurs \texttt{\alert{\&\&}}, \texttt{\alert{||}} et \texttt{\alert{,}} garantissent que l'expression à gauche est évaluée avant l'expression à droite.\\
+	  		L'opérateur ternaire (\texttt{\alert{?:}}) garantit que la condition est évaluée en premier. Si la condition est vraie, l'expression de gauche à \alert{:} est évaluée, sinon l'expression à droite de \alert{:} est évaluée.
+	  	\end{alertblock}
+  		\begin{exampleblock}{Example :}
+  			\opNoUB
+  		\end{exampleblock}
+  	\end{frame}
+
+   	
   	\include{outils}
+  	
+  	\begin{frame}{Conclusion}
+  		%\begin{itemize}
+  		%	\item .	
+  		%\end{itemize}
+  	\end{frame}
   \end{darkframes}
 \end{document}
