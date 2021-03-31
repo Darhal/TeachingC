@@ -920,8 +920,8 @@ union ieee754
 
 union ieee754 integer_rep[] = { {1}, {.f=3.14}, {.d=42} };
 // sizeof(union ieee754) = ??
-// sizeof(triangle) = ??
-// sizeof(triangle) / sizeof(union ieee754) = ??
+// sizeof(integer_rep) = ??
+// sizeof(integer_rep) / sizeof(union ieee754) = ??
 \end{lstlisting}}
 
 \defverbatim[colored]\arraySizeOfExmplTwoSolution{
@@ -1119,14 +1119,14 @@ char str[] = {'H', 'e', 'l', 'l', 'o', '\0'};
   		\begin{itemize}
   			\item \alert{Pile} : La pile est une région de mémoire (structure LIFO) réservée aux variables locales, à l'environnement de fonctions..
   			\item \alert{Tas} : Le tas est le segment réservé à l'allocation mémoire demandée par le programmeur pour des variables dont la taille ne peut être connue qu'au moment de l'exécution.
-  			\item \alert{BSS}\footnote[frame]{Block Started by Symbol} : Les données de ce segment sont initialisées par le kernel à 0 avant que le programme commence à s'exécuter. En générale, ce segment contient toutes les variables \alert{globales} et \alert{statiques} qui sont initialisées à zéro ou qui n'ont pas d'initialisation explicite dans le code source. le segment BSS est \alert{Read-Write}. Le segment BSS est également appelé "\alert{segment de données non initialisé}".
+  			\item \alert{BSS}\footnote[frame]{également appelé "\alert{segment de données non initialisé}".} : Les données de ce segment sont initialisées par le kernel à 0 avant que le programme commence à s'exécuter. En générale, ce segment contient toutes les variables \alert{globales} et \alert{statiques}\footnote[frame]{déclaré avec le mot-clé \texttt{static}} qui sont \alert{initialisées} à zéro ou qui \alert{n'ont pas d'initialisation} explicite dans le code source. le segment BSS est \alert{Read-Write}.
   		\end{itemize}
   	\end{frame}
   
   	\begin{frame}{La mémoire}
   		\framesubtitle{Les différents segments}
   		\begin{itemize}
-  			\item \alert{Data} : Le segment de données ou le segment de données initialisé. Cette partie de l'espace d'adressage virtuel d'un programme contient les variables globales et statiques qui sont initialisées par le programmeur. Ce segment peut être encore classé en deux zones :
+  			\item \alert{Data} : Le segment de données ou le segment de données initialisé. Cette partie de l'espace d'adressage virtuel d'un programme contient les variables \alert{globales} et \alert{statiques}\footnote[frame]{déclaré avec le mot-clé \texttt{static}} qui sont \alert{initialisées} par le \alert{programmeur}. Ce segment peut être encore classé en deux zones :
   			\begin{itemize}
   				\item Zone contenant des données initialisées en lecture seule (RoData).
   				\item Zone contenant des données initialisées en lecture-écriture.
@@ -1274,7 +1274,7 @@ int main() {
   			\alert{Profile} : \texttt{void free(void* ptr);} \\
   			Exemple : \texttt{free(tab);}
   		\end{block}
-  		\begin{alertblock}{Faites attention de ne pas libérer de mémoire qui n'est pas sur le tas.}
+  		\begin{alertblock}{Attention, seule la mémoire qui existe dans le tas doit être libérée.}
   		\end{alertblock}
   	\end{frame}
   
@@ -1316,7 +1316,7 @@ free(hexagone); // free the array of pointers
   		\leakExmplOne
   	\end{frame}
   
-  	\begin{frame}{La mémoire : Fuitre mémoire}
+  	\begin{frame}{La mémoire : Fuite mémoire}
   		\begin{figure}[!h]
   			\centering
   			\begin{tikzpicture} [nodes in empty cells,
@@ -1377,7 +1377,7 @@ free(hexagone); // free the array of pointers
   		\end{figure}
   	\end{frame}
   
-  	\begin{frame}{La mémoire : Fuitre mémoire}
+  	\begin{frame}{La mémoire : Fuite mémoire}
   		\leakExmplTwo
   		\begin{figure}[!h]
   			\centering
@@ -1496,7 +1496,7 @@ p3[0].a; // Access to uninitialized memory !
 
 \defverbatim[colored]\callocExample{
 \begin{lstlisting}[language=C,tabsize=2]
-void* p1 = calloc(1, 256); // 512 bytes are allocated
+void* p1 = calloc(1, 256); // 256 bytes are allocated
 int* p2 = (int*)calloc(4, sizeof(int)); // 4 * sizeof(int) bytes are allocated
 struct A* p3 = (struct A*)calloc(2, sizeof(struct A)); // 2 * sizeof(struct A) bytes are allocated
 assert(p2[0] == 0); // true
@@ -1507,7 +1507,7 @@ assert(p3[1].str[0] == 0); // true
 	\begin{frame}{La mémoire}
 		\framesubtitle{malloc, calloc et realloc}
 		\begin{block}{calloc}
-			\alert{Signature} : \texttt{void* calloc(size\_t nmemb, size\_t size);} \\
+			\alert{Profile} : \texttt{void* calloc(size\_t nmemb, size\_t size);} \\
 			Alloue $nmemb * size$ octets et les initialise à zéro.
 		\end{block}
 		\begin{exampleblock}{Exemple :}
@@ -2199,7 +2199,7 @@ int main()
 		\staticPrivExmplSolutionOne
 		\staticPrivExmplSolutionTwo
 	\end{frame}
-	\begin{frame}{le mot-clé static}
+	\begin{frame}{le mot-clé extern}
 		\begin{block}{Définition :}
 			le mot-clé \alert{extern} est utilisé pour étendre la visibilité des variables / fonctions.
 		\end{block}
