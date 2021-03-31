@@ -117,8 +117,6 @@
   			\caption{Les types de base non-signés en C}
   		\end{table}
   	\end{frame}
- 	%% TODO: Add fundamental types, their sizes how to print them, etcc
- 	%% TODO: Add how to declare a variable
  
 \defverbatim[colored]\ifsignle{
 \begin{lstlisting}[language=C,tabsize=2]
@@ -204,7 +202,6 @@ if (i++)
 		\begin{block}{Comment une condition est évaluée  ?}
 			Le type \alert{booléen } n'existe pas en C. Si une expression est évaluée à 0, elle est considérée comme \alert{False}, sinon elle est considérée comme \alert{True}.
 		\end{block}
-		%% TODO: Do switch statments here!!! 
 	\end{frame}
 
 	\begin{frame}{Les conditions : Exemples}	
@@ -2102,9 +2099,116 @@ int main() {
   	\begin{frame}{Pointer casting}
   		// Pas trés important
   	\end{frame}
+  
+\defverbatim[colored]\staticInFuncExmp{	
+\begin{lstlisting}[language=C,tabsize=4]
+// includes...
+void toto()
+{
+	static int g = 5;
+	int i = 5;
+	g += 5;
+	i += 5;
+	printf("%d - %d\n", g, i);
+}
+
+int main() {
+	for (int j = 0; j < 5; j++)
+		toto();
+}
+\end{lstlisting}}
 
     \subsection{Le keyword static et extern}
-    %%%%%%%%%% TODO %%%%%%%%%%
+    \begin{frame}{le mot-clé static}
+    	\begin{block}{Définition :}
+    		Le mot-clé static se comporte différemment selon la façon dont il est utilisé :
+    		\begin{itemize}
+    			\item Une variable déclaré statique à l'intérieur d'une fonction conserve sa valeur entre les appels. (La variable agit donc comme si elle était globale)
+    			\item Une variable globale statique ou une fonction statique n'est "accessible" que dans le fichier dans lequel elle est déclarée. (un peu comme le mot-clé \alert{private} en Java)
+    		\end{itemize}
+    	\end{block}
+    \end{frame}
+
+	\begin{frame}{le mot-clé static}
+		\framesubtitle{le mot-clé static : Example 1}
+		\staticInFuncExmp
+	\end{frame}
+
+	\begin{frame}{le mot-clé static}
+		\framesubtitle{le mot-clé static : Solution 1}
+		\begin{itemize}
+			\item 1iere itération : \texttt{10 - 10}
+			\item 2ieme itération : \texttt{15 - 10}
+			\item 3ieme itération : \texttt{20 - 10}
+			\item 4ieme itération : \texttt{25 - 10}
+			\item 5ieme itération : \texttt{30 - 10}
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\staticPrivExmplOne{	
+\begin{lstlisting}[language=C,tabsize=4]
+// file1.c
+static int pix10 = 314;
+
+static void foo()
+{
+	// ...
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\staticPrivExmplTwo{	
+\begin{lstlisting}[language=C,tabsize=4]
+// mainc.c		
+int main()
+{
+	pix10 = 628;
+	foo();
+}
+\end{lstlisting}}
+
+	\begin{frame}{le mot-clé static}
+		\framesubtitle{le mot-clé static : Example 2}
+		\staticPrivExmplOne
+		\staticPrivExmplTwo
+	\end{frame}
+
+\defverbatim[colored]\staticPrivExmplSolutionOne{	
+\begin{lstlisting}[language=C,tabsize=4]
+// file1.c
+static int pix10 = 314; // this variable is only visible in this 
+					    // translation unit (file1.c)
+// this function can only be used in this translation unit
+// foo is only visible in 'file1.c'
+static void foo()						
+{
+	// ...
+}
+\end{lstlisting}}
+
+\defverbatim[colored]\staticPrivExmplSolutionTwo{	
+\begin{lstlisting}[language=C,tabsize=4]
+// mainc.c		
+int main()
+{
+	pix10 = 628; // undeclared variable pix10
+	foo();		 // implicit declaration of function 'prv_func'
+}
+\end{lstlisting}}
+	\begin{frame}{le mot-clé static}
+		\framesubtitle{le mot-clé static : Solution 2}
+		\staticPrivExmplSolutionOne
+		\staticPrivExmplSolutionTwo
+	\end{frame}
+	\begin{frame}{le mot-clé static}
+		\begin{block}{Définition :}
+			le mot-clé \alert{extern} est utilisé pour étendre la visibilité des variables / fonctions.
+		\end{block}
+		\begin{alertblock}{Quelques remarques : }
+			- L'utilisation d'\alert{extern} avec des fonctions est redondant.
+			- L'utilisation de \texttt{extern type var} amènera la variable var dans le fichier \alert{.h} ou \alert{.c} courant à partir d'un autre pendant l'édition du lien.
+		\end{alertblock}
+	\end{frame}
+		
     
     \subsection{Les Opérateurs et ordre d'évaluation}
     \begin{frame}{Priorité des opérateurs}
@@ -2158,11 +2262,11 @@ f(++i, ++i); 	// i = 0 intially
 
 \defverbatim[colored]\opOrderUBSolution{	
 \begin{lstlisting}[language=C,tabsize=4]
+i = (i++); 			// undefined behavior
 i = ++i + i++; 		// undefined behavior
 i = i++ + 1; 		// undefined behavior
 f(++i, ++i); 		// undefined behavior
-f(i = -1, i = -1); 	// undefined behavior
-
+f(i = -1, i = -2); 	// undefined behavior
 f(i, i++); 			// undefined behavior
 a[i] = i++; 		// undefined bevahior
 \end{lstlisting}}
@@ -2202,6 +2306,24 @@ int res = cond() ? f1() : f2() // cond() is called then f1()
   		\end{exampleblock}
   	\end{frame}
 
+\defverbatim[colored]\opNoUB{	
+\begin{lstlisting}[language=C,tabsize=4]
+a[i] = i;   		// OK
+a[i] = j;   		// OK
+a[i++] = i; 		// undefined behavior
+a[i] = i++; 		// undefined behavior
+int p = i++ && i--; // OK
+int p = i++ || i--; // OK
+int p = i++, i--; 	// OK
+\end{lstlisting}}
+	\begin{frame}{Les Opérateurs et ordre d'évaluation}
+		\begin{alertblock}{Pour éviter complètement le problème :}
+			Une règle de base qui devrait nous protéger de ce genre de comportement indéfini est de ne pas modifier et utiliser la même variable dans la même instruction, c'est-à-dire éviter de changer et de lire à partir de la même variable avant un \alert{point virgule ';'}.
+		\end{alertblock}
+		\begin{exampleblock}{Example :}
+			\opNoUB
+		\end{exampleblock}
+	\end{frame}
    	
   	\include{outils}
   	
