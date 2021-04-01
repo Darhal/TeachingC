@@ -1,0 +1,145 @@
+\documentclass[a4paper]{article} 
+\input{head}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	
+	%-------------------------------
+	%	TITLE SECTION
+	%-------------------------------
+	
+	\fancyhead[C]{}
+	\hrule \medskip % Upper rule
+	\begin{minipage}{0.295\textwidth} 
+		\raggedright
+		\footnotesize
+		Université de Lorraine\hfill\\   
+		Télécom Nancy - 1A\hfill\\
+		Omar CHIDA
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth} 
+		\centering 
+		\large 
+		Travaux Dirigés 1\\ 
+		\normalsize 
+		Langage C\\ 
+	\end{minipage}
+	\begin{minipage}{0.295\textwidth} 
+		\raggedleft
+		\today\hfill\\
+	\end{minipage}
+	\medskip\hrule 
+	\bigskip
+	
+	%-------------------------------
+	%	CONTENTS
+	%-------------------------------
+	
+	\section*{Partie 1 : Les bases}
+	- Le but de cette première section est de se familiariser avec les bases du C.\\
+	- L'utilisation des fonctions déjà implémentées n'est pas autorisée !
+	
+	\subsection*{Mesure de la longueur des chaînes}
+	\subsubsection*{Exercice 1 :}
+	Dans cet exercice, nous allons essayer d'implémenter une fonction qui mesure la longueur d'une chaîne terminée par null. Cette fonction se comportera comme la fonction \texttt{strlen} de la bibliothèque standard C. On vous rappele que \texttt{strlen} prend un pointeur de char et renvoie un entier.
+	Le profile de \texttt{strlen} :
+	\begin{lstlisting}[language=C]
+int strlen(char* str);
+	\end{lstlisting}
+	Implémentez une fonction appelée \texttt{len(str)} qui prend un pointeur de char comme argument et renvoie un entier positif. Vous ne devriez pas utiliser la fonction \texttt{strlen}.
+	
+	\subsection*{It's all binary}
+	\subsubsection*{Exercice 2.1 : Leading zeros}
+	Implémentez une fonction appelée \texttt{clz(bits)}\footnote{count leading zeros} qui prend un entier positif comme argument et compte le nombre de bits mis à zéro en allant de gauche à droite jusqu'à ce qu'il atteigne un 1 ou la fin. (Il compte le nombre de zéros avant la première occurrence d'un) \\
+	Exemples:
+\begin{lstlisting}[language=C]
+Pour 00000000 00000000 00000000 00010000 clz doit retourner : 27
+Pour 00000001 00000000 00000000 00010000 clz doit retourner : 7
+Pour 00000000 00001000 11111111 00010000 clz doit retourner : 12
+Pour 00000000 00000001 11111111 00010000 clz doit retourner : 15
+\end{lstlisting}
+
+	
+	\subsubsection*{Exercice 2.2 : Nextpow2}
+	Implémenter une fonction \texttt{nextpow2(n)} qui prend un entier positif et renvoie la puissance de 2 suivante la plus proche. \\
+	Par exemple:
+\begin{lstlisting}[language=C]
+nextpow2(1) 	doit retourner 1
+nextpow2(3) 	doit retourner 4
+nextpow2(5) 	doit retourner 8
+nextpow2(31) 	doit retourner 32
+nextpow2(120) 	doit retourner 128
+\end{lstlisting}
+
+	\subsubsection*{Exercice 2.3 : Log2}
+	Implémenter une fonction \texttt{log2(n)} qui prend un entier positif et renvoie un entier positive qui represente l'arrondi du log2 de l'entré.  La fonction peut être décrite par la formule suivante : $log2(x) = \ceil*{x}$. \\
+	Par exemple:
+	\begin{lstlisting}[language=C]
+log2(1) 		doit retourner 0
+log2(3) 		doit retourner 2
+log2(5) 		doit retourner 3
+log2(31) 		doit retourner 5
+log2(120) 		doit retourner 7
+	\end{lstlisting}
+
+	\subsection*{PGCD}
+	\subsubsection*{Exercice 3}
+	Implémenter une fonction \texttt{gdc(a, b)} qui prend 2 entiers positifs et renvoie leur pgcd. \\
+	Par exemple:
+	\begin{lstlisting}[language=C]
+gcd(1, 3) 		doit retourner 1
+gcd(3, 5) 		doit retourner 1
+gcd(6, 8) 		doit retourner 2
+gcd(8, 32) 		doit retourner 8
+gcd(30, 120) 	doit retourner 30
+	\end{lstlisting}
+	
+	\section*{Partie 2 : }
+	- Le but de cette partie est de traiter les boucles et les conditions et de se familiariser avec la fonction de \texttt{printf}.\\
+	\subsection*{Pyramide en C}
+	\subsubsection*{Exercice 4 : }
+	Ecrivez un programme C qui affiche un pyramide de hauteur \texttt{n}. Pour ce faire, crée une fonction \texttt{pyramide} qui prend comme paramètre un entier \texttt{n} qui représente la hauteur de la pyramide et ne renvoie rien. L'argument n doit être passé à l'exécutable dans la ligne de commande.
+	Exemples : \\
+\begin{lstlisting}[language=C]
+./pyramide 1
+*
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+./pyramide 3
+  *
+ * *
+* * *
+\end{lstlisting}
+\begin{lstlisting}[language=C]	
+./pyramide 4
+   *
+  * *
+ * * *
+* * * *
+\end{lstlisting}
+	\subsection*{Triangle de Pascal}
+	\subsubsection*{Exercice 5 : }
+	Ecrivez un programme C, qui affiche un triangle de Pascale jusqu'au niveau \texttt{h}.
+	
+	\begin{lstlisting}[language=C]
+./pascal 3
+  1
+ 1 1
+1 2 1
+	\end{lstlisting}
+	\begin{lstlisting}[language=C]	
+./pyramide 4
+   1
+  1 1
+ 1 2 1
+1 3 3 1
+	\end{lstlisting}
+
+	\section*{Partie 3 : }
+	- Le but de cette partie est de manipuler les allocations dynamiques de mémoire.
+	\subsection*{Tableau de Tableau (Les Matrices)}
+	\subsubsection*{Exercice 6 : }
+	Il existe 3 façons différentes de représenter une matrice en C. Créez trois fonctions appelées respectivement \texttt{mat1}, \texttt{mat2 } et \texttt{mat3} qui prend deux arguments N et M et créer une matrice de dimension NxM. \\
+	N et M sont spécifiés à l'exécution via les arguments du programme.
+\end{document}
