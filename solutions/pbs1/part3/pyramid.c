@@ -1,11 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void pyramid(int h)
+void pyramid(int rows)
 {
-    for (int i = 0; i < h; i++){
-        for (int j = 0; j < i +1; j++)
-            printf("*");
+   int i, space, k = 0;
+
+    for (i = 1; i <= rows; ++i, k = 0) {
+        for (space = 1; space <= rows - i; ++space) {
+            printf("  ");
+        }
+
+        while (k != 2 * i - 1) {
+            printf("* ");
+            ++k;
+        }
+
         printf("\n");
     }
 }
