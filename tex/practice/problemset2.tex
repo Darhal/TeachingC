@@ -1,0 +1,152 @@
+\documentclass[a4paper]{article} 
+\input{head}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+	
+	%-------------------------------
+	%	TITLE SECTION
+	%-------------------------------
+	
+	\fancyhead[C]{}
+	\hrule \medskip % Upper rule
+	\begin{minipage}{0.295\textwidth} 
+		\raggedright
+		\footnotesize
+		Université de Lorraine\hfill\\   
+		Télécom Nancy - 1A\hfill\\
+		Omar CHIDA
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth} 
+		\centering 
+		\large 
+		Travaux Dirigés 2\\ 
+		\normalsize 
+		Langage C\\ 
+	\end{minipage}
+	\begin{minipage}{0.295\textwidth} 
+		\raggedleft
+		\today\hfill\\
+	\end{minipage}
+	\medskip\hrule 
+	\bigskip
+	
+	%-------------------------------
+	%	CONTENTS
+	%-------------------------------
+	
+	\section*{L'objectif}
+	Le but de ce TD est de se familiariser avec :
+	\begin{itemize}
+		\item l'allocation dynamique de mémoire.
+		\item l'arithmétique des pointeurs.
+		\item le traitement des pointeurs en général (pointer cast, ...).
+	\end{itemize}
+
+	Vous devrez implémenter une structure de données appelée tableau dynamique. Cette structure de données est similaire à l'\texttt{ArrayList} en Java ou au \texttt{std::vector} en C++. \\
+	Un tableau dynamique est un tableau dont la taille change à chaque fois que nous y ajoutons un élément, contrairement aux tableaux statiques typiques que nous avons vus jusqu'à présent en C. Un tableau dynamique a de nombreuses implémentations différentes et une liste chaînée peut en faire partie. Cependant, dans ce TD, nous implémenterons l'implémentation la plus courante (celle qui est utilisée dans \texttt{std::vector} en C++). Dans cette implémentation, les éléments sont stockés de manière contiguë dans la mémoire comme les tableaux C classiques.
+	
+	\section*{Détails de l'implémentation}
+	Notre tableau dynamique va être présenté par une structure appelée \texttt{vector}\footnote{les autres noms possibles sont \texttt{DynamicArray}, \texttt{ArrayList}, ...}. \\
+	La structure aura les champs suivants:
+	\begin{lstlisting}[language=C]
+typedef struct vector_t
+{
+	void* 	elements;
+	size_t 	size;
+	size_t 	capacity;
+	size_t 	unit_size;
+} vector;
+	\end{lstlisting}
+	\textbf{elements} : Comme mentionné dans la section précédente, les éléments du tableau doivent être contigus en mémoire. \texttt{elements} est donc un pointeur vers une région de mémoire qui contiendra les éléments de notre tableau dynamique.\\
+	\textbf{size} : Représente le nombre d'éléments actuellement stocké dans notre tableau dynamique. \\
+	\textbf{capacity} : Représente la capacité totale que la mémoire allouée peut gérer. En d'autres termes, la capacité représente le nombre d'éléments que notre tableau peut contenir avant d'être considéré comme plein. Cela deviendra crucial plus tard pour obtenir une complexité d'insertion qui est de l'ordre de $O(1)$ amortie. \\
+	\textbf{unit\_size} : représente la taille de chaque élément en octets. Ce champ est important car nous voulons que notre tableau contienne n'importe quel élément tant qu'ils sont du même type. \\
+	
+	\textbf{Exemple :}
+	Dans l'image ci-dessous, une représentation d'un tableau dynamique (\texttt{vector}) contenant le type fondamental \texttt{int} est donnée. Notez que le tableau pointé par le champ \texttt{elements} peut contenir 8 éléments (ce chiffre est représentés par le champ capacité). Notez également que le tableau ne contient que 5 éléments (représenté par \texttt{size}) et que le reste de la mémoire est considéré comme vide. La taille de la mémoire allouée en octets est $capcity * unit\_size$.
+	\begin{figure}[!h]
+		\centering
+		\begin{tikzpicture} [nodes in empty cells,
+			nodes={minimum width=1cm, minimum height=1cm},
+			row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+			% border/.style={draw}
+			\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+			row 1/.style={nodes={draw=none, minimum width=1cm}},
+			nodes={draw, anchor=center}]
+			{ % use \& instead of & as column separator
+				{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7} \\
+				5   \& 32  \&  40 \& 42  \&  66 \&     \& 	  \&     \\
+			};
+			
+			
+			\draw (5.5,0) node{size = 5};
+			\draw (5.5,-0.5) node{capacity = 8};
+			\draw (5.5,-1) node{unit\_size = 4};
+			
+			\draw (-5.5,-0.5) node{elements};
+			\draw[-{Latex[length=2.25mm]}] (-5.5,-0.7) .. controls (-5.5,-1.7) and (-4, -1.7) .. (-3.5,-1);
+			
+			\draw (0,-2.2) node{Figure 1 - Un exemple d'un \texttt{vector} de \texttt{int}};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\begin{figure}[!h]
+		\centering
+		\begin{tikzpicture} [nodes in empty cells,
+			nodes={minimum width=1cm, minimum height=1cm},
+			row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+			% border/.style={draw}
+			\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+			row 1/.style={nodes={draw=none, minimum width=1cm}},
+			nodes={draw, anchor=center}]
+			{ % use \& instead of & as column separator
+				{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7} \\
+				5   \& 32  \&  40 \& 42  \&  66 \& 25  \& 	  \&     \\
+			};
+			
+			
+			\draw (5.5,0) node{size = 6};
+			\draw (5.5,-0.5) node{capacity = 8};
+			\draw (5.5,-1) node{unit\_size = 4};
+			
+			\draw (-5.5,-0.5) node{elements};
+			\draw[-{Latex[length=2.25mm]}] (-5.5,-0.7) .. controls (-5.5,-1.7) and (-4, -1.7) .. (-3.5,-1);
+			
+			\draw (0,-2) node{Figure 2 - Ajout de l'élément 25. Aucune allocation n'a eu lieu};
+		\end{tikzpicture}
+	\end{figure}
+	Si on ajoute l'entier 25 le tableau sera présenté par la figure ci-dessus. Remarquez qu'on plaçe l'élément en mémoire et incrémente le champ \texttt{size} sans allouer de mémoire puisque il y a encore de la mémoire vide autrement dit \texttt{size} est encore inférieur à \texttt{capacity}.\\
+	
+	Imaginons maintenant qu'on ajoute les entiers 50, 60, 70 à notre \texttt{vector}. Dans ce cas, la capacité va étre dépasser donc on doit réallouer de la mémoire mais au lieu d'allouer $(capacity + 1) * unitSize$ octets on va allouer $(capacity * 2) * unitSize$ octets tout en copiant les éléments déja présents de l'ancien zone mémoire vers la nouvelle zone mémoire. Donc plus tard, on n'a pas à allouer de la mémoire et à copier les éléments du tableau à chaque fois qu'une insertion se produit mais plutôt lorsque la capacité est dépassée. Ceci explique le principe de la complexité amortie. \\
+	On aura alors le tableau suivant aprés l'insertion:
+	\begin{figure}[!h]
+		\centering
+		\begin{tikzpicture} [nodes in empty cells,
+			nodes={minimum width=.6cm, minimum height=.6cm},
+			row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+			% border/.style={draw}
+			\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+			row 1/.style={nodes={draw=none, minimum width=.5cm}},
+			nodes={draw, anchor=center}]
+			{ % use \& instead of & as column separator
+				{0} \& {1} \& {2} \& {3} \& {4} \& {5} \& {6} \& {7} \& {8} \& {9} \& {10} \& {11} \& {12} \& {13} \& {14} \& {15} \\
+				5   \& 32  \&  40 \& 42  \&  66 \& 25  \& 50  \& 60  \& 70  \&     \&      \&      \&      \&      \&      \&      \\
+			};
+			
+			
+			\draw (6.25,0.25) node{size = 9};
+			\draw (6.25,-0.25) node{capacity = 16};
+			\draw (6.25,-0.75) node{unit\_size = 4};
+			
+			\draw (-6,-0.25) node{elements};
+			\draw[-{Latex[length=2.25mm]}] (-6,-0.5) .. controls (-6,-1.5) and (-4.5, -1.5) .. (-4.5,-0.6);
+			
+			\draw (0,-2) node{Figure 2 - Réallocation et recopie des éléments déja présents puis l'ajout de 50, 60 et 70};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\section*{Les Questions :}
+	1- Obtenez les fichiers \texttt{vector.h} et \texttt{main.c} fournis dans le repistory \hyperlink{GitHub}{}
+\end{document}
