@@ -34,8 +34,7 @@
 	
 	%-------------------------------
 	%	CONTENTS
-	%-------------------------------
-	
+	%-------------------------------	
 	\section*{L'objectif}
 	Le but de ce TD est de se familiariser avec :
 	\begin{itemize}
@@ -44,7 +43,7 @@
 		\item le traitement des pointeurs en général (pointer cast, ...).
 	\end{itemize}
 
-	Vous devrez implémenter une structure de données appelée tableau dynamique. Cette structure de données est similaire à l'\texttt{ArrayList} en Java ou au \texttt{std::vector} en C++. \\
+	Vous devrez implémenter une structure de données appelée tableau le dynamique. Cette structure de données est similaire à l'\texttt{ArrayList} en Java ou au \texttt{std::vector} en C++. \\
 	Un tableau dynamique est un tableau dont la taille change à chaque fois que nous y ajoutons un élément, contrairement aux tableaux statiques typiques que nous avons vus jusqu'à présent en C. Un tableau dynamique a de nombreuses implémentations différentes et une liste chaînée peut en faire partie. Cependant, dans ce TD, nous implémenterons l'implémentation la plus courante (celle qui est utilisée dans \texttt{std::vector} en C++). Dans cette implémentation, les éléments sont stockés de manière contiguë dans la mémoire comme les tableaux C classiques.
 	
 	\section*{Détails de l'implémentation}
@@ -147,6 +146,177 @@ typedef struct vector_t
 		\end{tikzpicture}
 	\end{figure}
 	
+	
 	\section*{Les Questions :}
-	1- Obtenez les fichiers \texttt{vector.h} et \texttt{main.c} fournis dans le repistory \hyperlink{GitHub}{}
+	\centerline{\large{Lisez l'intégralité du document avant d'écrire le code.}}
+	\subsubsection*{Question 1}
+	Obtenez les fichiers \texttt{vector.h}, \texttt{main.c} et \texttt{Makefile} fournis dans le repistory \href{https://github.com/Darhal/TeachingC/tree/main/assignements/pbs2}{GitHub}.
+	\subsubsection*{Question 2}
+	Vous devez implémentez les fonctions suivantes dans l'ordre, dans un fichier \texttt{vector.c}.\\
+	
+	1- Impléméneter la fonction \texttt{init(vector* vec, size\_t uint\_size)} qui initalise un vecteur en mettant le champs capacité à \texttt{VECTOR\_INIT\_HALF\_CAPACITY}. Cette fonction ne doit pas allouer de la mémoire.
+	\begin{lstlisting}[language=C]
+/**
+* Initilise the vector struct by setting :
+* unit_size to the unit_size given in the arguments
+* elements array to NULL (empty)
+* size to 0
+* capacity to VECTOR_INIT_HALF_CAPACITY
+**/
+void init(vector* vec, size_t unit_size);
+	\end{lstlisting}
+
+	2- Impléméneter la fonction \texttt{size(vector* vec)} qui retourne la taille du vecteur.
+\begin{lstlisting}[language=C]
+/**
+* returns the size of vec
+**/
+size_t size(vector* vec);
+\end{lstlisting}
+
+	3- Impléméneter la fonction \texttt{capacity(vector* vec)} qui retourne la capacité du vecteur.
+	\begin{lstlisting}[language=C]
+/**
+* returns the capacity of vec
+**/
+size_t capacity(vector* vec);
+	\end{lstlisting}
+
+	4- Impléméneter la fonction \texttt{reserve(vector* vec, size\_t capacity)}. Si la capacité du vecteur est inférieure à la capacité donnée ou lorsque le champ \texttt{elements} n'est pas encore alloué (c'est-à-dire \texttt{NULL}) Cette fonction fixe la capacité du vecteur à son double. Si la nouvelle capacité est encore plus petite que celle donnée en argument, alors elle affecte la capacité du vecteur pour que ca soit égale à celle donnée en argument. Ensuite, elle procède à l'allocation de mémoire. Sinon ça ne fait rien. 
+	Cette fonction servira ensuite comme une fonction d'utilité.
+\begin{lstlisting}[language=C]
+/**
+* If vec->capacity is less then the given capacity or vec->elements is NULL then
+*      vec->capacity is updated to be vec->capacity * 2
+*      if capacity is still less than vec->capacity then vec->capacity must be capacity
+*      vec->elements must now point to a newly allocated memory that can contain vec->capacity elements
+*      the elemens existing in the older vec->elements must be copied over to the new vec->elements
+* Otherwise nothing happens
+* */
+void reserve(vector* vec, size_t capacity);
+\end{lstlisting}
+
+	5- Impléméneter la fonction \texttt{resize(vector* vec, size\_t size))}. Cette fonction change la taille du vecteur pour qu'elle soit la même que la taille donnée dans les arguments. Si la capacité n'est pas suffisante, elle alloue la mémoire nécessaire et copie du l'ancien contenu dans la nouvelle mémoire. Vous pouvez l'implémenter facilement en utilisant la fonction réserver. La différence entre ces deux fonctions est que la réserve modifie la capacité tandis que cela modifie le nombre d'éléments présents dans le tableau (le champs \texttt{size}).
+\begin{lstlisting}[language=C]
+/**
+* Sets vec size to the size given in the argument
+* If the given size exceeds vec->capacity then
+* elements must be reallocated to be able to contain
+* (2 * size) elements. The elements already present
+* must be copied to the new array.
+* */
+void resize(vector* vec, size_t size);
+\end{lstlisting}
+
+	6- Impléméneter la fonction \texttt{resize(vector* vec, size\_t size))} qui retourne un pointeur vers l'élément qui se situe à la case avec l'indice \texttt{index}. 
+\begin{lstlisting}[language=C]
+/**
+* return a pointer the element at the index given by the argument
+* if the index is out of bound an assertion occurs
+* */
+void* get(vector* vec, size_t index);
+\end{lstlisting}
+	7- Impléméneter la fonction \texttt{front(vector* vec)} qui retourne un pointeur vers le premier élément de \texttt{vecteur}. 
+\begin{lstlisting}[language=C]
+/**
+* returns a pointer to the first element in vec
+* if vec is empty then it asserts
+* */
+void* front(vector* vec);
+\end{lstlisting}
+	8- Impléméneter la fonction \texttt{back(vector* vec)} qui retourne un pointeur vers le dernier élément de \texttt{vecteur}. 
+\begin{lstlisting}[language=C]
+/**
+* returns a pointer to last element in vec
+* if vec is empty then it asserts
+* */
+void* back(vector* vec);
+\end{lstlisting}
+
+	9- Impléméneter la fonction \texttt{push\_back(vector* vec, void* element)} qui ajoute l'élément \texttt{element} à la derniere case du \texttt{vec}. Attention, le contenu de l'élément doit être entièrement copié, il ne faut pas stocker le pointeur! Cette fonction doit gérer le cas ou la capacité est dépasser (Aide : utiliser la fonction \texttt{reserve})
+\begin{lstlisting}[language=C]
+/**
+* Add the element given in the arguments to the last cell of vec
+* The content of the argument element must be copied (dont just store the pointer)
+* Also handles the case where capacity is exceeded
+* */
+void push_back(vector* vec, void* element);
+\end{lstlisting}
+
+	10- Impléméneter la fonction \texttt{push\_front(vector* vec, void* element)} qui ajoute l'élément \texttt{element} à la première case du \texttt{vec}. Attention, le contenu de l'élément doit être entièrement copié, il ne faut pas stocker le pointeur! Cette fonction doit gérer le cas ou la capacité est dépasser (Aide : utiliser la fonction \texttt{reserve})
+\begin{lstlisting}[language=C]
+/**
+* Add the element given in the argments to the first cell of vec
+* The content of the argument element must be copied (dont just store the pointer)
+* Also handles the case where capacity is exceeded
+* The already existing elements are shifted to the right by one cell
+* */
+void push_front(vector* vec, void* element);
+\end{lstlisting}
+
+	11- Impléméneter la fonction \texttt{shrink\_to\_fit(vector* vec)} qui change la capacité du vecteur tout en libérant la mémoire qui n'est pas utilisé. A la fin on doit avoir \texttt{size} égal à \texttt{capacity}.
+\begin{lstlisting}[language=C]
+/**
+* Changes the capacity of vec to be the same as its size
+* And frees all the extra memory (the memory that is not used)
+* */
+void shrink_to_fit(vector* vec);
+\end{lstlisting}
+
+	12- Impléméneter la fonction \texttt{destroy(vector* vec)} qui libère la mémoire allouée par vec (si aucune mémoire n'est allouée, alors ne fait rien), change sa taille en 0 et affecte \texttt{elements} à \texttt{NULL}.
+\begin{lstlisting}[language=C]
+/**
+* frees the memory allocated by vec (if no memory is allocated then it does nothing)
+* sets its size to 0
+* sets the pointer elements to NULL
+* */
+void destroy(vector* vec);
+\end{lstlisting}
+
+	13- Compilez ce que vous avez fait en utilisant la commande \texttt{make} puis testez votre code en utilisant \texttt{make run}.
+	
+	\section*{Quelques remarques}
+	Vous pouvez utiliser la fonction \texttt{void* memcpy (void* dest, const void* src, size\_t n);} défini dans \texttt{string.h} pour copier la mémoire de \texttt{src} vers la \texttt{dst}. \\
+	\textbf{Exemple :}
+	\begin{lstlisting}[language=C]
+#include <string.h>
+// ...
+
+int main()
+{
+	char str1[] = "Hello world";
+	char str2[256];
+	
+	// Copies the content of str1 to str2
+	memcpy(str2, str1, strlen(str1) * sizeof(char)));
+	// this also works: 
+	// memcpy(str2, str1, sizeof(str1));
+	
+	int arr1[] = {1, 2, 3, 4, 5};
+	int arr2[50];
+	// Copies the content of arr1 to arr2
+	memcpy(arr1, arr2, sizeof(arr1));
+	// this also works:
+	//  memcpy(arr2, arr1, 5 * sizeof(int));
+	
+	// this will copy only the first 3 elements:
+	// memcpy(arr2, arr1, 3 * sizeof(int));
+	
+	// This will copy the first 3 elements of arr1 to arr2 starting from index 2
+	memcpy(arr2 + 2, arr1, 3 * sizeof(int));
+	// same as above :
+	// memcpy(&arr2[2], arr1, 3 * sizeof(int));
+	
+	// This will copy the first 2 elements of arr1 starting from index 2 to arr2 starting from index 5
+	memcpy(arr2 + 5, arr1 + 2, 2 * sizeof(int));
+	// same as above :
+	// memcpy(&arr2[5], &arr1[2], 2 * sizeof(int));
+}
+	\end{lstlisting}
+
+	\bigskip
+	\par\noindent\rule{\textwidth}{0.4pt}
+	\center{\Large{Pour finir}}
+	\center{Si vous avez réussi à tout mettre en œuvre et que les tests ont réussi, félicitations, vous avez implémenté quelque chose qui est utilisé dans le monde réel. Vous pouvez implémenter plus de fonctions qui suppriment un élément à un index donné, suppriment le dernier élément, etc.}
+
 \end{document}

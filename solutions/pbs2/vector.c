@@ -8,7 +8,7 @@ void init(vector* vec, size_t unit_size)
     assert(vec != NULL);
 
     vec->size = 0;
-    vec->capacity = VECTOR_INIT_CAPACITY;
+    vec->capacity = VECTOR_INIT_HALF_CAPACITY;
     vec->unit_size = unit_size;
     vec->elements = NULL;
 }
@@ -23,6 +23,27 @@ size_t capacity(vector* vec)
 {
     assert(vec != NULL);
     return vec->capacity;
+}
+
+void reserve(vector* vec, size_t capacity)
+{
+    assert(vec != NULL);
+
+    if (capacity >= vec->capacity || !vec->elements) {
+        vec->capacity = vec->capacity * 2;
+
+        if (capacity > vec->capacity) {
+            vec->capacity = capacity;
+        }
+        
+        vec->elements = realloc(vec->elements, vec->capacity * vec->unit_size);
+    }
+}
+
+void resize(vector* vec, size_t size)
+{
+    reserve(vec, size);
+    vec->size = size;
 }
 
 void* get(vector* vec, size_t index)
@@ -85,27 +106,6 @@ void insert(vector* vec, size_t index, void* element)
     vec->size++;
 }
 
-void resize(vector* vec, size_t size)
-{
-    reserve(vec, size);
-    vec->size = size;
-}
-
-void reserve(vector* vec, size_t capacity)
-{
-    assert(vec != NULL);
-
-    if (capacity >= vec->capacity || !vec->elements) {
-        vec->capacity = vec->capacity * 2;
-
-        if (capacity > vec->capacity) {
-            vec->capacity = capacity;
-        }
-        
-        vec->elements = realloc(vec->elements, vec->capacity * vec->unit_size);
-    }
-}
-
 void shrink_to_fit(vector* vec)
 {
     assert(vec != NULL);
@@ -116,9 +116,10 @@ void shrink_to_fit(vector* vec)
 void destroy(vector* vec)
 {
     assert(vec != NULL);
-    assert(vec->elements != NULL);
 
-    free(vec->elements);
-    vec->elements = 0;
-    vec->size = 0;
+    if (vec->elements) {
+        free(vec->elements);
+        vec->elements = 0;
+        vec->size = 0;
+    }
 }
