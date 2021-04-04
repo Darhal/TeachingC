@@ -1,4 +1,99 @@
 \section{Les outils}
-%\subsection{Compilateur: GCC/Clang}
-%\subsection{Débogueur: GDB}
-%\subsection{Valgrind}
+\subsection{Introduction}
+\begin{frame}{Introduction}
+	En C, certaines erreurs d'exécution sont très difficiles parfois même impossibles à déboguer. Que pouvons-nous faire alors? Les outils à l'aide!
+	\begin{alertblock}{Exemple d'erreurs d'exécution étranges}
+	\begin{itemize}
+		\item \texttt{Segmentation fault (core dumped)}
+		\item \texttt{*** stack smashing detected ***: terminated}
+		\item \texttt{stack around the variable .. was corrupted}
+		\item \texttt{memory heap corruption}
+		\item \texttt{munmap\_chunk(): invalid pointer : 0x0fa1ca5a}
+	\end{itemize}
+	\end{alertblock}
+	\begin{alertblock}{Grâce à l'outillage, nous pourrons résoudre ces problèmes !}
+	\end{alertblock}
+\end{frame}
+
+\subsection{Compilateur : GCC/Clang}
+\begin{frame}{Compilateur}
+	\begin{itemize}
+		\item Connaître le compilateur et ce qu'il peut faire est nécessaire, cela peut vous faire gagner beaucoup de temps.
+		\item Il existe de nombreuses options et indicateurs du compilateur qui facilitent le débogage. 
+		\item Connaître ses différentes options et comment les manipuler est nécessaire!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\begin{block}{Les flags d'optimisation :}
+		\begin{itemize}
+			\item \texttt{O0} : Aucune optimisation (par défaut); génère du code non optimisé mais a le temps de compilation le plus rapide.
+			\item \texttt{O1} : Optimisation modérée; optimise raisonnablement bien mais ne dégrade pas le temps de compilation de manière significative.
+			\item \texttt{O2} : Optimisation complète; génère du code hautement optimisé et a le temps de compilation le plus lent.
+			\item \texttt{O3} : Optimisation complète comme en \texttt{-O2}; utilise aussi un \alert{inlining} automatique plus agressive des sous-programmes et tente de vectoriser les boucles.
+			
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\begin{block}{Les flags d'optimisation :}
+		\begin{itemize}
+			\item \texttt{Os} : Optimise l'utilisation de l'espace (code et données) du programme résultant.
+			\item \texttt{Ofast} : Ne respecte pas strictement les standards. Active toutes les optimisations \texttt{-O3}. Il permet également certaines optimisations non conformes à la norme, il doit donc être utilisé avec prudence.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\begin{block}{Les flags d'optimisation :}
+		\begin{itemize}
+			\item \texttt{Og} : Optimise l'expérience de débogage. \texttt{-Og} devrait être le niveau d'optimisation de choix pour le débogage, offrant un niveau d'optimisation raisonnable tout en maintenant une compilation rapide et une bonne expérience de débogage. C'est mieux que \texttt{-O0} pour produire du code déboguable car certaines passes du compilateur qui collectent des informations de débogage sont désactivées à \texttt{-O0}.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\begin{block}{L'informations de débogage : debugging symbols}
+		Pour activer la génération \alert{d'informations de débogage}, vous devez fournir \alert{\texttt{-g}} au moment de la compilation. Cet indicateur est nécessaire pour le débogage et rendra l'utilisation d'un débogueur (comme gdb) beaucoup plus facile. Il montrera exactement où l'erreur s'est produite (nom du fichier et numéro de ligne)
+	\end{block}
+	\begin{alertblock}{Ce qu'il faut retenir}
+		Lors du \alert{débogage} du code, essayez d'utiliser \texttt{-Og} avec \texttt{-g} chaque fois que c'est possible car cela facilite le débogage. Si ce n'est pas possible pour une raison quelconque, n'utilisez aucun flag \texttt{-O}. de cette façon, le compilateur adoptera par défaut \texttt{-O0}, ce qui est toujours pas mal pour le débogage.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\framesubtitle{Autres options utiles}
+	\begin{block}{Activer plus de warning}
+		%% TODO %%
+		\begin{itemize}
+			\item \texttt{-pedantic} : ..
+			\item \texttt{-Wall} : ..
+			\item \texttt{-Wextra} : ..
+			\item \texttt{-Werror} : ..
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Compilateur}
+	\framesubtitle{Autres options utiles}
+	\begin{block}{\texttt{-fsanatize=option}}
+		Les options peuvent être :
+		\begin{itemize}
+			\item \alert{\texttt{address}} : toutes sortes de fuites et de débordements peuvent être détectés avec précision, détection de niveau d'adresse, tas et pile.
+			\item \alert{\texttt{leak}} : il ne détecte que les fuites et débordement mémoire au niveau du tas, mais pas la pile.
+			\item \alert{\texttt{undefined}} : active un détecteur de comportement indéfini. Divers calculs sont instrumentés lors de l'exécution
+			\item \alert{\texttt{all}} : active toutes les options mentionnées ci-dessus et plus \footnote[frame]{pour plus de \href{https://gcc.gnu.org/onlinedocs/gcc-5.3.0/gcc/Debugging-Options.html}{détail}}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Débogueur : GDB}
+\begin{frame}{Débogueur: GDB}
+	
+\end{frame}
+
+\subsection{Valgrind}
+\begin{frame}{Catch leaks : Valgrind}
+	
+\end{frame}

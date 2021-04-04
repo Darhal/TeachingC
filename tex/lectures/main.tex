@@ -36,9 +36,17 @@
 
   \AtBeginSection[]{% Print an outline at the beginning of sections
     \begin{frame}<beamer>
-      \frametitle{Chapitre \thesection}
+      \frametitle{Chapitre \thesection : \secname}
       \tableofcontents[currentsection,currentsubsection,subsectionstyle=show/show/hide]
     \end{frame}}
+
+	\AtBeginSubsection[] {
+		\begin{frame}<beamer>
+			\frametitle{Chapitre \thesection : \secname}
+			\framesubtitle{Section \thesubsection : \subsecname}
+			\tableofcontents[currentsection,currentsubsection,sectionstyle=show/hide,subsectionstyle=show/shaded/hide]  
+		\end{frame}
+	}
 
   \begin{darkframes}
   	\include{intro}
@@ -1085,6 +1093,7 @@ char str[] = {'H', 'e', 'l', 'l', 'o', '\0'};
   	\end{frame}
   	
   	%%%%%% LA MEMOIRE %%%%%%
+  	\subsection{La mémoire}
   	\begin{frame}{La mémoire}
   		\framesubtitle{Disposition de la mémoire d'un programme}
   		\begin{figure}[!h]
@@ -1253,7 +1262,6 @@ int main() {
   		\dataDemoThreeSolution
   	\end{frame}
    	
-  	\subsection{La mémoire}
   	\begin{frame}{La mémoire}
   		\framesubtitle{Mémoire statique vs Mémoire dynamique}
   		\begin{block}{Mémoire statique}
@@ -2204,7 +2212,7 @@ int main()
 			le mot-clé \alert{extern} est utilisé pour étendre la visibilité des variables / fonctions.
 		\end{block}
 		\begin{alertblock}{Quelques remarques : }
-			- L'utilisation d'\alert{extern} avec des fonctions est redondant.
+			- L'utilisation d'\alert{extern} avec des fonctions est redondant.\\
 			- L'utilisation de \texttt{extern type var} amènera la variable var dans le fichier \alert{.h} ou \alert{.c} courant à partir d'un autre pendant l'édition du lien.
 		\end{alertblock}
 	\end{frame}
@@ -2328,9 +2336,19 @@ int p = i++, i--; 	// OK
   	\include{outils}
   	
   	\begin{frame}{Conclusion}
-  		%\begin{itemize}
-  		%	\item .	
-  		%\end{itemize}
+  		\framesubtitle{Les dix commandements pour réussir en C}
+  		\begin{itemize}
+  			\item 1.	
+  			\item 2.	
+  			\item 3.	
+  			\item 4.	
+  			\item 5.
+  			\item 6.	
+  			\item 7.	
+  			\item 8.	
+  			\item 9.	
+  			\item 10.	
+  		\end{itemize}
   	\end{frame}
   \end{darkframes}
 \end{document}
