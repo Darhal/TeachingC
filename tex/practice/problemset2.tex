@@ -43,7 +43,7 @@
 		\item le traitement des pointeurs en général (pointer cast, ...).
 	\end{itemize}
 
-	Vous devrez implémenter une structure de données appelée tableau le dynamique. Cette structure de données est similaire à l'\texttt{ArrayList} en Java ou au \texttt{std::vector} en C++. \\
+	Vous devrez implémenter une structure de données appelée le tableau dynamique. Cette structure de données est similaire à l'\texttt{ArrayList} en Java ou au \texttt{std::vector} en C++. \\
 	Un tableau dynamique est un tableau dont la taille change à chaque fois que nous y ajoutons un élément, contrairement aux tableaux statiques typiques que nous avons vus jusqu'à présent en C. Un tableau dynamique a de nombreuses implémentations différentes et une liste chaînée peut en faire partie. Cependant, dans ce TD, nous implémenterons l'implémentation la plus courante (celle qui est utilisée dans \texttt{std::vector} en C++). Dans cette implémentation, les éléments sont stockés de manière contiguë dans la mémoire comme les tableaux C classiques.
 	
 	\section*{Détails de l'implémentation}
@@ -208,7 +208,7 @@ void reserve(vector* vec, size_t capacity);
 void resize(vector* vec, size_t size);
 \end{lstlisting}
 
-	6- Impléméneter la fonction \texttt{resize(vector* vec, size\_t size))} qui retourne un pointeur vers l'élément qui se situe à la case avec l'indice \texttt{index}. 
+	6- Impléméneter la fonction \texttt{get(vector* vec, size\_t index)} qui retourne un pointeur vers l'élément qui se situe à la case avec l'indice \texttt{index}. 
 \begin{lstlisting}[language=C]
 /**
 * return a pointer the element at the index given by the argument
