@@ -185,8 +185,25 @@ if (i++)
 		\ifexamplethree
 	\end{frame}
 	
+\defverbatim[colored]\switchSyntax{
+\begin{lstlisting}[language=C,tabsize=4]
+switch(expression) {
+	case constant_expression1:
+		statment_1;
+		// optionally other statments ...
+		break;    // optional
+	case constant_expression2:
+		statment_2;
+		// optionally other statments ...
+		break; 	  // optional
+	// ...
+	default: 	  // optional
+		statment_3;
+		// optionally other statments ...
+}
+\end{lstlisting}}
 	\begin{frame}{Les conditions : switch}
-		// TODO:
+		\switchSyntax
 	\end{frame}
 
 \defverbatim[colored]\forsyntax{
@@ -194,7 +211,6 @@ if (i++)
 for (initialisation; condition; increment) {
 	// ...
 }
-
 \end{lstlisting}}
 \defverbatim[colored]\forsyntaxtwo{
 \begin{lstlisting}[language=C,tabsize=2]
@@ -2051,9 +2067,222 @@ int main() {
   	\end{frame}
   	
   	\begin{frame}{Pointer casting}
-  		Comme on a vu dans la partie Arthimétique des pointeurs, le type de pointeur serve à déterminé comme la mémoire est accéder.
+  		Comme nous l'avons vu précédemment dans la partie Arithmétique des pointeur, le type de pointeur n'est utilisé que pour déterminer comment la mémoire est accédée et interprétée. Ainsi, nous pouvons convertir un pointeur d'un type à un autre. Cependant, des précautions doivent être prises lors de cette opération, car différents types ont des exigences d'alignement différentes. 
+  		D'une manière générale, la conversion d'un type qui a une grande taille à un objet qui a une taille plus petite est acceptable 
+  		(par exemple la conversion de \texttt{int*} en \texttt{char*}). \\
+  		La conversion vers un type qui a une exigence d'alignement stricte à partir d'un type qui a une exigence d'alignement moins stricte est \alert{interdite}. Au mieux, cela peut entraîner une dégradation des performances ou des valeurs erronées. Au pire, il peut planter tout le programme.
   	\end{frame}
   
+\defverbatim[colored]\ptrCasting{	  	
+\begin{lstlisting}[language=C,tabsize=4]
+A* ptr1 = ....;
+B* ptr2 = (B*)ptr1;
+\end{lstlisting}}
+
+
+\defverbatim[colored]\ptrCastingExmpl{	  	
+\begin{lstlisting}[language=C,tabsize=4]
+unsigned int a = 3721182122;
+unsigned int* ptrA = &a;
+char* bytes = (char*)ptrA;
+\end{lstlisting}}
+  	\begin{frame}{Pointer casting}
+  		\begin{block}{Syntaxe : }
+  			Le cast d'un pointeur du type A au type B peut se faire de cette façon :
+  			\ptrCasting
+  		\end{block}
+  		\begin{exampleblock}{Exemple : }
+  			\ptrCastingExmpl
+  		\end{exampleblock}
+  	\end{frame}
+  
+  	\begin{frame}{Pointer casting}
+  		\framesubtitle{Exemple : }
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				\matrix(vector)[matrix of nodes, ampersand replacement=\&,name=ptrA,
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}, execute at empty cell={\node[draw=none]{};}]
+  				{ % use \& instead of & as column separator
+  					{0}  \& {1}\& {2}\& {3} \\
+  					% 0xDD \& CC \& BB \& AA  \\
+  				};
+  			
+  				\pgfmathsetmacro{\structdimx}{2.06}
+  				\pgfmathsetmacro{\structdimy}{0.4}
+  				\drawstruct{(0,0)}
+  				\structcell{0xDDCCBBAA};
+  				\pgfmathsetmacro{\structdimx}{1.6}
+  				\pgfmathsetmacro{\structdimy}{0.5}
+  				
+  				\draw (-3,-1) node{ptrA};
+  				\draw[-{Latex[length=2.25mm]}] (-3,-1.2) .. controls (-3,-2.3) and (-0.5,-2.3) .. (0,-1.4);
+  			\end{tikzpicture}
+  			\caption{Représentation mémoire de la variable \alert{\texttt{a}}, tel qu'il est interprété par le pointeur \alert{\texttt{ptrA}}}
+  		\end{figure}
+  	\end{frame}
+  	
+  	\begin{frame}{Pointer casting}
+  		\framesubtitle{Exemple : }
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				\matrix(vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}]
+  				{ % use \& instead of & as column separator
+  					{0}  \& {1}  \& {2}  \& {3}  \\
+  					0xAA \& 0xBB \& 0xCC \& 0xDD \\
+  				};
+  				
+  				\draw (-3,-0.5) node{bytes};
+  				\draw[-{Latex[length=2.25mm]}] (-3,-0.65) .. controls (-3,-1.5) and (-2,-1.5) .. (-1.55,-1);
+  			\end{tikzpicture}
+  			\caption{Représentation mémoire de la variable \alert{\texttt{a}}, tel qu'il est interprété par le pointeur \alert{\texttt{bytes}} (cas d'une machine petit-boutienne)}
+  		\end{figure}
+  	\end{frame}
+  
+  	\begin{frame}{Pointer casting}
+  		\framesubtitle{Exemple : }
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				
+  				
+	  			\matrix (m1) at (0,2.5) (vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+	  			row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+	  			nodes={freestruct, anchor=center}]
+	  			{
+	  				{0}  \& {1}  \& {2}  \& {3}  \\
+	  				0xAA \& 0xBB \& 0xCC \& 0xDD \\
+	  			};
+  				
+  				\draw (-3,2) node{bytes};
+  				\draw[-{Latex[length=2.25mm]}] (-3,2.2) .. controls (-3,3) and (-2,3.2) .. (-1.55,2.5);
+  				
+  				\matrix(vector)[matrix of nodes, ampersand replacement=\&,name=ptrA,
+  				nodes={freestruct, anchor=center}, execute at empty cell={\node[draw=none]{};}]
+  				{
+  					0xDD \& CC \& BB \& AA  \\
+  				};
+  				
+  				\pgfmathsetmacro{\structdimx}{2.06}
+  				\pgfmathsetmacro{\structdimy}{0.4}
+  				\drawstruct{(0,0)}
+  				\structcell{0xDDCCBBAA};
+  				\pgfmathsetmacro{\structdimx}{1.6}
+  				\pgfmathsetmacro{\structdimy}{0.5}
+  				
+  				\draw (-3,-0.5) node{ptrA};
+  				\draw[-{Latex[length=2.25mm]}] (-3,-0.7) .. controls (-3,-2) and (-1,-2) .. (0,-1.4);
+  				
+  				\draw[-] (-1.5,1.5) -- (1.5,0.5);
+  				\draw[-] (-0.5,1.5) -- (0.5,0.5);
+  				\draw[-] (1.5,1.5) -- (-1.5,0.5);
+  				\draw[-] (0.5,1.5) -- (-0.5,0.5);
+  			\end{tikzpicture}
+  			\caption{La représentation de \alert{\texttt{bytes}} dans le cas d'une machine petit-boutienne}
+  		\end{figure}
+  	\end{frame}
+  
+  	\begin{frame}{Pointer casting}
+  		\framesubtitle{Exemple : }
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture} [nodes in empty cells,
+  				nodes={minimum width=1cm, minimum height=1cm},
+  				row sep=-\pgflinewidth, column sep=-\pgflinewidth]
+  				% border/.style={draw}
+  				
+  				\matrix (m1) at (0,2.5) (vector)[matrix of nodes, ampersand replacement=\&, % <- added ampersand replacement
+  				row 1/.style={nodes={draw=none, minimum width=1cm, fill=fibeamer@black}},
+  				nodes={freestruct, anchor=center}]
+  				{
+  					{0}  \& {1}  \& {2}  \& {3}  \\
+  					0xDD \& 0xCC \& 0xBB \& 0xAA \\
+  				};
+  				
+  				\draw (-3,2) node{bytes};
+  				\draw[-{Latex[length=2.25mm]}] (-3,2.2) .. controls (-3,3) and (-2,3.2) .. (-1.55,2.5);
+  				
+  				\matrix(vector)[matrix of nodes, ampersand replacement=\&,name=ptrA,
+  				nodes={freestruct, anchor=center}, execute at empty cell={\node[draw=none]{};}]
+  				{
+  					0xDD \& CC \& BB \& AA  \\
+  				};
+  				
+  				\pgfmathsetmacro{\structdimx}{2.06}
+  				\pgfmathsetmacro{\structdimy}{0.4}
+  				\drawstruct{(0,0)}
+  				\structcell{0xDDCCBBAA};
+  				\pgfmathsetmacro{\structdimx}{1.6}
+  				\pgfmathsetmacro{\structdimy}{0.5}
+  				
+  				\draw (-3,-0.5) node{ptrA};
+  				\draw[-{Latex[length=2.25mm]}] (-3,-0.7) .. controls (-3,-2) and (-1,-2) .. (0,-1.4);
+  				
+  				\draw[-] (-1.5,1.5) -- (-1.5,0.5);
+  				\draw[-] (-0.5,1.5) -- (-0.5,0.5);
+  				\draw[-] (0.5,1.5) -- (0.5,0.5);
+  				\draw[-] (1.5,1.5) -- (1.5,0.5);
+  			\end{tikzpicture}
+  			\caption{La représentation de \alert{\texttt{bytes}} dans le cas d'une machine gros-boutienne}
+  		\end{figure}
+  	\end{frame}
+  	
+  	\begin{frame}{Le Boutisme}
+  		\begin{figure}[!h]
+  			\centering
+  			\begin{tikzpicture}[overlay,remember picture]
+  				\node[anchor=south west,xshift=14pt,yshift=50pt]
+  				at (current page.south west) {
+  					\includegraphics[width=116mm]{resources/endianness_had}
+  				};
+  			\end{tikzpicture}
+  		\end{figure}
+  	\end{frame}
+  	
+\defverbatim[colored]\voidPtrExmpl{	
+\begin{lstlisting}[language=C,tabsize=4]
+unsigned int* ptrA = ...;
+void* ptr2 = (void*)ptrA;
+
+ptr2 + 1; // Invalid
+ptr2 + 2; // Invalid
+ptr[1];   // Invalid
+
+int* ptr3 = (int*)ptr2;
+ptr3 + 1; // valid
+ptr3[1];  // valid
+
+char* ptr4 = (char*)ptr2;
+ptr3 + 1; // valid
+ptr3[1];  // valid
+\end{lstlisting}}
+
+  	\begin{frame}{Le pointeur \texttt{void*}}
+  		\begin{block}{Le pointeur \texttt{void*}}
+  			Le cast depuis et vers le pointeur \texttt{void*} à partir de tout autre type de pointeur se fait \alert{implicitement} dans le langage C.\\
+  			Chaque pointeur type peut être transformé depuis et vers le pointeur \texttt{void*}. Cependant, faire de l'arithmétique des pointeurs ou accéder aux éléments en utilisant le pointeur \texttt{void*} est \alert{interdit}. Il doit y avoir une conversion vers un type de pointeur différent que \texttt{void*} avant d'accéder ou d'effectuer de l'arithmétique.
+  		\end{block}
+  	\end{frame}
+  
+   	\begin{frame}{Le pointeur \texttt{void*}}
+  		\begin{exampleblock}{Example : }
+  			\voidPtrExmpl
+  		\end{exampleblock}
+  	\end{frame}
+  	
 \defverbatim[colored]\staticInFuncExmp{	
 \begin{lstlisting}[language=C,tabsize=4]
 // includes...
