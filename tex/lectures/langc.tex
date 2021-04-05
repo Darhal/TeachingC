@@ -2082,7 +2082,8 @@ B* ptr2 = (B*)ptr1;
 
 \defverbatim[colored]\ptrCastingExmpl{	  	
 \begin{lstlisting}[language=C,tabsize=4]
-unsigned int a = 3721182122;
+unsigned int a = 3721182122; 
+	// 3721182122 =  0xDD << 24 | 0xCC << 16 | 0xBB << 8 | 0xAA;
 unsigned int* ptrA = &a;
 char* bytes = (char*)ptrA;
 \end{lstlisting}}
