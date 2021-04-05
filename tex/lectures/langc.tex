@@ -2009,10 +2009,10 @@ ptr2 = ptr1 - 3; // will substract '12' bytes from ptr1.
 		\framesubtitle{Arithmétique des pointeurs}
 		\begin{block}{Explication}
 			Un pointeur n'est qu'une adresse mémoire. Cette adresse est une valeur numérique. Par conséquent, on peut effectuer des opérations arithmétiques sur un pointeur comme on peut le faire sur des valeurs numériques.\\ 
-			Il existe quatre opérateurs arithmétiques qui peuvent être utilisés sur les pointeurs: \alert{++}, \alert{--}, \alert{+} et \alert{-}.
+			Il existe quatre opérateurs arithmétiques qui peuvent être utilisés sur les pointeurs: \alert{++}, \alert{-{}-}, \alert{+} et \alert{-}.
 		\end{block}
 		\begin{block}{La formule}
-			Pour un pointeur \texttt{ptr} avec le type \texttt{Typename}, l'expression \texttt{ptr+step} ajoutera \texttt{step*sizeof(Typename)} octets au pointeur \texttt{ptr}.
+			Pour un pointeur \alert{\texttt{ptr}} avec le type \alert{\texttt{Typename}}, l'expression \alert{\texttt{ptr+step}} ajoutera \alert{\texttt{step*sizeof(Typename)}} octets au pointeur \alert{\texttt{ptr}}.
 		\end{block}
 	\end{frame}
   	
@@ -2249,6 +2249,7 @@ char* bytes = (char*)ptrA;
   				at (current page.south west) {
   					\includegraphics[width=116mm]{resources/endianness_had}
   				};
+  				\draw (0,-3.1) node{Figure - Schéma qui résume le boutisme};
   			\end{tikzpicture}
   		\end{figure}
   	\end{frame}
@@ -2274,7 +2275,7 @@ ptr3[1];  // valid
   	\begin{frame}{Le pointeur \texttt{void*}}
   		\begin{block}{Le pointeur \texttt{void*}}
   			Le cast depuis et vers le pointeur \texttt{void*} à partir de tout autre type de pointeur se fait \alert{implicitement} dans le langage C.\\
-  			Chaque pointeur type peut être transformé depuis et vers le pointeur \texttt{void*}. Cependant, faire de l'arithmétique des pointeurs ou accéder aux éléments en utilisant le pointeur \texttt{void*} est \alert{interdit}. Il doit y avoir une conversion vers un type de pointeur différent que \texttt{void*} avant d'accéder ou d'effectuer de l'arithmétique.
+  			Chaque type de pointeur peut être transformé depuis et vers le pointeur \texttt{void*}. Cependant, faire de l'arithmétique des pointeurs ou accéder aux éléments en utilisant le pointeur \texttt{void*} est \alert{interdit}. Il doit y avoir une conversion vers un type de pointeur différent que \texttt{void*} avant d'accéder ou d'effectuer de l'arithmétique.
   		\end{block}
   	\end{frame}
   
@@ -2389,7 +2390,7 @@ int main()
 		\end{block}
 		\begin{alertblock}{Quelques remarques : }
 			- L'utilisation d'\alert{extern} avec des fonctions est redondant.\\
-			- L'utilisation de \texttt{extern type var} amènera la variable var dans le fichier \alert{.h} ou \alert{.c} courant à partir d'un autre pendant l'édition du lien.
+			- L'utilisation de \texttt{extern type var} amènera la variable \alert{\texttt{var}} déclaré dans un \alert{autre} fichier \alert{.c} dans le fichier \alert{.c} courant pendant l'édition du lien.
 		\end{alertblock}
 	\end{frame}
 		
