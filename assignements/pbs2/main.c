@@ -17,7 +17,7 @@ void test_case1()
     vector v;
     init(&v, sizeof(int));
 
-    assert(v.capacity == VECTOR_INIT_CAPACITY);
+    assert(v.capacity == VECTOR_INIT_HALF_CAPACITY);
     assert(v.size == 0);
     assert(v.unit_size == sizeof(int));
     assert(v.elements == NULL);
@@ -25,13 +25,13 @@ void test_case1()
     assert(v.capacity == capacity(&v));
     assert(v.size == size(&v));
 
-    for (int i = 1; i <= 6; i++){
+    for (int i = 1; i <= 7; i++){
         push_back(&v, &i);
     }
     // print_info(&v);
 
-    assert(size(&v) == 6);
-    for (int i = 0; i < 6; i++) {
+    assert(size(&v) == 7);
+    for (int i = 0; i < 7; i++) {
         assert(*((int*)get(&v, i)) == i + 1);
     }
 
@@ -39,24 +39,24 @@ void test_case1()
     insert(&v, size(&v), &tmp);
     //print_info(&v);
 
-    assert(size(&v) == 7);
-    for (int i = 0; i < 6; i++) {
+    assert(size(&v) == 8);
+    for (int i = 0; i < 7; i++) {
         assert(*((int*)get(&v, i)) == i + 1);
     }
-    assert(*((int*)get(&v, 6)) == 100);
-    assert(*((int*)get(&v, 6)) == *((int*)back(&v)));
+    assert(*((int*)get(&v, 7)) == 100);
+    assert(*((int*)get(&v, 7)) == *((int*)back(&v)));
 
 
     tmp = 69;
     push_front(&v, &tmp);
     //print_info(&v);
 
-    assert(size(&v) == 8);
+    assert(size(&v) == 9);
     assert(*((int*)front(&v)) == 69);
     assert(*((int*)get(&v, 0)) == *((int*)front(&v)));
-    assert(*((int*)get(&v, 7)) == 100);
-    assert(*((int*)get(&v, 7)) == *((int*)back(&v)));
-    for (int i = 1; i < 6; i++) {
+    assert(*((int*)get(&v, 8)) == 100);
+    assert(*((int*)get(&v, 8)) == *((int*)back(&v)));
+    for (int i = 1; i < 7; i++) {
         assert(*((int*)get(&v, i)) == i);
     }
 
@@ -66,14 +66,14 @@ void test_case1()
     push_back(&v, &tmp);
     //print_info(&v);
 
-    assert(size(&v) == 9);
+    assert(size(&v) == 10);
 
     assert(*((int*)front(&v)) == 69);
     assert(*((int*)get(&v, 0)) == *((int*)front(&v)));
-    assert(*((int*)get(&v, 7)) == 100);
+    assert(*((int*)get(&v, 8)) == 100);
     assert(*((int*)back(&v)) == 70);
-    assert(*((int*)get(&v, 8)) == *((int*)back(&v)));
-    for (int i = 1; i < 6; i++) {
+    assert(*((int*)get(&v, 9)) == *((int*)back(&v)));
+    for (int i = 1; i < 7; i++) {
         assert(*((int*)get(&v, i)) == i);
     }
 

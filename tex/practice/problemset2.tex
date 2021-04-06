@@ -254,7 +254,19 @@ void push_back(vector* vec, void* element);
 void push_front(vector* vec, void* element);
 \end{lstlisting}
 
-	11- Impléméneter la fonction \texttt{shrink\_to\_fit(vector* vec)} qui change la capacité du vecteur tout en libérant la mémoire qui n'est pas utilisé. A la fin on doit avoir \texttt{size} égal à \texttt{capacity}.
+	11- Impléméneter la fonction \texttt{insert(vector* vec, size\_t index, void* element)} qui ajoute l'élément \texttt{element} à la \texttt{index} ième case du \texttt{vec}.
+	\begin{lstlisting}[language=C]
+/**
+* Inserts the element given in the argments to the cell of index 'index'
+* The content of the argument element must be copied (dont just store the pointer)
+* Also handles the case where capacity is exceeded
+* The already existing elements that are the right of 'index' are shifted to the right 
+* by one cell
+* */
+void insert(vector* vec, size_t index, void* element);
+	\end{lstlisting}
+
+	12- Impléméneter la fonction \texttt{shrink\_to\_fit(vector* vec)} qui change la capacité du vecteur tout en libérant la mémoire qui n'est pas utilisé. A la fin on doit avoir \texttt{size} égal à \texttt{capacity}.
 \begin{lstlisting}[language=C]
 /**
 * Changes the capacity of vec to be the same as its size
@@ -263,7 +275,7 @@ void push_front(vector* vec, void* element);
 void shrink_to_fit(vector* vec);
 \end{lstlisting}
 
-	12- Impléméneter la fonction \texttt{destroy(vector* vec)} qui libère la mémoire allouée par vec (si aucune mémoire n'est allouée, alors ne fait rien), change sa taille en 0 et affecte \texttt{elements} à \texttt{NULL}.
+	13- Impléméneter la fonction \texttt{destroy(vector* vec)} qui libère la mémoire allouée par vec (si aucune mémoire n'est allouée, alors ne fait rien), change sa taille en 0 et affecte \texttt{elements} à \texttt{NULL}.
 \begin{lstlisting}[language=C]
 /**
 * frees the memory allocated by vec (if no memory is allocated then it does nothing)
@@ -273,14 +285,13 @@ void shrink_to_fit(vector* vec);
 void destroy(vector* vec);
 \end{lstlisting}
 
-	13- Compilez ce que vous avez fait en utilisant la commande \texttt{make} puis testez votre code en utilisant \texttt{make run}.
+	14- Compilez ce que vous avez fait en utilisant la commande \texttt{make} puis testez votre code en utilisant \texttt{make run}.
 	
 	\section*{Quelques remarques}
 	Vous pouvez utiliser la fonction \texttt{void* memcpy (void* dest, const void* src, size\_t n);} défini dans \texttt{string.h} pour copier la mémoire de \texttt{src} vers la \texttt{dst}. \\
 	\textbf{Exemple :}
 	\begin{lstlisting}[language=C]
 #include <string.h>
-// ...
 
 int main()
 {
@@ -314,9 +325,8 @@ int main()
 }
 	\end{lstlisting}
 
-	\bigskip
 	\par\noindent\rule{\textwidth}{0.4pt}
 	\center{\Large{Pour finir}}
 	\center{Si vous avez réussi à tout mettre en œuvre et que les tests ont réussi, félicitations, vous avez implémenté quelque chose qui est utilisé dans le monde réel. Vous pouvez implémenter plus de fonctions qui suppriment un élément à un index donné, suppriment le dernier élément, etc.}
-
+	\par\noindent\rule{\textwidth}{0.4pt}
 \end{document}
