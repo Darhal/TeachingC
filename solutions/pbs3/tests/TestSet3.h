@@ -6,6 +6,9 @@
 #include "data/rgb.data"
 #include "data/rgb_filter_edge.data"
 
+/**
+ * Test images initialisation
+ */
 static void Set3_TestCase1()
 {
     image img = init_image(100, 100);
@@ -16,6 +19,9 @@ static void Set3_TestCase1()
     puts(GREEN("\tTest Case #1 : PASSED"));
 }
 
+/**
+ * Test bmp to image conversion (convert_to_image function)
+ */ 
 static void Set3_TestCase2()
 {
     bmp b;
@@ -42,6 +48,9 @@ static void Set3_TestCase2()
     puts(GREEN("\tTest Case #2 : PASSED"));
 }
 
+/**
+ * Test image copying (copy_image function)
+ */ 
 static void Set3_TestCase3()
 {
     bmp b;
@@ -70,6 +79,9 @@ static void Set3_TestCase3()
     puts(GREEN("\tTest Case #3 : PASSED"));
 }
 
+/**
+ * Test image grayscaling (grayscale_image function)
+ */ 
 static void Set3_TestCase4()
 {
     bmp b;
@@ -100,6 +112,9 @@ static void Set3_TestCase4()
     puts(GREEN("\tTest Case #4 : PASSED"));
 }
 
+/**
+ * Test convolution products on images (apply_filter function)
+ */ 
 static void Set3_TestCase5()
 {
     const char tolerance = 10;
@@ -138,6 +153,9 @@ static void Set3_TestCase5()
     puts(GREEN("\tTest Case #5 : PASSED"));
 }
 
+/**
+ * Test saving images to disk (save_raw function)
+ */ 
 static void Set3_TestCase6()
 {
     const float edge_kernel[] = { 
