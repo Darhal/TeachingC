@@ -2,19 +2,19 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "matrix.h"
+#include "utils.h"
 #include "bmp_loader.h"
 #include "image.h"
 
-int main()
+
+// This is how to use what you have built ! :)
+// If you are looking for the tests folder you should go to ./tests/
+
+/*int main()
 {
-    FILE* fp = fopen("tux.bmp", "rb");
-
     bmp bmp;
-    bmp_load(&bmp, fp);
+    bmp_load(&bmp, "tux.bmp");
     bmp_print_info(&bmp);
-
-    fclose(fp);
 
     image img = convert_to_image(&bmp);
     // grayscale_image(&img);
@@ -57,11 +57,11 @@ int main()
     };
     
     for (int i = 0; i < 1; i++) {
-        image* src = (i % 2) ? &ping : &pong;
-        image* dst = (i % 2) ? &pong : &ping;
-        apply_filter(src, dst, 3, edge);
+        image* dst = (i % 2) ? &ping : &pong;
+        image* src = (i % 2) ? &pong : &ping;
+        apply_filter(dst, src, 3, edge);
     }
 
     save_raw(&img, "original.raw");
     save_raw(&pong, "filtered.raw");
-}
+}*/
