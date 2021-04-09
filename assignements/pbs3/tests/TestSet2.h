@@ -4,6 +4,9 @@
 #include "data/pixel.data"
 #include "../bmp_loader.h"
 
+/**
+ * Tests bmp header loading
+ */ 
 static void Set2_TestCase1()
 {
     FILE* fp = fopen("tux.bmp", "rb");
@@ -19,6 +22,9 @@ static void Set2_TestCase1()
     puts(GREEN("\tTest Case #1 : PASSED"));
 }
 
+/**
+ * Tests bmp dib header loading
+ */ 
 static void Set2_TestCase2()
 {
     FILE* fp = fopen("tux.bmp", "rb");
@@ -41,6 +47,9 @@ static void Set2_TestCase2()
     puts(GREEN("\tTest Case #2 : PASSED"));
 }
 
+/**
+ * Tests bmp loading + pixel data reading
+ */ 
 static void Set2_TestCase3()
 {
     bmp b;

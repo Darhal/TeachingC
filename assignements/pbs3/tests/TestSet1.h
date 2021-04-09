@@ -4,6 +4,9 @@
 #include "common.h"
 #include "../utils.h"
 
+/**
+ * Tests the clz function
+ */ 
 static void Set1_TestCase1()
 {
     srand(time(NULL));
@@ -23,6 +26,9 @@ static void Set1_TestCase1()
     puts(GREEN("\tTest Case #1 : PASSED"));
 }
 
+/**
+ * Tests the matrix functions
+ */ 
 static void Set1_TestCase2()
 {
     srand(time(NULL));
@@ -47,6 +53,9 @@ static void Set1_TestCase2()
     puts(GREEN("\tTest Case #2 : PASSED"));
 }
 
+/**
+ * Tests the calc_neighbours functions
+ */ 
 static void Set1_TestCase3()
 {
     for (int i = 3; i < 1000; i+=2) {
