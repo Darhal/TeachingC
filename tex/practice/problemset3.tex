@@ -143,8 +143,9 @@
 	
 	\subsubsection*{Partie 1 : Quelques fonctions utilitaires : Mémoire dynamique, matrices}
 	Dans cette partie, vous devrez implémenter quelques fonctions utilitaires afin de passer à la partie suivante. \\
+	\textbf{Toutes les fonctions qui suit dans cette PARTIE doivent être définies avec le mot-clé \texttt{static} et elles doivent être définies dans le fichiers \texttt{utils.h}.} \\
 	
-	1- Dans le fichier \texttt{matrix.c} implémentez une fonction \texttt{mat\_init(unsigned N, unsigned M, unsigned unit\_size)} qui alloue de la mémoire pour une matrice N par M d'un élément de taille \texttt{unit\_size} octets. Implémenter la fonction \texttt{mat\_free(void** mat)} qui libère la mémoire allouée à la matrice. Si vous êtes bloqué, vous pouvez utiliser le dossier nommé matrix qui contient \texttt{matrix.h} et \texttt{matrix.c} les copier dans votre répertoire source principal.
+	1- Implémentez une fonction \texttt{mat\_init(unsigned N, unsigned M, unsigned unit\_size)} qui alloue de la mémoire pour une matrice N par M d'un élément de taille \texttt{unit\_size} octets. Implémenter la fonction \texttt{mat\_free(void** mat)} qui libère la mémoire allouée à la matrice. Si vous êtes bloqué, vous devez décommenter la ligne 28 et 40 comme indiqué dans les commentaires afin que vous puissiez utiliser l'implémentation des matrices que j'ai fourni ;). \\
 	\begin{lstlisting}[language=C]
 /**
 * Allocates memory for N by M matrix that contain elements of unit_size bytes
@@ -157,7 +158,6 @@ void** mat_init(unsigned N, unsigned M, unsigned unit_size);
 void mat_free(void** mat);
 	\end{lstlisting}
 	
-	\textbf{Toutes les fonctions qui suit dans cette PARTIE doivent être définies avec le mot-clé \texttt{static} et elles doivent être définies en haut du fichier \texttt{image.c} juste après les includes.} \\
 	2- Implémentez une fonction appelée \texttt{clz(bits)}\footnote{count leading zeros} qui prend un entier positif comme argument et compte le nombre de bits mis à zéro en allant de gauche à droite jusqu'à ce qu'il atteigne un 1 ou la fin. (Il compte le nombre de zéros avant la première occurrence d'un) \\
 	Exemples:
 	\begin{lstlisting}[language=C]
@@ -166,9 +166,9 @@ Pour 00000001 00000000 00000000 00010000 clz doit retourner : 7
 Pour 00000000 00001000 11111111 00010000 clz doit retourner : 12
 Pour 00000000 00000001 11111111 00010000 clz doit retourner : 15
 	\end{lstlisting}
- 	C'est une question du premier TD. Si vous avez implémenteé cette fonction avec succès, vous pouvez passer à la question suivante. Si vous ne l'avez pas implémenté, c'est probablement le moment de le faire. Si vous êtes bloqué, pas de soucis, vous pouvez toujours passer à la question suivante juste avant cela, vous devez décommenter cette ligne \texttt{\#include "clz/clz.h"} dans \texttt{image.c} comme indiqué dans les commentaires afin que vous puissiez utiliser l'implémentation que j'ai fourni ;). \\
+ 	C'est une question du premier TD. Si vous avez implémenteé cette fonction avec succès, vous pouvez passer à la question suivante. Si vous ne l'avez pas implémenté, c'est probablement le moment de le faire. Si vous êtes bloqué, pas de soucis, vous pouvez toujours passer à la question suivante juste avant cela, vous devez décommenter cette ligne \texttt{return clz\_sol(b);} dans \texttt{utils.h} comme indiqué dans les commentaires afin que vous puissiez utiliser l'implémentation que j'ai fourni ;). \\
 	
-	3- Toujours en haut du fichier \texttt{image.c} après les includes, écrivez une fonction statique qui, étant donné un nombre impair \texttt{N}, il recherche les coordonnées des cellules voisines de la cellule centrale dans la matrice NxN.
+	3- Toujours dans \texttt{utils.h}, écrivez une fonction statique qui, étant donné un nombre impair \texttt{N}, il recherche les coordonnées des cellules voisines de la cellule centrale dans la matrice NxN.
 	\textbf{Exemples :}
 	Pour N = 3, la fonction doit retourner le tableau : \texttt{ \{ (-1,-1) (-1,0) (-1,1) (0,-1) (0,0) (0,1) (1,-1) (1,0) (1,1)\} } \\
 	En effet : 
@@ -211,13 +211,39 @@ Pour 00000000 00000001 11111111 00010000 clz doit retourner : 15
 */ 
 static vec2* calc_neighbours(unsigned kernel_size)
 	\end{lstlisting}
-	Si vous êtes bloqué, vous pouvez décommenter l'include du fichier \texttt{neighbours/neighbours.h} afin de pouvoir utiliser la fonction plus tard.\\
+	Si vous êtes bloqué, vous pouvez décommenter la ligne suivante \texttt{return calc\_neighbours\_sol(kernel\_size);} afin de pouvoir utiliser la fonction plus tard.\\
 	
-	4- Il est temps de consolider et de tester votre travail. Compilez ce que vous avez fait et exécutez les tests en utilisant respectivement les commandes \texttt{make} et \texttt{make run}. Si vous avez réussi le premier ensemble de tests (\texttt{Test Set 1}), félicitations, vous pouvez passer à la partie suivante.
+	4- Il est temps de consolider et de tester votre travail. Compilez ce que vous avez fait et exécutez les tests en utilisant la commande \texttt{make run}. Si vous avez réussi le premier ensemble de tests (\texttt{Test Set 1}), félicitations, vous pouvez passer à la partie suivante.
 	\subsubsection*{Partie 2 : Lecture des fichiers}
 	Dans le fichier \texttt{bmp\_loader.c}, vous devrez implémenter les fonctions suivantes. \\
 	
-	1- Implémentez la fonction \texttt{bmp\_load(bmp* bmp, const char* filename)} qui prend un pointeur vers une structure bmp et un nom de fichier. La fonction doit ouvrir le fichier appelé \texttt{filename}, puis appelle \texttt{bmp\_load\_header}, vérifier qu'il s'agit d'un fichier BMP en vérifiant la signature, puis elle appelle \texttt{bmp\_load\_dib\_header } et \texttt{bmp\_load\_pixels} avant de fermer le fichier à la fin.
+	1- Implémentez la fonction \texttt{bmp\_load\_header(bmp\_header* header, FILE* file)} qui remplit la structure \texttt{bmp\_header} avec les données correspondantes du fichier \texttt{file}.
+	\begin{lstlisting}[language=C]
+/**
+* Takes a pointer to the bmp_header and a FILE pointer
+* It read relevant data from the file and fills the relevant
+* bmp_header fields with the necessary data
+*/
+void bmp_load_header(bmp_header* header,  FILE* file);
+	\end{lstlisting}
+	2- Implémentez la fonction \texttt{bmp\_load\_dib\_header(bmp\_dib\_header* dib\_header, FILE* file)} qui remplit la structure \texttt{bmp\_dib\_header} avec les données correspondantes du fichier \texttt{file}.
+	\begin{lstlisting}[language=C]
+/**
+* Takes a pointer to the bmp_dib_header and a FILE pointer
+* It read relevant data from the file and fills the relevant
+* bmp_dib_header fields with the necessary data
+*/
+void bmp_load_dib_header(bmp_dib_header* dib_header, FILE* file);
+	\end{lstlisting}
+	3- Implémentez la fonction \texttt{bmp\_load\_pixels(const bmp\_dib\_header* const dib, unsigned** pixels, FILE* file)} qui charge toutes les données de pixels du fichier \texttt{file} dans la matrice \texttt{pixels}.
+	\begin{lstlisting}[language=C]
+/**
+* Takes a pointer to the bmp_dib_header, a pixels matrix and a FILE pointer
+* It read the pixel data from the file and then it fills the pixels matrix
+*/
+void bmp_load_pixels(const bmp_dib_header* const dib, unsigned** pixels, FILE* file);
+	\end{lstlisting}
+	4- Implémentez la fonction \texttt{bmp\_load(bmp* bmp, const char* filename)} qui prend un pointeur vers une structure bmp et un nom de fichier. La fonction doit ouvrir le fichier appelé \texttt{filename}, puis appelle \texttt{bmp\_load\_header}, vérifier qu'il s'agit d'un fichier BMP en vérifiant la signature, puis elle appelle \texttt{bmp\_load\_dib\_header } et \texttt{bmp\_load\_pixels} avant de fermer le fichier à la fin.\\
 	\begin{lstlisting}[language=C]
 /**
 * Takes a pointer to a bmp struct and a filename
@@ -229,34 +255,8 @@ static vec2* calc_neighbours(unsigned kernel_size)
 */
 void bmp_load(bmp* bmp, const char* filename);
 	\end{lstlisting}
-	2- Implémentez la fonction \texttt{bmp\_load\_header(bmp\_header* header, FILE* file)} qui remplit la structure \texttt{bmp\_header} avec les données correspondantes du fichier \texttt{file}.
-	\begin{lstlisting}[language=C]
-/**
-* Takes a pointer to the bmp_header and a FILE pointer
-* It read relevant data from the file and fills the relevant
-* bmp_header fields with the necessary data
-*/
-void bmp_load_header(bmp_header* header,  FILE* file);
-	\end{lstlisting}
-	3- Implémentez la fonction \texttt{bmp\_load\_dib\_header(bmp\_dib\_header* dib\_header, FILE* file)} qui remplit la structure \texttt{bmp\_dib\_header} avec les données correspondantes du fichier \texttt{file}.
-	\begin{lstlisting}[language=C]
-/**
-* Takes a pointer to the bmp_dib_header and a FILE pointer
-* It read relevant data from the file and fills the relevant
-* bmp_dib_header fields with the necessary data
-*/
-void bmp_load_dib_header(bmp_dib_header* dib_header, FILE* file);
-	\end{lstlisting}
-	4- Implémentez la fonction \texttt{bmp\_load\_pixels(const bmp\_dib\_header* const dib, unsigned** pixels, FILE* file)} qui charge toutes les données de pixels du fichier \texttt{file} dans la matrice \texttt{pixels}.
-	\begin{lstlisting}[language=C]
-/**
-* Takes a pointer to the bmp_dib_header, a pixels matrix and a FILE pointer
-* It read the pixel data from the file and then it fills the pixels matrix
-*/
-void bmp_load_pixels(const bmp_dib_header* const dib, unsigned** pixels, FILE* file);
-	\end{lstlisting}
-	
-	5- Libère la mémoire utilisée dans le struct \texttt{bmp}
+
+	5- Implémentez aussi la fonction \texttt{bmp\_destroy(bmp* bmp)} qui libére de la mémoire utilisé par le struct \texttt{bmp}.
 	\begin{lstlisting}[language=C]
 /**
 * Liberates the memory used in the bmp object
@@ -264,7 +264,7 @@ void bmp_load_pixels(const bmp_dib_header* const dib, unsigned** pixels, FILE* f
 void bmp_destroy(bmp* bmp);
 	\end{lstlisting}
 
-	6- Il est temps de consolider et de tester votre travail. Compilez ce que vous avez fait et exécutez les tests en utilisant respectivement les commandes \texttt{make} et \texttt{make run}. Si vous avez réussi la deuxième ensemble de tests (\texttt{Test Set 2}), félicitations, vous pouvez passer à la partie suivante.
+	6- Il est temps de consolider et de tester votre travail. Compilez ce que vous avez fait et exécutez les tests en utilisant la commande \texttt{make run}. Si vous avez réussi la deuxième ensemble de tests (\texttt{Test Set 2}), félicitations, vous pouvez passer à la partie suivante.
 	
 	\subsubsection*{Partie 3 : Traitement d'image, convolution}
 	Cette dernière partie du TD nous mettra en œuvre une fonction liée à l'image facilitant son traitement.
@@ -305,7 +305,7 @@ image copy_image(const image* const img);
 void grayscale_image(image* img);
 	\end{lstlisting}
 
-	5- Effectue le produit de convolution entre le \texttt{kernel} (qui est une matrice de dimensions \texttt{kernel\_size}) et l'image \texttt{src}, et stocke le resultat dans l'image \texttt{dst}.
+	5- Effectue le produit de convolution entre le \texttt{kernel} (qui est une matrice de dimensions \texttt{kernel\_size}) et l'image \texttt{src}, et stocke le resultat dans l'image \texttt{dst}. (Aide : Utiliser la fonction \texttt{calc\_neighbours})
 	\begin{lstlisting}[language=C]
 /**
 * Applies a convolution product between the source image and the kernel
@@ -330,7 +330,7 @@ void save_raw(const image* const img, const char* name);
 */ 
 void destroy_image(image* img);
 	\end{lstlisting}
-	6- Compilez ce que vous avez fait et exécutez les tests en utilisant respectivement les commandes \texttt{make} et \texttt{make run}. Si vous avez réussi la troisième ensemble de tests (\texttt{Test Set 3}), félicitations, vous pouvez passer à la partie suivante.
+	6- Compilez ce que vous avez fait et exécutez les tests en utilisant la commandes \texttt{make run}. Si vous avez réussi la troisième ensemble de tests (\texttt{Test Set 3}), félicitations, vous pouvez passer à la partie suivante.
 	
 	\subsubsection*{Partie 4 : Celebrate}
 	1- Il est temps de célébrer et de voir ce que vous avez fait exactement. Visitez ce \href{https://rawpixels.net/}{site Web} et téléchargez l'image que vous avez générée précédemment. Afin de voir les résultats, assurez-vous d'avoir les bonnes configurations.
