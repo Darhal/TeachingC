@@ -4,11 +4,11 @@
 #include "data/pixel.data"
 #include "../bmp_loader.h"
 
-static void TestCase1()
+static void Set2_TestCase1()
 {
-    FILE* fp = fopen("../tux.bmp", "rb");
+    FILE* fp = fopen("tux.bmp", "rb");
     bmp_header header;
-    bmp_load_header(header, fp);
+    bmp_load_header(&header, fp);
     fclose(fp);
 
     assert(header.signature[0] == 'B'  && RED("\tTest Case #1 : FAILED (Wrong signature)") );
@@ -19,18 +19,18 @@ static void TestCase1()
     puts(GREEN("\tTest Case #1 : PASSED"));
 }
 
-static void TestCase2()
+static void Set2_TestCase2()
 {
-    FILE* fp = fopen("../tux.bmp", "rb");
+    FILE* fp = fopen("tux.bmp", "rb");
     bmp_header header;
-    bmp_load_header(header, fp);
+    bmp_load_header(&header, fp);
     bmp_dib_header dib;
     bmp_load_dib_header(&dib, fp);
     fclose(fp);
 
     assert(dib.header_size == 124           && RED("\tTest Case #2 : FAILED (Wrong dib header size)") );
-    assert(dib.width == 600                 && RED("\tTest Case #2 : FAILED (Wrong image width)") );
-    assert(dib.height == 600                && RED("\tTest Case #2 : FAILED (Wrong image height)") );
+    assert(dib.width == 640                 && RED("\tTest Case #2 : FAILED (Wrong image width)") );
+    assert(dib.height == 640                && RED("\tTest Case #2 : FAILED (Wrong image height)") );
     assert(dib.planes == 1                  && RED("\tTest Case #2 : FAILED (Wrong number of planes)") );
     assert(dib.bpp == 32                    && RED("\tTest Case #2 : FAILED (Wrong bits per pixel)") );
     assert(dib.red_bitmask == 16711680      && RED("\tTest Case #2 : FAILED (Wrong red bitmask)") );
@@ -41,25 +41,29 @@ static void TestCase2()
     puts(GREEN("\tTest Case #2 : PASSED"));
 }
 
-static void TestCase3()
+static void Set2_TestCase3()
 {
     bmp b;
-    bmp_load(&bmp, "../tux.bmp", "rb");
+    bmp_load(&b, "tux.bmp");
 
-    for (int y = bmp->dib_header.height - 1; y >= 0; y--) {
-        for (int x = 0; x < bmp->dib_header.width; x++) {
-            assert(bmp->pixels[y][x] == tux_data[y][x]  && RED("\tTest Case #3 : FAILED (Wrong pixel data)") );
+    for (int y = b.dib_header.height - 1; y >= 0; y--) {
+        for (int x = 0; x < b.dib_header.width; x++) {
+            if (b.pixels[y][x] != tux_data[y][x]) {
+                printf(RED("\tTest Case #3 : FAILED (Wrong pixel data at (%u, %u))\n"), y, x);
+                assert(0);
+            }
         }
     }
 
+    bmp_destroy(&b);
     puts(GREEN("\tTest Case #3 : PASSED"));
 }
 
 static void TesetSet2()
 {
     printf("Test Set #2 : \n");
-    TestCase1();
-    TestCase2();
-    TestCase3();
-    puts(GREEN("\tTest Set #2 : PASSED"));
+    Set2_TestCase1();
+    Set2_TestCase2();
+    Set2_TestCase3();
+    puts(GREEN("\tTest Set #2  : PASSED"));
 }

@@ -1,7 +1,8 @@
 #pragma once
 
 #include <stdlib.h>
-#include "../vec2.h"
+
+typedef struct vec2_t { int y, x; } vec2;
 
 /**
  * Given an impair kernel_size calc_nehgbours will return the (y, x) coordinates relative
@@ -9,7 +10,7 @@
  * the first element is the coordiante of the top left cell going from left to right and from
  * top to bottom
  */ 
-static vec2* calc_neighbours(unsigned kernel_size)
+static vec2* calc_neighbours_sol(unsigned kernel_size)
 {
     vec2* neighbours = malloc(kernel_size * kernel_size * sizeof(vec2));
     int step = (kernel_size - 1) / 2;

@@ -4,6 +4,10 @@
 
 static void** mat_init_sol(unsigned N, unsigned M, unsigned unit_size)
 {
+    assert(N != 0);
+    assert(M != 0);
+    assert(unit_size != 0);
+
     void** mat = malloc(N * sizeof(void*));
     void* mat_internal = malloc(N * M * unit_size);
 

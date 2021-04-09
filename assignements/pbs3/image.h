@@ -19,6 +19,11 @@ typedef struct image_t
 image init_image(unsigned width, unsigned height);
 
 /**
+ * Liberates the memory related to the image object
+ */ 
+void destroy_image(image* img);
+
+/**
  * Takes a bmp const pointer and converts it to an image object
  * In order to do this the width, height and the pixels matrix 
  * must be copied over to the image struct
@@ -38,17 +43,13 @@ void grayscale_image(image* img);
 
 /**
  * Applies a convolution product between the source image and the kernel
- * It stores the result in the destination image 
+ * It stores the result in the destination image use the calc_neighbours
+ * function to make the implementation easier
  */
-void apply_filter(image* dst, image* src, unsigned kernel_size, float* kernel);
+void apply_filter(image* dst, image* src, unsigned kernel_size, const float* kernel);
 
 /**
  * Converts an image to grayscale this can be done by averaging
  * the R, G and B component of each pixel
  */
 void save_raw(const image* const img, const char* name);
-
-/**
- * Liberates the memory related to the image object
- */ 
-void destroy_image(image* img);

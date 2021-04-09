@@ -1,5 +1,5 @@
 TARGET_EXEC ?= test_exec
-CFLAGS 		?= -g -Og -Wno-unused-result
+CFLAGS 		?= -g -Og -Wno-unused-result -fsanitize=address
 COMPILER 	?= gcc
 
 BUILD_DIR 	?= ./build

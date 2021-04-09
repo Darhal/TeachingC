@@ -1,7 +1,7 @@
 #pragma once
 
 // clz implementation
-static unsigned int clz(unsigned int b)
+static unsigned int clz_sol(unsigned int b)
 {
     if (!b) return 32;
     unsigned int count = 0;

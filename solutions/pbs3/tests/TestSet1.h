@@ -30,6 +30,9 @@ static void Set1_TestCase2()
     for (int i = 0; i < 1000; i++) {
         unsigned N = rand() % 50;
         unsigned M = rand() % 50;
+        N = N ? N : 100;
+        M = M ? M : 100;
+
         int** mat_cand = (int**)mat_init(N, M, sizeof(int));
 
         for (int n = 0; n < N; n++) {

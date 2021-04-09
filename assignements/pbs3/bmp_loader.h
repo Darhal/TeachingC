@@ -37,6 +37,11 @@ typedef struct bmp_t
 void bmp_load(bmp* bmp, const char* filename);
 
 /**
+ * Liberates the memory used in the bmp object
+ */ 
+void bmp_destroy(bmp* bmp);
+
+/**
  * Takes a pointer to the bmp_header and a FILE pointer
  * It read relevant data from the file and fills the relevant
  * bmp_header fields with the necessary data
@@ -51,15 +56,11 @@ void bmp_load_header(bmp_header* header,  FILE* file);
 void bmp_load_dib_header(bmp_dib_header* dib_header, FILE* file);
 
 /**
- * Takes a pointer to the bmp_dib_header, a pixels matrix and a FILE pointer
+ * Takes a pointer to a bmp_header and a bmp_dib_header, a pixels matrix and a FILE pointer
  * It read the pixel data from the file and then it fills the pixels matrix
  */
-void bmp_load_pixels(const bmp_dib_header* const dib, unsigned** pixels, FILE* file);
+void bmp_load_pixels(const bmp_header* const header, const bmp_dib_header* const dib, unsigned** pixels, FILE* file);
 
-/**
- * Liberates the memory used in the bmp object
- */ 
-void bmp_destroy(bmp* bmp);
 
 /**
  * This is a function that prints important informations about the bmp.

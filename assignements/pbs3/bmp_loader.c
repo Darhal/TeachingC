@@ -1,25 +1,32 @@
 #include <assert.h>
 #include "bmp_loader.h"
-#include "matrix.h"
+#include "utils.h"
 
-void bmp_load(bmp* bmp, const char* filename)
-{    
-    // TODO : Implement this !
-}
+// *** Questions related to PART 2 ***
 
 void bmp_load_header(bmp_header* header,  FILE* file)
 {
-    // TODO : Implement this !
+    // TODO: Implement this
 }
 
 void bmp_load_dib_header(bmp_dib_header* dib_header, FILE* file)
 {
-    // TODO : Implement this !
+    // TODO: Implement this
 }
 
-void bmp_load_pixels(const bmp_dib_header* const dib, unsigned** pixels, FILE* file)
+void bmp_load_pixels(const bmp_header* const header, const bmp_dib_header* const dib, unsigned** pixels, FILE* file)
 {
-    // TODO : Implement this !
+    // TODO: Implement this
+}
+
+void bmp_load(bmp* bmp, const char* filename)
+{
+    // TODO: Implement this
+}
+
+void bmp_destroy(bmp* bmp)
+{
+    // TODO: Implement this
 }
 
 void bmp_print_info(const bmp* const bmp)
@@ -29,6 +36,7 @@ void bmp_print_info(const bmp* const bmp)
 
     printf("File size        : %u\n", header->file_size);
     printf("Offset to pixels : %u\n", header->offset_pixels);
+    printf("DIB size         : %u\n", dib_header->header_size);
     printf("Width            : %u\n", dib_header->width);
     printf("Height           : %u\n", dib_header->height);
     printf("Planes           : %u\n", dib_header->planes);
