@@ -38,6 +38,7 @@ static void Set3_TestCase2()
 
             if (invalid) {
                 printf(RED("\tTest Case #2 : FAILED (Wrong RGB pixel data at (%u, %u))\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }
@@ -68,6 +69,7 @@ static void Set3_TestCase3()
 
             if (invalid) {
                 printf(RED("\tTest Case #3 : FAILED (Wrong RGB pixel data at (%u, %u))\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }
@@ -101,6 +103,7 @@ static void Set3_TestCase4()
 
             if (invalid) {
                 printf(RED("\tTest Case #4 : FAILED (Wrong RGB pixel data at (%u, %u))\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }
@@ -142,6 +145,7 @@ static void Set3_TestCase5()
 
             if (invalid) {
                 printf(RED("\tTest Case #5 : FAILED (Wrong RGB pixel data at (%u, %u))\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }
@@ -187,6 +191,7 @@ static void Set3_TestCase6()
 
             if (invalid) {
                 printf(RED("\tTest Case #6 : FAILED (Wrong RGB pixel data at (%u, %u)) did you save the raw file in BGRA format ?\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }

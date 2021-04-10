@@ -18,6 +18,7 @@ static void Set1_TestCase1()
 
         if (sol != candidat) {
             printf(RED("\tTest Case #1 : FAILED (arg : %u expected %u as a result got %u)"), c, sol, candidat);
+            fflush(stdout);
             assert(0);
         }
         
@@ -65,6 +66,7 @@ static void Set1_TestCase3()
         for (int j = 0; j < i * i; j++) {
             if (sol[j].x != candidat[j].x || sol[j].y != candidat[j].y) {
                 printf(RED("\tTest Case #2 : FAILED (arg : %u expected (%u, %u) as a result got (%u, %u) at index %u)"), i, sol[j].y, sol[j].x, candidat[j].y, candidat[j].x, j);
+                fflush(stdout);
                 assert(0);
             }
         }

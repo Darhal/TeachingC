@@ -59,6 +59,7 @@ static void Set2_TestCase3()
         for (int x = 0; x < b.dib_header.width; x++) {
             if (b.pixels[y][x] != tux_data[y][x]) {
                 printf(RED("\tTest Case #3 : FAILED (Wrong pixel data at (%u, %u))\n"), y, x);
+                fflush(stdout);
                 assert(0);
             }
         }
