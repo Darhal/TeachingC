@@ -1,6 +1,6 @@
 TARGET_EXEC ?= test_exec
-CFLAGS 		?= -g -Og -Wno-unused-result -fsanitize=address
 COMPILER 	?= gcc
+CFLAGS 		?= -g -Og -Wno-unused-result -fsanitize=address
 
 BUILD_DIR 	?= ./build
 SRC_DIRS 	?= ./
@@ -15,6 +15,9 @@ $(TARGET_EXEC): $(OBJS)
 $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
 	$(COMPILER) $(CFLAGS) -c $< -o $@
+
+remake: clean $(TARGET_EXEC)
+	
 
 run: $(TARGET_EXEC)
 	./$(TARGET_EXEC)

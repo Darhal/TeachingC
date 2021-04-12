@@ -49,7 +49,6 @@ void bmp_load_pixels(const bmp_header* const header, const bmp_dib_header* const
 void bmp_load(bmp* bmp, const char* filename)
 {
     // TODO: Implement this
-
     FILE* file = fopen(filename, "rb");
     bmp_load_header(&bmp->header, file);
     assert(bmp->header.signature[0] == 'B');
