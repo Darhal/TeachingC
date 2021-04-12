@@ -1,13 +1,13 @@
-TARGET_EXEC ?= test_exec
-COMPILER 	?= gcc
-CFLAGS 		?= -g -Og -Wno-unused-result -fsanitize=address
+TARGET_EXEC	?= test_exec
+COMPILER	?= gcc
+CFLAGS		?= -g -Og -Wno-unused-result -fsanitize=address
 
-BUILD_DIR 	?= ./build
-SRC_DIRS 	?= ./
+BUILD_DIR	?= ./build
+SRC_DIRS	?= ./
 
-SRCS 		:= $(shell find $(SRC_DIRS) -name "*.c")
-OBJS 		:= $(SRCS:%=$(BUILD_DIR)/%.o)
-DEPS 		:= $(OBJS:.o=.d)
+SRCS		:= $(shell find $(SRC_DIRS) -name "*.c")
+OBJS		:= $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS		:= $(OBJS:.o=.d)
 
 $(TARGET_EXEC): $(OBJS)
 	$(COMPILER) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
@@ -17,7 +17,7 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(COMPILER) $(CFLAGS) -c $< -o $@
 
 remake: clean $(TARGET_EXEC)
-	
+	./$(TARGET_EXEC)
 
 run: $(TARGET_EXEC)
 	./$(TARGET_EXEC)
