@@ -1,0 +1,15 @@
+image: oster/c-testing
+
+stages:
+  - test
+
+test:
+  only:
+    - master
+    - solution
+  script: 
+    - ./check.sh
+  stage:
+    test
+  allow_failure: true
+  

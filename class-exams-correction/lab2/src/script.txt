@@ -1,0 +1,15 @@
+taille de la table:2
+cle=0         nombre de mots:4
+
+cle=1         nombre de mots:4
+
+nombre de mots charges:8
+nombre de mots en moyenne dans chaque liste:4
+nombre max de mots charges dans une liste:4
+nombre min de mots charges dans une liste:4
+duree chargement= 0.000889 sec
+
+mot: A          absent mot: B          absent mot: C          absent mot: D          absent mot: E          absent mot: F          absent mot: G          absent mot: H          absent duree recherche=0.000141 sec
+nombre de mots luts: 10 
+nombre de mots absents du dico: 8 
+

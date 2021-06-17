@@ -1,0 +1,77 @@
+[37;1mCleaning project[0m
+- [37;1mCleaning src/*.o [0m
+- [37;1mCleaning src/main [0m
+- [37;1mCleaning src/test_snow [0m
+
+[37;1mRunning [35mmake_book[0m
+- [37;1mMaking "book.o"[0m [32;1m✓ Success[0m.
+
+[37;1mRunning [35mmake_library[0m
+- [37;1mMaking "library.o"[0m [32;1m✓ Success[0m.
+
+[37;1mRunning [35mmake_main[0m
+Trying compilation for Question Q9
+- [37;1mMaking "test_snow"[0m [32;1m✓ Success[0m.
+
+[37;1mRunning [35mtest_main[0m
+- [37;1mExecuting "./test_snow"[0m [32;1m✓ Success[0m.
+
+[1mTesting Q1_book[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mcreating book (Le Silmarillion) and check title and author are set properly[0m (41.02µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mcreating a second book (L'Appel de Cthulhu) and check title and author are set properly[0m (15.87µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mcreating a third book (Le Hobbit) and check unicity of ids[0m (8.06µs)
+[1mQ1_book: Passed 3/3 tests.[0m (214.11µs)
+
+[1mTesting Q2_book[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfreeing[0m (17.09µs)
+[1mQ2_book: Passed 1/1 tests.[0m (27.10µs)
+
+[1mTesting Q5_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mcreating a library and check it is empty[0m (35.89µs)
+[1mQ5_library: Passed 1/1 tests.[0m (43.95µs)
+
+[1mTesting Q6_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mregistering a book to library[0m (6.84µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mregistering the same book again to the library[0m (1.95µs)
+[1mQ6_library: Passed 2/2 tests.[0m (28.08µs)
+
+[1mTesting Q7_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mregistering a second and a third books to the library[0m (3.91µs)
+[1mQ7_library: Passed 1/1 tests.[0m (23.93µs)
+
+[1mTesting Q7B_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mlooking for a non-existant book with a dummy id[0m (1.95µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mlooking for registered books with their ids[0m (9.03µs)
+[1mQ7B_library: Passed 2/2 tests.[0m (23.93µs)
+
+[1mTesting Q7C_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mlooking for a registered book using its title[0m (13.92µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mlooking for a non-existing book using its title[0m (1.95µs)
+[1mQ7C_library: Passed 2/2 tests.[0m (28.81µs)
+
+[1mTesting Q8_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mborrowing a registered book[0m (3.17µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mborrowing a registered book (no more available copy[0m (2.20µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mborrowing a registered book (two copies are available[0m (4.15µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mreturning an borrowed book[0m (1.95µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mreturning a non-existing book[0m (9.03µs)
+[1mQ8_library: Passed 5/5 tests.[0m (51.03µs)
+
+[1mTesting Q9_library[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfind all books (single result) from an existing author[0m (6.10µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfind all books (multiple results) from an existing author[0m (7.81µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfind all books from a non existing author[0m (2.93µs)
+[1mQ9_library: Passed 3/3 tests.[0m (36.13µs)
+
+[1mTesting freeing_up_memory[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfreeing up memory of library[0m (6.10µs)
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mfreeing up memory of books[0m (21.97µs)
+[1mfreeing_up_memory: Passed 2/2 tests.[0m (40.04µs)
+
+[1mTesting stress_test[0m:
+[1m[32m✓ [0m[32mSuccess: [0m[1m[33mStress tests[0m (288.94ms)
+[1mstress_test: Passed 1/1 tests.[0m (288.96ms)
+
+[1mTotal: Passed 23/23 tests.[0m (289.49ms)
+
+[0m

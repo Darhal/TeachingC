@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<style type="text/css">
+.ansi2html-content { display: inline; white-space: pre-wrap; word-wrap: break-word; }
+.body_foreground { color: #AAAAAA; }
+.body_background { background-color: #000000; }
+.body_foreground > .bold,.bold > .body_foreground, body.body_foreground > pre > .bold { color: #FFFFFF; font-weight: normal; }
+.inv_foreground { color: #000000; }
+.inv_background { background-color: #AAAAAA; }
+.ansi1 { font-weight: bold; }
+.ansi32 { color: #50FA7B; }
+.ansi33 { color: #F1FA8C; }
+.ansi35 { color: #FF79C6; }
+.ansi37 { color: #BFBFBF; }
+</style>
+</head>
+<body class="body_foreground body_background" style="font-size: normal;" >
+<pre class="ansi2html-content">
+<span class="ansi1 ansi37">Cleaning project</span>
+- <span class="ansi1 ansi37">Cleaning src/*.o </span>
+- <span class="ansi1 ansi37">Cleaning src/main </span>
+- <span class="ansi1 ansi37">Cleaning src/test_snow </span>
+
+<span class="ansi1 ansi37">Running </span><span class="ansi1 ansi35">make_book</span>
+- <span class="ansi1 ansi37">Making "book.o"</span> <span class="ansi1 ansi32">✓ Success</span>.
+
+<span class="ansi1 ansi37">Running </span><span class="ansi1 ansi35">make_library</span>
+- <span class="ansi1 ansi37">Making "library.o"</span> <span class="ansi1 ansi32">✓ Success</span>.
+
+<span class="ansi1 ansi37">Running </span><span class="ansi1 ansi35">make_main</span>
+Trying compilation for Question Q9
+- <span class="ansi1 ansi37">Making "test_snow"</span> <span class="ansi1 ansi32">✓ Success</span>.
+
+<span class="ansi1 ansi37">Running </span><span class="ansi1 ansi35">test_main</span>
+- <span class="ansi1 ansi37">Executing "./test_snow"</span> <span class="ansi1 ansi32">✓ Success</span>.
+
+<span class="ansi1">Testing Q1_book</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">creating book (Le Silmarillion) and check title and author are set properly</span> (41.02µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">creating a second book (L'Appel de Cthulhu) and check title and author are set properly</span> (15.87µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">creating a third book (Le Hobbit) and check unicity of ids</span> (8.06µs)
+<span class="ansi1">Q1_book: Passed 3/3 tests.</span> (214.11µs)
+
+<span class="ansi1">Testing Q2_book</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">freeing</span> (17.09µs)
+<span class="ansi1">Q2_book: Passed 1/1 tests.</span> (27.10µs)
+
+<span class="ansi1">Testing Q5_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">creating a library and check it is empty</span> (35.89µs)
+<span class="ansi1">Q5_library: Passed 1/1 tests.</span> (43.95µs)
+
+<span class="ansi1">Testing Q6_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">registering a book to library</span> (6.84µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">registering the same book again to the library</span> (1.95µs)
+<span class="ansi1">Q6_library: Passed 2/2 tests.</span> (28.08µs)
+
+<span class="ansi1">Testing Q7_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">registering a second and a third books to the library</span> (3.91µs)
+<span class="ansi1">Q7_library: Passed 1/1 tests.</span> (23.93µs)
+
+<span class="ansi1">Testing Q7B_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">looking for a non-existant book with a dummy id</span> (1.95µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">looking for registered books with their ids</span> (9.03µs)
+<span class="ansi1">Q7B_library: Passed 2/2 tests.</span> (23.93µs)
+
+<span class="ansi1">Testing Q7C_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">looking for a registered book using its title</span> (13.92µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">looking for a non-existing book using its title</span> (1.95µs)
+<span class="ansi1">Q7C_library: Passed 2/2 tests.</span> (28.81µs)
+
+<span class="ansi1">Testing Q8_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">borrowing a registered book</span> (3.17µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">borrowing a registered book (no more available copy</span> (2.20µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">borrowing a registered book (two copies are available</span> (4.15µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">returning an borrowed book</span> (1.95µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">returning a non-existing book</span> (9.03µs)
+<span class="ansi1">Q8_library: Passed 5/5 tests.</span> (51.03µs)
+
+<span class="ansi1">Testing Q9_library</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">find all books (single result) from an existing author</span> (6.10µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">find all books (multiple results) from an existing author</span> (7.81µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">find all books from a non existing author</span> (2.93µs)
+<span class="ansi1">Q9_library: Passed 3/3 tests.</span> (36.13µs)
+
+<span class="ansi1">Testing freeing_up_memory</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">freeing up memory of library</span> (6.10µs)
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">freeing up memory of books</span> (21.97µs)
+<span class="ansi1">freeing_up_memory: Passed 2/2 tests.</span> (40.04µs)
+
+<span class="ansi1">Testing stress_test</span>:
+<span class="ansi1"></span><span class="ansi1 ansi32">✓ </span><span class="ansi32">Success: </span><span class="ansi1"></span><span class="ansi1 ansi33">Stress tests</span> (288.94ms)
+<span class="ansi1">stress_test: Passed 1/1 tests.</span> (288.96ms)
+
+<span class="ansi1">Total: Passed 23/23 tests.</span> (289.49ms)
+
+
+
+</pre>
+</body>
+
+</html>
